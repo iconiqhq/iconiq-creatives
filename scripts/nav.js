@@ -91,67 +91,41 @@
   /* Initial active state on load */
   updateActive();
 
-  /* ── Smooth scroll on click ─────────────────────── */
+  /* ── Direct scroll to a section (no hash left in the URL) ──────── */
+  function scrollToId(id) {
+    if (!id) return false;
+    if (id === 'hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return true;
+    }
+    const target = document.getElementById(id);
+    if (!target) return false;
+    /* Nav is at the bottom on all devices — small 20px clearance. */
+    const top = target.getBoundingClientRect().top + window.scrollY - 20;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    return true;
+  }
+
+  /* Nav pill items */
   items.forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault();
-      const id = item.dataset.section;
-
-      /* Hero → scroll to absolute top */
-      if (id === 'hero') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-
-      const target = document.getElementById(id);
-      if (!target) return;
-
-      /* Nav is at the bottom on all devices — no top offset needed.
-         Just a small clearance (20px) from the top edge.           */
-      const top = target.getBoundingClientRect().top + window.scrollY - 20;
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      scrollToId(item.dataset.section);
     });
   });
 
-})();
+  /* Any other in-page anchor (e.g. hero "View Our Work") — scroll
+     directly and keep the address bar clean, no # appended. */
+  document.querySelectorAll('a[href^="#"]:not(.nav-item)').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = (a.getAttribute('href') || '').slice(1);
+      if (scrollToId(id)) e.preventDefault();
+    });
+  });
 
-
-/* ── Per-section URL (Artsons-style) ──────────────────────────────
-   The address bar reflects the section in view (#social-media, #mentorship, …)
-   so each section is shareable/bookmarkable. Uses replaceState so it never
-   floods the back-history; paused while a project lightbox is open (that owns
-   the URL). The first section (hero) shows the bare path, no hash. */
-(function () {
-  'use strict';
-  const sections = Array.from(document.querySelectorAll('section[id]'));
-  if (!sections.length) return;
-  let current = null, ticking = false;
-
-  function pick() {
-    if (document.body.classList.contains('sm-lb-open')) return;   // lightbox owns the URL
-    const mark = window.innerHeight * 0.35;
-    let winner = sections[0];
-    for (const s of sections) {
-      if (s.getBoundingClientRect().top <= mark) winner = s;
-    }
-    const id = winner.id;
-    if (id === current) return;
-    current = id;
-    const isFirst = winner === sections[0];
-    const want = isFirst ? (location.pathname + location.search) : ('#' + id);
-    const have = isFirst ? '' : (location.hash || '');
-    if (isFirst) {
-      if (location.hash) history.replaceState(null, '', want);
-    } else if (have !== want) {
-      history.replaceState(null, '', want);
-    }
+  /* A hash already in the URL on load? Clean it without jumping. */
+  if (location.hash) {
+    history.replaceState(null, '', location.pathname + location.search);
   }
 
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => { ticking = false; pick(); });
-  }, { passive: true });
-  window.addEventListener('load', pick);
-  pick();
 })();
