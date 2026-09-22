@@ -1,16 +1,28 @@
 /* website-design.js — Section 02: Iconiq Creatives website portfolio.
-   Grid of browser-mockup cards → each links to the live site (new tab).
-   Missing screenshots fall back to a branded gradient panel. */
+   Each card shows a full-page screenshot of the LIVE website. On hover the
+   screenshot scrolls from top to bottom, previewing the whole page; the card
+   links to the live site (new tab). A branded monogram sits behind as a
+   fallback while the shot loads or if it can't be fetched. */
 
 (function () {
   'use strict';
+
+  /* Full-page screenshot service (no key needed). A local `thumb` in the
+     JSON overrides it. width/1000 keeps files reasonable; fullpage captures
+     the entire scroll height so there's a real page to scroll through. */
+  function shotURL(site) {
+    if (site.thumb) return site.thumb;
+    if (/^https?:\/\//.test(site.url || '')) {
+      return 'https://image.thum.io/get/width/1000/fullpage/' + site.url;
+    }
+    return '';
+  }
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  /* Two-letter monogram from the site name (fallback panel). */
   function initials(name) {
     const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
     if (!parts.length) return '★';
@@ -18,12 +30,11 @@
     return (parts[0][0] + parts[1][0]).toUpperCase();
   }
 
-  /* Pretty host label for the mock browser bar, e.g. radicalrevolution.com */
   function hostLabel(site) {
     try {
       if (site.url && /^https?:\/\//.test(site.url)) {
         const h = new URL(site.url).hostname.replace(/^www\./, '');
-        if (h && !/instagram\.com$/.test(h)) return h;
+        if (h) return h;
       }
     } catch (_) {}
     return String(site.id || site.name || 'website')
@@ -36,19 +47,17 @@
     const cat = esc(site.category || 'Website');
     const host = esc(hostLabel(site));
     const mono = esc(initials(site.name));
+    const url = esc(site.url || '#');
+    const shot = shotURL(site);
 
-    /* Screenshot layer — hides itself on error so the fallback shows through. */
-    const shot = site.thumb
-      ? '<img class="webd-shot" src="' + esc(site.thumb) + '" alt="' + name + ' website" ' +
-        'loading="lazy" decoding="async" draggable="false" ' +
-        'onerror="this.remove()">'
+    /* Screenshot layer — removes itself on error so the fallback shows. */
+    const img = shot
+      ? '<img class="webd-shot" src="' + esc(shot) + '" alt="' + name + ' website" ' +
+        'loading="lazy" decoding="async" draggable="false" onerror="this.remove()">'
       : '';
 
     return '' +
-      '<a class="webd-card" href="' + esc(site.url || '#') + '" ' +
-         'target="_blank" rel="noopener noreferrer" ' +
-         'style="--webd-accent:' + esc(accent) + '" ' +
-         'data-idx="' + i + '" aria-label="' + name + ' — open live site in new tab">' +
+      '<div class="webd-card" style="--webd-accent:' + esc(accent) + '" data-idx="' + i + '">' +
         '<span class="webd-card__frame">' +
           '<span class="webd-card__bar" aria-hidden="true">' +
             '<span class="webd-card__dots"><i></i><i></i><i></i></span>' +
@@ -58,7 +67,7 @@
             '<span class="webd-card__fallback" aria-hidden="true">' +
               '<span class="webd-card__mono">' + mono + '</span>' +
             '</span>' +
-            shot +
+            img +
             '<span class="webd-card__visit" aria-hidden="true">' +
               'Visit site ' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
@@ -70,7 +79,9 @@
           '<span class="webd-card__name">' + name + '</span>' +
           '<span class="webd-card__cat">' + cat + '</span>' +
         '</span>' +
-      '</a>';
+        '<a class="webd-card__link" href="' + url + '" target="_blank" rel="noopener noreferrer" ' +
+           'aria-label="' + name + ' — open live site in new tab"></a>' +
+      '</div>';
   }
 
   function reveal(els) {
@@ -81,6 +92,19 @@
     els.forEach(e => o.observe(e));
   }
 
+  /* Once the shot loads, work out how far it scrolls (its rendered height
+     minus the visible viewport) and set a duration for a steady speed. */
+  function measure(img) {
+    const card = img.closest('.webd-card');
+    const vp = img.closest('.webd-card__viewport');
+    if (!card || !vp) return;
+    const travel = Math.max(0, img.clientHeight - vp.clientHeight);
+    const dur = Math.min(16, Math.max(4, travel / 130));   // ~130px/sec
+    card.style.setProperty('--webd-travel', travel + 'px');
+    card.style.setProperty('--webd-scroll-dur', dur + 's');
+    card.classList.add('is-live');
+  }
+
   function buildGrid(sites) {
     const grid = document.getElementById('webd-grid');
     if (!grid) return;
@@ -88,6 +112,20 @@
     grid.querySelectorAll('.webd-card').forEach((el, i) => {
       el.style.setProperty('--webd-delay', (i % 3) * 70 + 'ms');
     });
+
+    grid.querySelectorAll('.webd-shot').forEach(img => {
+      if (img.complete && img.naturalHeight) measure(img);
+      else img.addEventListener('load', () => measure(img));
+    });
+
+    let raf = null;
+    window.addEventListener('resize', () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        grid.querySelectorAll('.webd-card.is-live .webd-shot').forEach(measure);
+      });
+    });
+
     reveal(grid.querySelectorAll('.webd-card'));
   }
 
