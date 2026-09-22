@@ -113,6 +113,20 @@
   font-style: italic;
 }
 
+/* When the brand logo is removed, promote the tagline to a display heading
+   so the section still opens with presence. */
+.ve-brand-hero--no-logo { margin-bottom: clamp(40px, 6vw, 64px); }
+
+.ve-brand-hero--no-logo .ve-brand-tagline {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-style: normal;
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--color-white);
+}
+
 .ve-brand-actions {
   display: flex;
   align-items: center;

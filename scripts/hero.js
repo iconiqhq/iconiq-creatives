@@ -127,10 +127,10 @@
   ═══════════════════════════════════════════════════ */
 
   const TITLES = [
-    'Website Design',
-    'Social Media Management',
-    'Graphic Design',
-    'Video Editing',
+    'brands',
+    'websites',
+    'content',
+    'motion',
   ];
 
   let titleIndex = 0;

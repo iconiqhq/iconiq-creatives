@@ -20,11 +20,11 @@
   <!-- Styles -->
   <link rel="stylesheet" href="styles/nav.css?v=5">
   <link rel="stylesheet" href="styles/main.css?v=2">
-  <link rel="stylesheet" href="styles/hero.css?v=2">
+  <link rel="stylesheet" href="styles/hero.css?v=4">
   <link rel="stylesheet" href="styles/website-design.css?v=1">
   <link rel="stylesheet" href="styles/social-media.css?v=33">
   <link rel="stylesheet" href="styles/graphic-design.css?v=9">
-  <link rel="stylesheet" href="styles/video-editing.css?v=34">
+  <link rel="stylesheet" href="styles/video-editing.css?v=35">
   <link rel="stylesheet" href="styles/footer.css?v=6">
 
   <!-- Chart.js -->
@@ -89,84 +89,51 @@
   <!-- ═══════════════════════════════════════
        SECTION 01 — HERO
   ═══════════════════════════════════════ -->
-  <section id="hero" class="hero" aria-label="Hero introduction">
+  <section id="hero" class="hero" aria-label="Home — Iconiq Creatives">
 
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
 
-    <div class="hero-content">
+    <div class="hero-inner">
 
-      <!-- Left: text column -->
-      <div class="hero-text">
+      <span class="hero-badge">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        Iconiq Creatives — Creative Agency
+      </span>
 
-        <span class="hero-eyebrow" aria-hidden="true">Creative Agency</span>
+      <h1 class="hero-headline">
+        <span class="hero-line hero-line--1">We make</span>
+        <span class="hero-rotator" aria-live="polite" aria-atomic="true">
+          <span class="hero-rotator-word" id="hero-rotating-title">brands</span>
+        </span>
+        <span class="hero-line hero-line--3">impossible to ignore.</span>
+      </h1>
 
-        <h1 class="hero-name">
-          <span class="hero-name-line">ICONIQ</span>
-          <span class="hero-name-line">CREATIVES</span>
-        </h1>
+      <p class="hero-lead">A creative studio for Website Design, Social Media, Graphic Design &amp; Video Editing — bold work built to make an impact.</p>
 
-        <p class="hero-title">Design to make an impact</p>
-
-        <div class="hero-subtitle-wrap" aria-live="polite" aria-atomic="true">
-          <span class="hero-subtitle" id="hero-rotating-title">Website Design</span>
-        </div>
-
-        <!-- TAGLINE PLACEHOLDER — remove display:none when ready -->
-        <p class="hero-tagline" id="hero-tagline" style="display:none">Your tagline here</p>
-
-        <div class="hero-meta">
-          <span class="hero-clock" id="clock" aria-label="Philippine Standard Time">--:-- -- PHT</span>
-        </div>
-
-        <nav class="hero-socials" aria-label="Agency links">
-          <a
-            href="https://www.instagram.com/iconiqcreatives"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hero-social-link"
-            aria-label="Instagram — opens in new tab"
-          >
-            <svg class="hero-social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
-            </svg>
-          </a>
-          <a
-            href="#website-design"
-            class="hero-resume-btn"
-            aria-label="View our work"
-          >
-            <svg class="hero-resume-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>
-            </svg>
-            View Our Work
-          </a>
-        </nav>
-
-      </div>
-
-      <!-- Right: brand ring -->
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-ring-glow"></div>
-        <div class="hero-ring">
-          <div class="hero-ring-inner">
-            <img
-              class="hero-profile-photo"
-              src="assets/images/brands/iconiq creatives.png"
-              alt="Iconiq Creatives"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-            >
-            <span class="hero-profile-initial">IC</span>
-          </div>
-        </div>
+      <div class="hero-actions">
+        <a href="#website-design" class="hero-cta hero-cta--primary">
+          View Our Work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="mailto:iconiqcreatives@gmail.com" class="hero-cta hero-cta--ghost">
+          Get in Touch
+        </a>
       </div>
 
     </div>
 
-    <div class="scroll-hint" aria-hidden="true">
-      <div class="scroll-mouse">
-        <div class="scroll-mouse-wheel"></div>
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="hero-marquee-track">
+        <span>Website Design</span><span class="hero-marquee-dot">◆</span>
+        <span>Social Media</span><span class="hero-marquee-dot">◆</span>
+        <span>Graphic Design</span><span class="hero-marquee-dot">◆</span>
+        <span>Video Editing</span><span class="hero-marquee-dot">◆</span>
+        <span>Website Design</span><span class="hero-marquee-dot">◆</span>
+        <span>Social Media</span><span class="hero-marquee-dot">◆</span>
+        <span>Graphic Design</span><span class="hero-marquee-dot">◆</span>
+        <span>Video Editing</span><span class="hero-marquee-dot">◆</span>
       </div>
-      <span class="scroll-label">SCROLL</span>
     </div>
 
   </section>
@@ -326,16 +293,7 @@
       </div>
 
       <!-- Brand hero -->
-      <div class="ve-brand-hero" data-reveal="blur" data-delay="60">
-        <div class="ve-brand-logo-wrap">
-          <img
-            src="assets/images/brands/iconiq creatives.png"
-            alt="Iconiq Creatives"
-            class="ve-brand-logo-img"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
-          >
-          <span class="ve-brand-name-fallback" style="display:none">Iconiq Creatives</span>
-        </div>
+      <div class="ve-brand-hero ve-brand-hero--no-logo" data-reveal="blur" data-delay="60">
         <p class="ve-brand-tagline">Transforming Ideas into Seamless Motion</p>
       </div>
 
@@ -482,10 +440,10 @@
         </div>
 
         <div class="footer-contact">
-          <a href="mailto:itsmelescanojoshua@gmail.com"
+          <a href="mailto:iconiqcreatives@gmail.com"
              class="footer-email-link"
              aria-label="Send email to Iconiq Creatives">
-            itsmelescanojoshua@gmail.com
+            iconiqcreatives@gmail.com
           </a>
 
           <nav class="footer-socials" aria-label="Social links">
@@ -526,8 +484,7 @@
 
   <!-- Scripts — dependency order -->
   <script src="scripts/nav.js?v=5"></script>
-  <script src="scripts/clock.js?v=2"></script>
-  <script src="scripts/hero.js?v=3"></script>
+  <script src="scripts/hero.js?v=4"></script>
   <script src="scripts/data-loader.js?v=5"></script>
   <script src="scripts/website-design.js?v=1"></script>
   <script src="scripts/social-media.js?v=35"></script>
