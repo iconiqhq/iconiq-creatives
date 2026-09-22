@@ -15,7 +15,7 @@
   justify-content: center;
   overflow: hidden;
   background: var(--color-black);
-  padding: clamp(72px, 11vh, 116px) clamp(20px, 5vw, 64px) clamp(158px, 23vh, 210px);
+  padding: clamp(72px, 11vh, 116px) clamp(20px, 5vw, 64px) clamp(110px, 15vh, 150px);
   text-align: center;
 }
 

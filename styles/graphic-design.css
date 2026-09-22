@@ -113,6 +113,19 @@
   font-style: italic;
 }
 
+/* When the brand logo is removed, promote the tagline to a display heading. */
+.gd-brand-hero--no-logo { margin-bottom: clamp(40px, 6vw, 64px); }
+
+.gd-brand-hero--no-logo .gd-brand-tagline {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-style: normal;
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--color-white);
+}
+
 .gd-brand-actions {
   display: flex;
   align-items: center;
