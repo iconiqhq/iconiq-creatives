@@ -323,9 +323,9 @@
        a shake at the loop boundary — so, like Artsons, on mobile we trust the
        native snap and only keep the infinite loop + dots in sync. */
     const isMobile = () => window.innerWidth < 640;
-    let dotTick = false, settleTimer, wrapTimer;
+    let dotTick = false, settleTimer, wrapTimer, animating = false;
     function settle() {
-      if (isMobile() || track.classList.contains('sm-dragging')) return;
+      if (isMobile() || animating || track.classList.contains('sm-dragging')) return;
       const t = snapTarget();
       if (Math.abs(t - track.scrollLeft) > 2) track.scrollLeft = t;
     }
@@ -334,7 +334,7 @@
          DEFER the wrap — teleporting mid-fling interrupts the browser's momentum
          and shows up as a shake, so we wrap only after the swipe settles (140ms
          debounce) + on scrollend. This is exactly what the Artsons wheel does. */
-      if (!isMobile()) normalize();
+      if (!isMobile() && !animating) normalize();
       if (!cfTick) { cfTick = true; requestAnimationFrame(coverflow); }
       if (!dotTick) { dotTick = true; requestAnimationFrame(() => { dotTick = false; syncDots(); }); }
       clearTimeout(settleTimer); settleTimer = setTimeout(settle, 90);
@@ -343,7 +343,7 @@
     /* Re-center once scrolling FULLY stops (after momentum). */
     if ('onscrollend' in window) {
       track.addEventListener('scrollend', () => {
-        if (track.classList.contains('sm-dragging')) return;
+        if (animating || track.classList.contains('sm-dragging')) return;
         if (isMobile()) { normalize(); syncDots(); return; }   // trust native snap on mobile
         const t = snapTarget();
         if (Math.abs(t - track.scrollLeft) > 0.5) setInstant(t);
@@ -356,14 +356,46 @@
     if (prev) prev.addEventListener('click', () => nudge(-1));
     if (next) next.addEventListener('click', () => nudge(1));
 
-    /* Click-drag (desktop / mouse) — verbatim from Artsons' bindWheelDrag:
-       absolute start-position mapping, snap to the nearest card on release, and
-       swallow the click that follows a drag. */
+    /* Custom eased glide (easeOutCubic) — used instead of the browser's default
+       snap so a release carries momentum and settles smoothly. Runs its own rAF
+       so it can glide across several cards on a flick; `animating` pauses the
+       loop-wrap + settle handlers so they don't fight it, then we normalize once
+       at the end (the teleport is invisible — the clone matches). */
+    let glideRAF = null;
+    function glideTo(target, dur) {
+      if (glideRAF) { cancelAnimationFrame(glideRAF); glideRAF = null; }
+      track.style.scrollBehavior = '';           // reset any leftover inline state
+      const startSL = track.scrollLeft;
+      const dist = target - startSL;
+      if (Math.abs(dist) < 1) { const t = snapTarget(); if (Math.abs(t - track.scrollLeft) > 1) track.scrollLeft = t; animating = false; return; }
+      const t0 = performance.now();
+      track.style.scrollBehavior = 'auto';       // we animate frame-by-frame ourselves
+      animating = true;
+      const ease = p => 1 - Math.pow(1 - p, 3);  // easeOutCubic — fast start, soft landing
+      (function frame(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        track.scrollLeft = startSL + dist * ease(p);   // fires scroll → coverflow + dots stay live
+        if (p < 1) { glideRAF = requestAnimationFrame(frame); }
+        else {
+          glideRAF = null;
+          track.style.scrollBehavior = '';       // hand control back to the CSS default (smooth)
+          animating = false;
+          normalize(); syncDots(); coverflow();
+        }
+      })(t0);
+    }
+
+    /* Click-drag (desktop / mouse): follow the cursor 1:1, then release with
+       velocity-based momentum — a quick flick advances further; a slow drag just
+       settles to the nearest card. */
     if (window.matchMedia('(pointer: fine)').matches) {
       let down = false, startX = 0, startScroll = 0, moved = false;
+      let vel = 0, lastT = 0;                    // vel = scrollLeft px per ms (smoothed)
       track.addEventListener('mousedown', e => {
         if (e.target.closest('a')) return;      // let bio @mention links click through
+        if (glideRAF) { cancelAnimationFrame(glideRAF); glideRAF = null; animating = false; }   // .sm-dragging (below) sets scroll-behavior:auto
         down = true; moved = false; startX = e.clientX; startScroll = track.scrollLeft;
+        vel = 0; lastT = performance.now();
         track.classList.add('sm-dragging');
         e.preventDefault();                     // block native image/text drag
       });
@@ -371,13 +403,23 @@
         if (!down) return;
         const dx = e.clientX - startX;
         if (Math.abs(dx) > 4) moved = true;
+        const prev = track.scrollLeft;
         track.scrollLeft = startScroll - dx;    // follow the cursor 1:1
+        const now = performance.now(), dt = now - lastT;
+        if (dt > 0) { vel = vel * 0.6 + ((track.scrollLeft - prev) / dt) * 0.4; lastT = now; }
       });
       const end = () => {
         if (!down) return; down = false;
         track.classList.remove('sm-dragging');
-        const t = snapTarget();                 // snap to nearest card (CSS smooth glides it)
-        if (Math.abs(t - track.scrollLeft) > 1) track.scrollLeft = t;
+        /* Project the release velocity forward, clamp the throw to 3 cards, then
+           snap that projection to the nearest clean card position. */
+        const maxThrow = 3 * step();
+        let projected = track.scrollLeft + vel * 150;
+        projected = Math.max(track.scrollLeft - maxThrow, Math.min(track.scrollLeft + maxThrow, projected));
+        const target = base + Math.round((projected - base) / step()) * step();
+        const cards = Math.abs(target - track.scrollLeft) / step();
+        const dur = Math.max(300, Math.min(680, cards * 240 + 220));
+        glideTo(target, dur);
       };
       window.addEventListener('mouseup', end);
       window.addEventListener('mouseleave', end);
