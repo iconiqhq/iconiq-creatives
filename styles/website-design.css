@@ -108,12 +108,13 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(18px, 2.4vw, 32px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 40px);
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-@media (max-width: 900px) { .webd-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .webd-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .webd-grid { grid-template-columns: 1fr; max-width: 420px; } }
 
 /* ── Card ───────────────────────────────────────────── */
 .webd-card {
@@ -195,7 +196,7 @@
 .webd-card__viewport {
   position: relative;
   display: block;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: #0d0d10;
 }

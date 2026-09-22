@@ -1,18 +1,20 @@
 {
-  "_note": "Edit this file to update the Website Design section. Each entry becomes a card that shows a live full-page screenshot of 'url' and scrolls on hover. 'url' must be a full https:// link; it opens in a new tab. Optional 'thumb' (a local image path, e.g. assets/images/websites/salmo.webp) overrides the auto screenshot if you'd rather host your own.",
+  "_note": "Edit this file to update the Website Design section. Each card shows the screenshot in 'thumb' and scrolls through it on hover; 'url' opens the live site in a new tab. To refresh a screenshot, capture the site full-page and save it to assets/images/websites/. If you omit 'thumb', a live screenshot is fetched automatically from the URL.",
   "websites": [
     {
       "id": "salmo-construction",
       "name": "Salmo Construction",
       "category": "Construction · Company Website",
       "url": "https://salmoconstruction.com",
+      "thumb": "assets/images/websites/salmo-construction.webp",
       "accent": "#41BDFE"
     },
     {
       "id": "artsons",
       "name": "Artsons",
-      "category": "Brand · Website",
+      "category": "Engineering · Company Website",
       "url": "https://artsons-website.vercel.app/",
+      "thumb": "assets/images/websites/artsons.webp",
       "accent": "#E111FB"
     }
   ]
