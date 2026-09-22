@@ -92,6 +92,18 @@
   100% { box-shadow: 0 0 0 0 rgba(65, 189, 254, 0); }
 }
 
+/* ── Logo (replaces the text badge) ─────────────────── */
+.hero-logo {
+  display: block;
+  width: clamp(190px, 30vw, 320px);
+  height: auto;
+  margin-bottom: clamp(24px, 4vw, 42px);
+
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroFadeUp 0.8s var(--ease-out-quart) 0.1s forwards;
+}
+
 /* ── Headline ───────────────────────────────────────── */
 .hero-headline {
   font-family: var(--font-brand);
@@ -330,6 +342,7 @@
 
 /* ── Reduced motion ─────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  .hero-logo,
   .hero-badge,
   .hero-line,
   .hero-rotator,
