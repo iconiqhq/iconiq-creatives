@@ -1,0 +1,1092 @@
+/* ═══════════════════════════════════════════════════════
+   SOCIAL-MEDIA.CSS — Section 02
+   White theme · Brand cards · Story rings · Growth charts
+═══════════════════════════════════════════════════════ */
+
+/* ── Section ───────────────────────────────────────── */
+.social-media-section {
+  background: #ffffff;
+  position: relative;
+  padding: clamp(80px, 12vw, 140px) 0 clamp(60px, 8vw, 100px);
+  overflow: hidden;
+}
+
+/* Subtle blue atmosphere on white */
+.social-media-section::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, rgba(65, 189, 254, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Second glow — right side, pink */
+.social-media-section::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: -5%;
+  width: 45%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(225, 17, 251, 0.05) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Faint background section number */
+.sm-bg-num {
+  position: absolute;
+  top: clamp(16px, 3vw, 48px);
+  right: clamp(12px, 4vw, 64px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(100px, 18vw, 220px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.045);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.sm-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(32px, 5vw, 52px);
+}
+
+.sm-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: var(--sp-4);
+}
+
+.sm-section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--color-blue);
+  display: block;
+  flex-shrink: 0;
+}
+
+.sm-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #0a0a0a;
+  margin-bottom: var(--sp-4);
+}
+
+.sm-subheading {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-sm), 1.5vw, var(--text-lg));
+  color: rgba(0, 0, 0, 0.52);
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+/* ── Aggregate Stats Bar ───────────────────────────── */
+.sm-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  margin-bottom: clamp(40px, 6vw, 64px);
+  position: relative;
+  z-index: 1;
+}
+
+.sm-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sm-stat-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1;
+  color: var(--color-blue);
+  min-width: 3ch;
+}
+
+.sm-stat-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.38);
+  white-space: nowrap;
+}
+
+.sm-stat-divider {
+  width: 1px;
+  height: 38px;
+  background: rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+
+/* ── Story Ring — status-aware ──────────────────────── */
+@property --sm-ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.sm-ring {
+  --sm-ring-angle: 0deg;
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  padding: 10px;
+  background: conic-gradient(
+    from var(--sm-ring-angle),
+    var(--ring-from) 0%,
+    var(--ring-to)   50%,
+    var(--ring-from) 100%
+  );
+  flex-shrink: 0;
+  transition: box-shadow 0.35s ease;
+  animation: sm-ring-spin 4s linear infinite;
+  position: relative;
+}
+
+@keyframes sm-ring-spin {
+  to { --sm-ring-angle: 360deg; }
+}
+
+/* Status dot badge */
+.sm-ring::after {
+  content: '';
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2.5px solid #ffffff;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.sm-card.status-active   .sm-ring::after { background: #22c55e; }
+.sm-card.status-inactive .sm-ring::after { background: #f59e0b; }
+.sm-card.status-past     .sm-ring::after { background: #ef4444; }
+
+/* Hover effects intentionally disabled — cards stay fully static. */
+
+.sm-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffffff;          /* white gap between the story ring and the picture */
+  padding: 3px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sm-ring-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.sm-ring-initial {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--color-blue);
+  text-transform: uppercase;
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.sm-card {
+  /* Exactly --sm-per-view cards fill the track width (4 on desktop) */
+  width: calc((100% - (var(--sm-per-view, 4) - 1) * var(--sm-gap, 24px)) / var(--sm-per-view, 4));
+  min-width: 0;
+  min-height: 508px;          /* a bit bigger per-project card */
+  background: #ffffff;
+  border: 1px solid rgba(20, 22, 28, 0.09);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 30px -14px rgba(20, 22, 28, 0.22);
+  transition:
+    border-color var(--t-fast),
+    box-shadow 0.16s linear;
+}
+
+/* Banner (profile cover) — placeholder brand-tinted gradient until a
+   per-brand banner image is supplied via the JSON `banner` field. */
+.sm-banner {
+  width: 100%;
+  height: 96px;
+  flex-shrink: 0;
+  background:
+    radial-gradient(130% 150% at 18% -20%, color-mix(in srgb, var(--brand, #41BDFE) 30%, #ffffff) 0%, transparent 60%),
+    linear-gradient(120deg, color-mix(in srgb, var(--brand, #41BDFE) 12%, #eef2f7) 0%, #e9edf2 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Body — everything below the banner. Profile picture + name are centered;
+   the Total Reach number is pinned to the bottom (via its margin-top:auto). */
+.sm-body {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px 22px;
+  width: 100%;
+}
+
+/* Circular avatar overlaps the banner (rings preserved) */
+.sm-body .sm-ring {
+  width: 92px;
+  height: 92px;
+  padding: 4px;          /* colored story-ring thickness */
+  margin-top: -48px;
+}
+
+.sm-body .sm-ring::after {
+  bottom: 5px;
+  right: 5px;
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+.sm-body .sm-brand-name {
+  margin-top: 12px;
+}
+
+/* Bio — shows in full so @mention links stay visible */
+.sm-bio {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 10px;
+  max-width: 290px;
+}
+
+/* @mention links inside a bio → point to the X profile */
+.sm-bio-link {
+  color: var(--color-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sm-bio-link:hover {
+  text-decoration: underline;
+}
+
+/* Top edge accent line */
+.sm-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(65, 189, 254, 0), transparent);
+  opacity: 0;
+  transition: opacity var(--t-slow), background var(--t-slow);
+}
+
+/* Hover left intentionally static — no lift, glow, or border change. */
+.sm-card:hover::before {
+  opacity: 0;
+}
+
+/* ── Card Brand Info ────────────────────────────────── */
+.sm-card-info {
+  text-align: center;
+  width: 100%;
+}
+
+.sm-brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+  line-height: 1.15;
+  margin-bottom: var(--sp-2);
+  /* inline flow so the verified badge sits right after the name text and
+     never drops onto its own line */
+  display: block;
+  text-align: center;
+}
+
+.sm-verified-badge {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.sm-brand-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3);
+}
+
+.sm-brand-industry {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+}
+
+
+/* ── Total Reach ────────────────────────────────────── */
+.sm-total-reach {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(20, 22, 28, 0.09);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.sm-reach-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.3rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #0a0a0a;
+}
+
+.sm-reach-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+/* Status pill — hidden until the card is hovered/focused, then fades up below
+   the Total Reach block. Dot is tinted with the card's status colour
+   (--ring-from): green = Active, amber = On Hold, red = Completed. */
+.sm-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  padding: 5px 12px 5px 10px;
+  border-radius: 999px;
+  background: rgba(20, 22, 28, 0.06);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #14161c;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.sm-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ring-from, #22c55e);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring-from, #22c55e) 24%, transparent);
+  flex-shrink: 0;
+}
+
+.sm-card:hover .sm-status-tag,
+.sm-card:focus-within .sm-status-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Platform Buttons (2 columns) ───────────────────── */
+.sm-platforms {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.sm-platform-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast);
+  min-width: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.sm-platform-btn:hover {
+  background: rgba(65, 189, 254, 0.08);
+  border-color: rgba(65, 189, 254, 0.35);
+  transform: translateY(-1px);
+}
+
+.sm-platform-btn.no-link {
+  cursor: default;
+}
+
+.sm-platform-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: rgba(0, 0, 0, 0.45);
+  transition: color var(--t-fast);
+}
+
+a.sm-platform-btn:hover .sm-platform-icon {
+  color: rgba(65, 189, 254, 0.85);
+}
+
+.sm-platform-count {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: #0a0a0a;
+  letter-spacing: -0.02em;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── Row Wrapper ────────────────────────────────────── */
+.sm-row-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.sm-row-wrap::before,
+.sm-row-wrap::after {
+  content: none;   /* edge fades removed — the carousel shows 4 full centered cards */
+}
+
+.sm-row-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+}
+
+.sm-row-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+}
+
+/* ── Swipe carousel (coverflow, ported from Artsons) ── */
+#sm-cards-row {
+  --sm-per-view: 4;                   /* desktop always shows 4 */
+  --sm-gap: 24px;
+  position: relative;                 /* offsetParent for coverflow math */
+  display: flex;
+  gap: var(--sm-gap);
+  max-width: 1440px;                  /* wider row → a bit bigger cards per project */
+  margin-inline: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 26px 4px 34px;
+  cursor: pointer;                    /* click cursor, not the grab hand */
+  -webkit-overflow-scrolling: touch;
+}
+
+#sm-cards-row::-webkit-scrollbar { display: none; }
+
+#sm-cards-row img,
+#sm-cards-row svg { -webkit-user-drag: none; }
+
+#sm-cards-row.sm-dragging {
+  cursor: pointer;                    /* keep the click cursor while dragging */
+  scroll-behavior: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Card holds a fixed footprint; coverflow drives its transform inline */
+.sm-card { flex: 0 0 auto; backface-visibility: hidden; }
+.sm-card.sm-cf { will-change: transform, opacity; }
+
+/* Navigation dots */
+.sm-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.sm-dots button {
+  width: 8px;
+  height: 8px;
+  min-width: 0;    /* opt out of the global 44px mobile touch-target sizing */
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transform-origin: center;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.sm-dots button[aria-current="true"] {
+  background: #fff;   /* size handled by JS dotScale (TikTok-style) */
+  box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.35);   /* ring keeps the white dot visible on the light section */
+}
+
+/* Phone (2-up): main card anchors left, the next peeks smaller (coverflow) */
+@media (max-width: 639px) {
+  #sm-cards-row { scroll-snap-type: x mandatory; }
+  .sm-card { scroll-snap-align: start; }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+/* Tablet shows 2 cards, phone shows 1 (per-view drives the card width) */
+@media (max-width: 1023px) {
+  #sm-cards-row { --sm-per-view: 2; }
+}
+
+@media (max-width: 768px) {
+  .sm-stats-bar { gap: 18px; }
+}
+
+@media (max-width: 639px) {
+  #sm-cards-row {
+    --sm-per-view: 1.8;              /* 2-up: main card + a smaller "next" preview */
+    --sm-gap: 16px;                 /* same gap as the creators carousel */
+    padding-left: 16px;             /* space so the main card isn't against the edge */
+    padding-right: 8px;
+    scroll-padding-left: 16px;      /* keep that gap when the card snaps */
+  }
+  .sm-card { min-height: 430px; }
+  .sm-banner { height: 80px; }
+  .sm-body { padding: 0 20px 18px; }
+  .sm-reach-value { font-size: 2rem; }
+  .sm-status-tag { display: none; }   /* hover pill is useless on touch */
+}
+
+@media (max-width: 480px) {
+  .sm-stats-bar {
+    flex-wrap: wrap;
+    gap: 14px 20px;
+  }
+
+  .sm-stat-divider {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .sm-scroll-track {
+    animation: none;
+  }
+
+  .sm-ring,
+  .sm-card:hover .sm-ring {
+    animation: none;
+  }
+
+  .sm-card:hover {
+    transform: none;
+  }
+
+}
+
+/* ═══════════════════════════════════════════════════════
+   Silver Play Button Achievement Card
+═══════════════════════════════════════════════════════ */
+
+.sm-achievement-card {
+  background: linear-gradient(145deg, #181818 0%, #0e0e0e 100%);
+  border: 1px solid rgba(192, 192, 192, 0.15);
+  min-height: 430px;
+  padding: 0;
+  cursor: default;
+}
+
+/* Gold–silver top accent */
+.sm-achievement-card::before {
+  background: linear-gradient(90deg, transparent 0%, #C0C0C0 40%, #FFD700 60%, transparent 100%);
+  opacity: 0.55;
+  transition: opacity var(--t-slow);
+}
+
+.sm-achievement-card:hover::before {
+  opacity: 1;
+}
+
+/* Card hover glow */
+.sm-achievement-card:hover {
+  border-color: rgba(192, 192, 192, 0.38);
+  box-shadow:
+    0 20px 56px rgba(0, 0, 0, 0.7),
+    0 0 48px rgba(255, 215, 0, 0.08);
+}
+
+/* Photo — hidden by default, revealed on hover */
+.sm-achievement-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 420ms ease, transform 420ms ease;
+  pointer-events: none;
+}
+
+.sm-achievement-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+/* Gradient overlay on photo so bottom content stays readable */
+.sm-achievement-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%);
+}
+
+.sm-achievement-card:hover .sm-achievement-photo {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Default body — fades out on hover */
+.sm-achievement-body {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 36px 28px 40px;
+  text-align: center;
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+
+.sm-achievement-card:hover .sm-achievement-body {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+/* YouTube icon badge */
+.sm-achievement-yt {
+  width: 66px;
+  height: 66px;
+  background: #FF0000;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 28px rgba(255, 0, 0, 0.38),
+    0 0 0 1px rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.sm-achievement-yt svg {
+  width: 34px;
+  height: 34px;
+  color: #ffffff;
+}
+
+/* Label pill */
+.sm-achievement-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 215, 0, 0.55);
+}
+
+/* Title — silver metallic */
+.sm-achievement-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #e8e8e8 0%, #C0C0C0 50%, #a8a8a8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  margin: 0;
+}
+
+/* Milestone count */
+.sm-achievement-milestone {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: #FFD700;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.sm-achievement-milestone svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+/* Hover hint */
+.sm-achievement-hover-hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.18);
+  margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+  .sm-achievement-card {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sm-achievement-card {
+    min-height: 330px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   PROJECT ANALYTICS LIGHTBOX
+   Click a project → per-platform analytics video carousel + platform
+   switcher + social links (opens the account).
+═══════════════════════════════════════════════════════ */
+.sm-lb[hidden] { display: none !important; }
+
+.sm-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 3vw, 28px);
+}
+
+.sm-lb__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 6, 8, 0.78);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: smLbFade 0.25s ease;
+}
+
+@keyframes smLbFade { from { opacity: 0; } to { opacity: 1; } }
+
+.sm-lb__panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  width: min(980px, 100%);
+  max-height: 90vh;
+  background: #0e0f12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  animation: smLbPop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes smLbPop { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+.sm-lb__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 6;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+.sm-lb__close:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* Stage — the video carousel */
+.sm-lb__stage {
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  max-height: 90vh;
+  min-width: 0;
+}
+
+.sm-lb__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-lb__slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.sm-lb__video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.sm-lb__soon {
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  font-family: var(--font-body);
+}
+.sm-lb__soon span { font-size: 3rem; display: block; margin-bottom: 10px; }
+
+.sm-lb__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s;
+}
+.sm-lb__nav:hover { background: rgba(255, 255, 255, 0.22); }
+.sm-lb__prev { left: 12px; }
+.sm-lb__next { right: 12px; }
+.sm-lb__nav[hidden] { display: none; }
+
+/* Side — brand, platform switcher, description, socials */
+.sm-lb__side {
+  background: #111318;
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+.sm-lb__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 11px;
+}
+
+.sm-lb__head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sm-lb__ring {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: conic-gradient(from 0deg, var(--ring-from, #22c55e), var(--ring-to, #86efac), var(--ring-from, #22c55e));
+  flex-shrink: 0;
+}
+.sm-lb__ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #111318;
+  padding: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sm-lb__logo { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.sm-lb__initial { color: #fff; font-weight: 800; font-size: 1.05rem; font-family: var(--font-display); }
+
+.sm-lb__name {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  display: block;
+}
+.sm-lb__name .sm-verified-badge { width: 15px; height: 15px; margin-left: 5px; vertical-align: middle; }
+
+.sm-lb__industry {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Inline text tabs, separated by "|" — compact so the description gets room */
+.sm-lb__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.sm-lb__tabs[hidden] { display: none; }
+
+.sm-lb__tab {
+  background: none;
+  border: none;
+  padding: 2px 7px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.2s;
+}
+.sm-lb__tab:first-of-type { padding-left: 0; }
+.sm-lb__tab:hover { color: rgba(255, 255, 255, 0.82); }
+.sm-lb__tab[aria-selected="true"] { color: var(--color-blue); }
+
+.sm-lb__tab-sep {
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 0.72rem;
+  user-select: none;
+}
+
+.sm-lb__desc {
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  flex: 1;
+}
+.sm-lb__desc-empty { color: rgba(255, 255, 255, 0.3); font-style: italic; }
+/* Follower count shown above the per-platform description */
+.sm-lb__followers {
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.sm-lb__followers strong {
+  color: var(--color-blue);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-right: 4px;
+}
+
+.sm-lb__socials-wrap { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 16px; }
+.sm-lb__socials-wrap[hidden] { display: none; }
+.sm-lb__socials-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  display: block;
+  margin-bottom: 10px;
+}
+.sm-lb__socials { display: flex; gap: 10px; flex-wrap: wrap; }
+.sm-lb__social {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.sm-lb__social:hover { background: var(--color-blue); color: #fff; transform: translateY(-2px); }
+.sm-lb__social svg { width: 16px; height: 16px; }
+
+/* Stack on small screens */
+@media (max-width: 760px) {
+  .sm-lb__panel {
+    grid-template-columns: 1fr;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  .sm-lb__stage { max-height: none; }
+  .sm-lb__side { padding: 20px 18px; }
+}

@@ -1,0 +1,253 @@
+/* ═══════════════════════════════════════════════════════
+   NAV.CSS — Apple liquid-glass bottom pill  v3
+   Fixed at bottom on ALL devices. No hamburger.
+
+   CENTERING: uses left:0/right:0 + flexbox — NOT
+   transform:translateX(-50%) — to avoid iOS Safari bug
+   where position:fixed + transform gets clipped by
+   body overflow-x:hidden.
+═══════════════════════════════════════════════════════ */
+
+/* ── Body clearance so content doesn't hide under pill ─ */
+body {
+  padding-bottom: 80px; /* fallback */
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV WRAPPER
+   Full-width fixed strip, flexbox-centered pill inside
+═══════════════════════════════════════════════════ */
+
+.site-nav {
+  position: fixed;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* pill handles touches */
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .site-nav {
+    bottom: calc(18px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   GLASS PILL
+═══════════════════════════════════════════════════ */
+
+.nav-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 12px 18px;
+  pointer-events: auto;
+
+  /* Solid fallback for browsers without backdrop-filter */
+  background: rgba(15, 15, 15, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  transition:
+    padding 300ms ease,
+    background 300ms ease,
+    box-shadow 300ms ease;
+}
+
+/* Glassmorphism where supported */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .nav-pill {
+    background: rgba(0, 0, 0, 0.30);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+}
+
+/* Compact — slightly smaller when scrolling down */
+.site-nav.nav-compact .nav-pill {
+  padding: 8px 14px;
+  background: rgba(15, 15, 15, 0.90);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.6),
+    0 1px 4px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .site-nav.nav-compact .nav-pill {
+    background: rgba(0, 0, 0, 0.52);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV ITEMS
+═══════════════════════════════════════════════════ */
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 18px;
+  min-width: 64px;
+  min-height: 58px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.45);
+  border-radius: 9999px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color 260ms ease,
+    transform 200ms ease,
+    background 200ms ease;
+}
+
+.nav-item:hover {
+  color: rgba(255, 255, 255, 0.85);
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.site-nav.nav-compact .nav-item {
+  padding: 7px 14px;
+  min-height: 48px;
+}
+
+/* ── Icon ─────────────────────────────────────────── */
+.nav-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  transform: scale(1);
+  transition: transform 300ms ease;
+}
+
+.site-nav.nav-compact .nav-icon {
+  transform: scale(0.769); /* 20/26 — same visual size as before, via transform */
+}
+
+/* ── Label ────────────────────────────────────────── */
+.nav-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: font-size 300ms ease, opacity 300ms ease;
+}
+
+.site-nav.nav-compact .nav-label {
+  font-size: 0.63rem;
+  opacity: 0.88;
+}
+
+/* ═══════════════════════════════════════════════════
+   SLIDING ACTIVE INDICATOR
+   A single pill glides beneath whichever tab is active,
+   instead of a text-colour swap alone.
+═══════════════════════════════════════════════════ */
+
+/* Removed the glowing slider behind the active tab — the active icon + label
+   already turn electric blue, which is enough of a "you are here" signal.
+   Kept the element in the DOM (nav.js still references it) but fully hidden. */
+.nav-indicator {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   ACTIVE STATE
+   Icon + label: solid electric blue. The sliding pill
+   above already carries the "you are here" signal, so
+   the label stays a plain readable colour, not a gradient.
+═══════════════════════════════════════════════════ */
+
+.nav-item {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-item.nav-active {
+  color: #41BDFE;
+}
+
+.nav-item.nav-active:hover {
+  transform: scale(1.06);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — tighter padding on small screens
+═══════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .nav-item {
+    padding: 9px 14px;
+  }
+
+  .site-nav.nav-compact .nav-item {
+    padding: 7px 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-item {
+    padding: 9px 10px;
+    min-width: 52px;
+  }
+
+  .site-nav.nav-compact .nav-item {
+    padding: 7px 8px;
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .site-nav.nav-compact .nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-label {
+    font-size: 0.66rem;
+  }
+
+  /* No hover scale on touch */
+  .nav-item:hover {
+    transform: none;
+  }
+
+  /* Tap feedback */
+  .nav-item:active {
+    transform: scale(0.93);
+    transition: transform 100ms ease;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .site-nav,
+  .nav-pill,
+  .nav-item,
+  .nav-icon,
+  .nav-label {
+    transition: none !important;
+  }
+}

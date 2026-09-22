@@ -1,0 +1,236 @@
+{
+  "projects": [
+    {
+      "id": "church-posters",
+      "title": "Church Posters",
+      "cover": "assets/images/design/church-posters/01.webp",
+      "images": [
+        "assets/images/design/church-posters/01.webp",
+        "assets/images/design/church-posters/02.webp",
+        "assets/images/design/church-posters/03.webp",
+        "assets/images/design/church-posters/04.webp",
+        "assets/images/design/church-posters/05.webp",
+        "assets/images/design/church-posters/06.webp",
+        "assets/images/design/church-posters/07.webp"
+      ]
+    },
+    {
+      "id": "realgo-merch",
+      "title": "RealGo Merch",
+      "cover": "assets/images/design/realgo-merch/01.webp",
+      "images": [
+        "assets/images/design/realgo-merch/01.webp",
+        "assets/images/design/realgo-merch/02.webp",
+        "assets/images/design/realgo-merch/03.webp",
+        "assets/images/design/realgo-merch/04.webp"
+      ]
+    },
+    {
+      "id": "lyka",
+      "title": "LYKA",
+      "cover": "assets/images/design/lyka/01.webp",
+      "images": [
+        "assets/images/design/lyka/01.webp",
+        "assets/images/design/lyka/02.webp",
+        "assets/images/design/lyka/03.webp",
+        "assets/images/design/lyka/04.webp",
+        "assets/images/design/lyka/05.webp",
+        "assets/images/design/lyka/06.webp"
+      ]
+    },
+    {
+      "id": "ronin-chat-branding",
+      "title": "Ronin Chat Branding",
+      "cover": "assets/images/design/ronin-chat-branding/01.webp",
+      "images": [
+        "assets/images/design/ronin-chat-branding/01.webp",
+        "assets/images/design/ronin-chat-branding/02.webp",
+        "assets/images/design/ronin-chat-branding/03.webp",
+        "assets/images/design/ronin-chat-branding/04.webp",
+        "assets/images/design/ronin-chat-branding/05.webp",
+        "assets/images/design/ronin-chat-branding/06.webp",
+        "assets/images/design/ronin-chat-branding/07.webp",
+        "assets/images/design/ronin-chat-branding/08.webp",
+        "assets/images/design/ronin-chat-branding/09.webp"
+      ]
+    },
+    {
+      "id": "team-kulot-campaign-materials",
+      "title": "Team Kulot Campaign Materials",
+      "cover": "assets/images/design/team-kulot-campaign-materials/01.webp",
+      "images": [
+        "assets/images/design/team-kulot-campaign-materials/01.webp",
+        "assets/images/design/team-kulot-campaign-materials/02.webp",
+        "assets/images/design/team-kulot-campaign-materials/03.webp",
+        "assets/images/design/team-kulot-campaign-materials/04.webp"
+      ]
+    },
+    {
+      "id": "nn-twitter-branding",
+      "title": "NN (Twitter Branding)",
+      "cover": "assets/images/design/nn-twitter-branding/01.webp",
+      "images": [
+        "assets/images/design/nn-twitter-branding/01.webp",
+        "assets/images/design/nn-twitter-branding/02.webp",
+        "assets/images/design/nn-twitter-branding/03.webp"
+      ]
+    },
+    {
+      "id": "sk-poblacion-east-social-media-posters",
+      "title": "SK Poblacion East (Social Media Posters)",
+      "cover": "assets/images/design/sk-poblacion-east-social-media-posters/01.webp",
+      "images": [
+        "assets/images/design/sk-poblacion-east-social-media-posters/01.webp",
+        "assets/images/design/sk-poblacion-east-social-media-posters/02.webp",
+        "assets/images/design/sk-poblacion-east-social-media-posters/03.webp",
+        "assets/images/design/sk-poblacion-east-social-media-posters/04.webp"
+      ]
+    },
+    {
+      "id": "pump-my-profile",
+      "title": "Pump my Profile",
+      "cover": "assets/images/design/pump-my-profile/01.webp",
+      "images": [
+        "assets/images/design/pump-my-profile/01.webp",
+        "assets/images/design/pump-my-profile/02.webp",
+        "assets/images/design/pump-my-profile/03.webp",
+        "assets/images/design/pump-my-profile/04.webp",
+        "assets/images/design/pump-my-profile/05.webp",
+        "assets/images/design/pump-my-profile/06.webp",
+        "assets/images/design/pump-my-profile/07.webp",
+        "assets/images/design/pump-my-profile/08.webp",
+        "assets/images/design/pump-my-profile/09.webp",
+        "assets/images/design/pump-my-profile/10.webp"
+      ]
+    },
+    {
+      "id": "trixie-salvador-2025",
+      "title": "Trixie Salvador 2025",
+      "cover": "assets/images/design/trixie-salvador-2025/01.webp",
+      "images": [
+        "assets/images/design/trixie-salvador-2025/01.webp",
+        "assets/images/design/trixie-salvador-2025/02.webp",
+        "assets/images/design/trixie-salvador-2025/03.webp",
+        "assets/images/design/trixie-salvador-2025/04.webp"
+      ]
+    },
+    {
+      "id": "siegfried-yield-guild",
+      "title": "Siegfried Yield Guild",
+      "cover": "assets/images/design/siegfried-yield-guild/01.webp",
+      "images": [
+        "assets/images/design/siegfried-yield-guild/01.webp",
+        "assets/images/design/siegfried-yield-guild/02.webp"
+      ]
+    },
+    {
+      "id": "zhara-branding",
+      "title": "Zhara Branding",
+      "cover": "assets/images/design/zhara-branding/01.webp",
+      "images": [
+        "assets/images/design/zhara-branding/01.webp",
+        "assets/images/design/zhara-branding/02.webp",
+        "assets/images/design/zhara-branding/03.webp",
+        "assets/images/design/zhara-branding/04.webp"
+      ]
+    },
+    {
+      "id": "realgo-social-media-posters",
+      "title": "RealGo Social Media Posters",
+      "cover": "assets/images/design/realgo-social-media-posters/01.webp",
+      "images": [
+        "assets/images/design/realgo-social-media-posters/01.webp",
+        "assets/images/design/realgo-social-media-posters/02.webp",
+        "assets/images/design/realgo-social-media-posters/03.webp",
+        "assets/images/design/realgo-social-media-posters/04.webp",
+        "assets/images/design/realgo-social-media-posters/05.webp"
+      ]
+    },
+    {
+      "id": "meme-coins-social-media-postings",
+      "title": "Meme Coins (Social Media Postings)",
+      "cover": "assets/images/design/meme-coins-social-media-postings/01.webp",
+      "images": [
+        "assets/images/design/meme-coins-social-media-postings/01.webp",
+        "assets/images/design/meme-coins-social-media-postings/02.webp",
+        "assets/images/design/meme-coins-social-media-postings/03.webp"
+      ]
+    },
+    {
+      "id": "ronin-eye-social-media-posters",
+      "title": "Ronin Eye (Social Media Posters)",
+      "cover": "assets/images/design/ronin-eye-social-media-posters/01.webp",
+      "images": [
+        "assets/images/design/ronin-eye-social-media-posters/01.webp",
+        "assets/images/design/ronin-eye-social-media-posters/02.webp",
+        "assets/images/design/ronin-eye-social-media-posters/03.webp"
+      ]
+    },
+    {
+      "id": "earn-rt-realgo-infographics",
+      "title": "Earn RT (RealGo Infographics)",
+      "cover": "assets/images/design/earn-rt-realgo-infographics/01.webp",
+      "images": [
+        "assets/images/design/earn-rt-realgo-infographics/01.webp",
+        "assets/images/design/earn-rt-realgo-infographics/02.webp"
+      ]
+    },
+    {
+      "id": "the-machine-arena-infographics",
+      "title": "The Machine Arena Infographics",
+      "cover": "assets/images/design/the-machine-arena-infographics/01.webp",
+      "images": [
+        "assets/images/design/the-machine-arena-infographics/01.webp",
+        "assets/images/design/the-machine-arena-infographics/02.webp",
+        "assets/images/design/the-machine-arena-infographics/03.webp"
+      ]
+    },
+    {
+      "id": "salmo-construction-services-social-media-posters",
+      "title": "Salmo Construction Services (Social Media Posters)",
+      "cover": "assets/images/design/salmo-construction-services-social-media-posters/01.webp",
+      "images": [
+        "assets/images/design/salmo-construction-services-social-media-posters/01.webp",
+        "assets/images/design/salmo-construction-services-social-media-posters/02.webp",
+        "assets/images/design/salmo-construction-services-social-media-posters/03.webp"
+      ]
+    },
+    {
+      "id": "how-to-buy-a-mini-harvester-realgo-infographics",
+      "title": "How to buy a Mini Harvester (RealGo Infographics)",
+      "cover": "assets/images/design/how-to-buy-a-mini-harvester-realgo-infographics/01.webp",
+      "images": [
+        "assets/images/design/how-to-buy-a-mini-harvester-realgo-infographics/01.webp",
+        "assets/images/design/how-to-buy-a-mini-harvester-realgo-infographics/02.webp"
+      ]
+    },
+    {
+      "id": "longping-tropical-rice-development-inc",
+      "title": "Longping Tropical Rice Development Inc.",
+      "cover": "assets/images/design/longping-tropical-rice-development-inc/01.webp",
+      "images": [
+        "assets/images/design/longping-tropical-rice-development-inc/01.webp",
+        "assets/images/design/longping-tropical-rice-development-inc/02.webp"
+      ]
+    },
+    {
+      "id": "strayclaws-voucher",
+      "title": "Strayclaws Voucher",
+      "cover": "assets/images/design/strayclaws-voucher/01.webp",
+      "images": [
+        "assets/images/design/strayclaws-voucher/01.webp",
+        "assets/images/design/strayclaws-voucher/02.webp"
+      ]
+    },
+    {
+      "id": "trilogy-twitter-banner",
+      "title": "Trilogy Twitter Banner",
+      "cover": "assets/images/design/trilogy-twitter-banner/01.webp",
+      "images": [
+        "assets/images/design/trilogy-twitter-banner/01.webp",
+        "assets/images/design/trilogy-twitter-banner/02.webp",
+        "assets/images/design/trilogy-twitter-banner/03.webp"
+      ]
+    }
+  ]
+}

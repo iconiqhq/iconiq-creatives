@@ -1,0 +1,278 @@
+/* ═══════════════════════════════════════════════════════
+   FOOTER.CSS — Section 08
+   Dark · Minimal · Contact · Copyright
+═══════════════════════════════════════════════════════ */
+
+/* ── Footer ─────────────────────────────────────────── */
+.footer-section {
+  background: #000000;
+  position: relative;
+  padding: clamp(64px, 10vw, 120px) 0 clamp(32px, 5vw, 56px);
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Gradient line top */
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-brand-h);
+  opacity: 0.5;
+}
+
+/* ── Main row ───────────────────────────────────────── */
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(40px, 8vw, 100px);
+  align-items: start;
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+
+/* ── Left: identity ─────────────────────────────────── */
+.footer-identity {}
+
+/* Matches the hero wordmark: Syne brand face, stacked on two lines,
+   gradient underline only beneath the second line (LESCANO). */
+.footer-name {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: var(--sp-3);
+}
+
+.footer-name-line {
+  display: block;
+  position: relative;
+  width: fit-content;
+}
+
+.footer-name-line:last-child::after {
+  content: '';
+  position: absolute;
+  left: -0.02em;
+  right: -0.04em;
+  bottom: 0.05em;
+  height: 0.16em;
+  background: var(--gradient-brand-h);
+  border-radius: 4px;
+  z-index: -1;
+}
+
+.footer-role {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: clamp(10px, 1.5vw, 16px);
+}
+
+.footer-subtitle-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  height: clamp(1.4rem, 2.2vw, 1.9rem);
+}
+
+.footer-subtitle-wrap::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(65, 189, 254, 0.4);
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.footer-rotating-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(0.85rem, 1.6vw, 1.25rem);
+  letter-spacing: -0.01em;
+  color: var(--color-blue);
+  white-space: nowrap;
+  will-change: opacity, transform;
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-base), 1.6vw, var(--text-lg));
+  color: var(--color-text-secondary);
+  max-width: 380px;
+  line-height: 1.65;
+}
+
+/* ── Right: contact + socials ───────────────────────── */
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: clamp(20px, 3vw, 28px);
+}
+
+.footer-email-link {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--text-base), 1.8vw, var(--text-xl));
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  position: relative;
+  transition: color var(--t-base);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.footer-email-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-brand-h);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease-out-quart);
+}
+
+.footer-email-link:hover {
+  color: var(--color-blue);
+}
+
+.footer-email-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Socials */
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.footer-social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: background var(--t-base), border-color var(--t-base), color var(--t-base), transform var(--t-base);
+  text-decoration: none;
+}
+
+.footer-social-link:hover {
+  background: rgba(65, 189, 254, 0.1);
+  border-color: rgba(65, 189, 254, 0.35);
+  color: var(--color-blue);
+  transform: translateY(-2px);
+}
+
+.footer-social-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Resume pill CTA */
+.footer-resume-pill {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: background var(--t-base), border-color var(--t-base), color var(--t-base), transform var(--t-base);
+}
+
+.footer-resume-pill:hover {
+  background: rgba(65, 189, 254, 0.1);
+  border-color: rgba(65, 189, 254, 0.35);
+  color: var(--color-blue);
+  transform: translateY(-2px);
+}
+
+.footer-resume-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── Divider ────────────────────────────────────────── */
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: clamp(20px, 3vw, 28px);
+}
+
+/* ── Bottom bar ─────────────────────────────────────── */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.footer-copy span {
+  color: var(--color-blue);
+}
+
+.footer-made {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-text-faint);
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .footer-contact {
+    align-items: flex-start;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+  }
+}

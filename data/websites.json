@@ -1,0 +1,53 @@
+{
+  "_note": "Edit this file to update the Website Design section. Each entry becomes a card. 'thumb' is optional — if the image is missing, the card shows a branded browser mockup instead. 'url' must be a full https:// link; it opens in a new tab.",
+  "websites": [
+    {
+      "id": "radical-revolution",
+      "name": "Radical Revolution",
+      "category": "Ministry · Landing Page",
+      "url": "https://www.instagram.com/iconiqcreatives",
+      "thumb": "assets/images/websites/radical-revolution.webp",
+      "accent": "#41BDFE"
+    },
+    {
+      "id": "realgo",
+      "name": "RealGo",
+      "category": "Brand · Full Website",
+      "url": "https://www.instagram.com/iconiqcreatives",
+      "thumb": "assets/images/websites/realgo.webp",
+      "accent": "#E111FB"
+    },
+    {
+      "id": "spincredible",
+      "name": "Spincredible",
+      "category": "Events · One-Page Site",
+      "url": "https://www.instagram.com/iconiqcreatives",
+      "thumb": "assets/images/websites/spincredible.webp",
+      "accent": "#41BDFE"
+    },
+    {
+      "id": "zhara",
+      "name": "Zhara",
+      "category": "Fashion · E-Commerce",
+      "url": "https://www.instagram.com/iconiqcreatives",
+      "thumb": "assets/images/websites/zhara.webp",
+      "accent": "#E111FB"
+    },
+    {
+      "id": "team-kulot",
+      "name": "Team Kulot",
+      "category": "Creator · Portfolio",
+      "url": "https://www.instagram.com/iconiqcreatives",
+      "thumb": "assets/images/websites/team-kulot.webp",
+      "accent": "#41BDFE"
+    },
+    {
+      "id": "iconiq-web3",
+      "name": "Iconiq Web3",
+      "category": "Web3 · Launch Site",
+      "url": "https://www.instagram.com/iconiqcreatives",
+      "thumb": "assets/images/websites/iconiq-web3.webp",
+      "accent": "#E111FB"
+    }
+  ]
+}

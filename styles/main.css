@@ -1,0 +1,413 @@
+/* ═══════════════════════════════════════════════════════
+   MAIN.CSS — Global Design System
+   Variables · Reset · Base Typography · Utilities
+═══════════════════════════════════════════════════════ */
+
+/* ── Custom Properties ─────────────────────────────── */
+:root {
+  /* Brand Colors */
+  --color-black:  #000000;
+  --color-blue:   #41BDFE;
+  --color-pink:   #E111FB;
+  --color-green:  #00F808;
+  --color-white:  #FFFFFF;
+
+  /* Text Alpha Variants */
+  --color-text-primary:   rgba(255, 255, 255, 1.00);
+  --color-text-secondary: rgba(255, 255, 255, 0.60);
+  --color-text-muted:     rgba(255, 255, 255, 0.35);
+  --color-text-faint:     rgba(255, 255, 255, 0.18);
+
+  /* Gradients */
+  --gradient-brand:   linear-gradient(135deg, #41BDFE 0%, #E111FB 100%);
+  --gradient-brand-h: linear-gradient(90deg,  #41BDFE 0%, #E111FB 100%);
+  --gradient-blue:    linear-gradient(135deg, #41BDFE, #1a8ccc);
+  --gradient-pink:    linear-gradient(135deg, #E111FB, #a00ab5);
+
+  /* Typography */
+  --font-display: 'Poppins', sans-serif;   /* modern social-media / creator style */
+  --font-body:    'Poppins', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-brand:   'Syne', sans-serif;      /* Joshua Lescano wordmark — kept as-is */
+
+  /* Type Scale */
+  --text-2xs: 0.625rem;  /* 10px */
+  --text-xs:  0.75rem;   /* 12px */
+  --text-sm:  0.875rem;  /* 14px */
+  --text-base:1rem;      /* 16px */
+  --text-lg:  1.125rem;  /* 18px */
+  --text-xl:  1.25rem;   /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+
+  /* Spacing */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* Easing */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Transitions */
+  --t-fast:   150ms ease;
+  --t-base:   300ms ease;
+  --t-slow:   400ms ease;
+  --t-slower: 600ms ease;
+
+  /* Borders */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Z-index layers */
+  --z-bg:      0;
+  --z-content: 1;
+  --z-overlay: 10;
+  --z-modal:   100;
+  --z-nav:     200;
+}
+
+/* Web3 section keeps its original type system (excluded from the formal switch).
+   Re-anchoring font-family here (not just the vars) so inherited text in the
+   section resolves to Jakarta again, not the new global body font. */
+.web3-section {
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
+}
+
+/* Drop the "—— LABEL" section eyebrow kickers site-wide — they read as a
+   generic AI-template tell; each section now leads with its real heading. */
+.hero-eyebrow,
+.sm-section-label,
+.ms-section-label,
+.gd-eyebrow,
+.ve-eyebrow,
+.web3-eyebrow,
+.tools-section-label,
+.ct-section-label { display: none !important; }
+
+
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.65;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+
+/* ── Selection ──────────────────────────────────────── */
+::selection {
+  background: var(--color-blue);
+  color: var(--color-black);
+}
+
+
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar       { width: 3px; }
+::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--color-blue), var(--color-pink));
+  border-radius: 2px;
+}
+
+
+/* ── Utility: Gradient Text ─────────────────────────── */
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+
+/* ── Utility: Scroll reveal ─────────────────────────── */
+/* Default (and data-reveal="up") — fade + rise */
+[data-reveal],
+[data-reveal="up"] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--ease-out-quart), transform 0.7s var(--ease-out-quart);
+}
+
+/* Slide in from the left */
+[data-reveal="left"] {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s var(--ease-out-quart), transform 0.7s var(--ease-out-quart);
+}
+
+/* Slide in from the right */
+[data-reveal="right"] {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s var(--ease-out-quart), transform 0.7s var(--ease-out-quart);
+}
+
+/* Scale up from slightly smaller — good for cards, tiles, chips */
+[data-reveal="scale"] {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart);
+}
+
+/* Soft focus-pull — good for imagery */
+[data-reveal="blur"] {
+  opacity: 0;
+  filter: blur(14px);
+  transform: scale(1.03);
+  transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s var(--ease-out-quart);
+}
+
+[data-reveal].in-view,
+[data-reveal="up"].in-view,
+[data-reveal="left"].in-view,
+[data-reveal="right"].in-view {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+[data-reveal="scale"].in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+[data-reveal="blur"].in-view {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+[data-reveal][data-delay="100"] { transition-delay: 0.10s; }
+[data-reveal][data-delay="200"] { transition-delay: 0.20s; }
+[data-reveal][data-delay="300"] { transition-delay: 0.30s; }
+[data-reveal][data-delay="400"] { transition-delay: 0.40s; }
+[data-reveal][data-delay="500"] { transition-delay: 0.50s; }
+
+
+/* ── Accessibility ──────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+
+/* ── Reduced Motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* ── Responsive Foundations ─────────────────────────── */
+
+/*
+  Safe area insets — handles iPhone notch, Dynamic Island,
+  home indicator bar, and Android gesture nav
+*/
+body {
+  padding-left:   env(safe-area-inset-left,   0px);
+  padding-right:  env(safe-area-inset-right,  0px);
+}
+
+/* Prevent double-tap zoom on touch — keeps interactions snappy */
+* {
+  touch-action: manipulation;
+}
+
+/* Restore scroll for scrollable containers */
+.scroll-x {
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* ── Responsive Container Utility ───────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left:  clamp(var(--sp-4), 5vw, var(--sp-16));
+  padding-right: clamp(var(--sp-4), 5vw, var(--sp-16));
+}
+
+/* ── Section base — each section fills at least the viewport */
+.section {
+  width: 100%;
+  position: relative;
+}
+
+/* ── Responsive Typography Scale ────────────────────── */
+/* Section headings — used across all sections */
+.section-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.section-subheading {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive Images ──────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Lazy-loaded images — prevent layout shift */
+img[loading="lazy"] {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Touch target minimum size ──────────────────────── */
+/* All interactive elements meet WCAG 2.5.5 (44×44px) on mobile */
+@media (max-width: 768px) {
+  a, button, [role="button"] {
+    min-height: 44px;
+    min-width:  44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ── Horizontal scroll sections ─────────────────────── */
+/* Shared behaviour for Social Media + Mentorship rows */
+.cards-row {
+  display: flex;
+  gap: clamp(var(--sp-4), 2.5vw, var(--sp-6));
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: var(--sp-4) clamp(var(--sp-4), 5vw, var(--sp-16));
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.cards-row:active {
+  cursor: grabbing;
+}
+
+.cards-row::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-row > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Carousel dots — shared by Social Media + Mentorship */
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.20);
+  transition: all var(--t-base);
+  flex-shrink: 0;
+}
+
+.carousel-dot.active {
+  width: 20px;
+  background: var(--color-blue);
+}
+

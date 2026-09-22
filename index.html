@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Iconiq Creatives — Creative agency for Website Design, Social Media Management, Graphic Design, and Video Editing.">
+  <title>Iconiq Creatives — Creative Agency</title>
+
+  <!-- Favicon (profile picture) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon/favicon-48.png?v=2">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicon/favicon-192.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/favicon-180.png?v=2">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/nav.css?v=5">
+  <link rel="stylesheet" href="styles/main.css?v=2">
+  <link rel="stylesheet" href="styles/hero.css?v=2">
+  <link rel="stylesheet" href="styles/website-design.css?v=1">
+  <link rel="stylesheet" href="styles/social-media.css?v=33">
+  <link rel="stylesheet" href="styles/graphic-design.css?v=9">
+  <link rel="stylesheet" href="styles/video-editing.css?v=34">
+  <link rel="stylesheet" href="styles/footer.css?v=6">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       GLASS PILL NAV — fixed bottom, all devices
+  ═══════════════════════════════════════ -->
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-pill" id="nav-pill">
+      <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
+
+      <a href="#hero" class="nav-item" data-section="hero" aria-label="Home">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+          <path d="M9 21V12h6v9"/>
+        </svg>
+        <span class="nav-label">Home</span>
+      </a>
+
+      <a href="#website-design" class="nav-item" data-section="website-design" aria-label="Website Design">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <line x1="2" y1="9" x2="22" y2="9"/>
+          <circle cx="5.2" cy="6.6" r="0.6" fill="currentColor" stroke="none"/>
+          <circle cx="7.4" cy="6.6" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="nav-label">Web</span>
+      </a>
+
+      <a href="#social-media" class="nav-item" data-section="social-media" aria-label="Social Media">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="nav-label">Social</span>
+      </a>
+
+      <a href="#graphic-design" class="nav-item" data-section="graphic-design" aria-label="Graphic Design">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <span class="nav-label">Design</span>
+      </a>
+
+      <a href="#video-editing" class="nav-item" data-section="video-editing" aria-label="Video Editing">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2"/>
+        </svg>
+        <span class="nav-label">Video</span>
+      </a>
+
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 01 — HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero" class="hero" aria-label="Hero introduction">
+
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero-content">
+
+      <!-- Left: text column -->
+      <div class="hero-text">
+
+        <span class="hero-eyebrow" aria-hidden="true">Creative Agency</span>
+
+        <h1 class="hero-name">
+          <span class="hero-name-line">ICONIQ</span>
+          <span class="hero-name-line">CREATIVES</span>
+        </h1>
+
+        <p class="hero-title">Design to make an impact</p>
+
+        <div class="hero-subtitle-wrap" aria-live="polite" aria-atomic="true">
+          <span class="hero-subtitle" id="hero-rotating-title">Website Design</span>
+        </div>
+
+        <!-- TAGLINE PLACEHOLDER — remove display:none when ready -->
+        <p class="hero-tagline" id="hero-tagline" style="display:none">Your tagline here</p>
+
+        <div class="hero-meta">
+          <span class="hero-clock" id="clock" aria-label="Philippine Standard Time">--:-- -- PHT</span>
+        </div>
+
+        <nav class="hero-socials" aria-label="Agency links">
+          <a
+            href="https://www.instagram.com/iconiqcreatives"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hero-social-link"
+            aria-label="Instagram — opens in new tab"
+          >
+            <svg class="hero-social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+          </a>
+          <a
+            href="#website-design"
+            class="hero-resume-btn"
+            aria-label="View our work"
+          >
+            <svg class="hero-resume-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>
+            </svg>
+            View Our Work
+          </a>
+        </nav>
+
+      </div>
+
+      <!-- Right: brand ring -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-ring-glow"></div>
+        <div class="hero-ring">
+          <div class="hero-ring-inner">
+            <img
+              class="hero-profile-photo"
+              src="assets/images/brands/iconiq creatives.png"
+              alt="Iconiq Creatives"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+            >
+            <span class="hero-profile-initial">IC</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-mouse">
+        <div class="scroll-mouse-wheel"></div>
+      </div>
+      <span class="scroll-label">SCROLL</span>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 02 — WEBSITE DESIGN
+  ═══════════════════════════════════════ -->
+  <section id="website-design" class="webd-section" aria-label="Website Design — Iconiq Creatives">
+
+    <span class="webd-bg-num" aria-hidden="true">02</span>
+
+    <div class="container">
+
+      <!-- Eyebrow -->
+      <div class="webd-eyebrow" data-reveal>
+        <span class="webd-section-label">Website Design</span>
+      </div>
+
+      <!-- Heading -->
+      <div class="webd-block-intro" data-reveal data-delay="40">
+        <h2 class="webd-block-title">Websites That Convert</h2>
+        <p class="webd-block-desc">Fast, responsive, on-brand websites — from landing pages to full builds. Designed and developed at Iconiq Creatives to look sharp on every screen and turn visitors into customers. Hover a project to preview it, click to open the live site.</p>
+      </div>
+
+      <!-- Gallery -->
+      <div class="webd-grid" id="webd-grid" aria-label="Website portfolio">
+        <!-- JS rendered -->
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="webd-footer" data-reveal data-delay="160">
+        <a
+          href="https://www.instagram.com/iconiqcreatives"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="webd-footer-cta"
+        ><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>More on Instagram</a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 03 — SOCIAL MEDIA MANAGER
+  ═══════════════════════════════════════ -->
+  <section id="social-media" class="social-media-section" aria-label="Social Media Management">
+
+    <span class="sm-bg-num" aria-hidden="true">03</span>
+
+    <div class="container">
+
+      <header class="sm-header" data-reveal>
+        <span class="sm-section-label">Social Media Management</span>
+        <h2 class="sm-heading">Managing The Feed</h2>
+        <p class="sm-subheading">Strategy, content, and community — growing the creators and brands we work with from the ground up.</p>
+      </header>
+
+      <div class="sm-stats-bar" data-reveal="scale" data-delay="200">
+        <div class="sm-stat">
+          <span class="sm-stat-value" id="sm-total-followers">—</span>
+          <span class="sm-stat-label">Followers Managed</span>
+        </div>
+        <div class="sm-stat-divider" aria-hidden="true"></div>
+        <div class="sm-stat">
+          <span class="sm-stat-value" id="sm-active-brands">—</span>
+          <span class="sm-stat-label">Projects Handled</span>
+        </div>
+        <div class="sm-stat-divider" aria-hidden="true"></div>
+        <div class="sm-stat">
+          <span class="sm-stat-value" id="sm-platform-count">—</span>
+          <span class="sm-stat-label">Platforms Managed</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sm-row-wrap">
+      <div class="sm-cards-row" id="sm-cards-row"
+           role="list" aria-label="Brand portfolio">
+        <!-- JS rendered -->
+      </div>
+      <div class="sm-dots" id="sm-dots" role="tablist" aria-label="Brand position"></div>
+    </div>
+
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 04 — GRAPHIC DESIGN
+  ═══════════════════════════════════════ -->
+  <section id="graphic-design" class="graphic-design-section" aria-label="Graphic Design — Iconiq Creatives">
+
+    <span class="gd-bg-num" aria-hidden="true">04</span>
+
+    <div class="container">
+
+      <!-- Eyebrow -->
+      <div class="gd-eyebrow" data-reveal>
+        <span class="gd-section-label">Graphic Design</span>
+      </div>
+
+      <!-- Brand hero -->
+      <div class="gd-brand-hero" data-reveal="blur" data-delay="60">
+        <div class="gd-brand-logo-wrap">
+          <img
+            src="assets/images/brands/iconiq creatives.png"
+            alt="Iconiq Creatives"
+            class="gd-brand-logo-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+          >
+          <span class="gd-brand-name-fallback" style="display:none">Iconiq Creatives</span>
+        </div>
+        <p class="gd-brand-tagline">Design to make an impact</p>
+      </div>
+
+      <!-- Description -->
+      <div class="gd-block-intro" data-reveal data-delay="40">
+        <p class="gd-block-desc">A selection of the graphic design work we create at Iconiq Creatives — brand identities, social media creatives, posters, and marketing visuals designed to make an impact and keep every brand looking sharp and consistent.</p>
+      </div>
+
+      <!-- Gallery -->
+      <div class="gd-grid" id="gd-grid" aria-label="Design portfolio">
+        <!-- JS rendered -->
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="gd-footer" data-reveal data-delay="160">
+        <a
+          href="https://www.instagram.com/iconiqcreatives"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="gd-footer-cta"
+        ><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>More on Instagram</a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 05 — VIDEO EDITING
+  ═══════════════════════════════════════ -->
+  <section id="video-editing" class="video-editing-section" aria-label="Video Editing — Iconiq Creatives">
+
+    <span class="ve-bg-num" aria-hidden="true">05</span>
+
+    <div class="container">
+
+      <!-- Eyebrow -->
+      <div class="ve-eyebrow" data-reveal>
+        <span class="ve-section-label">Video Editing</span>
+      </div>
+
+      <!-- Brand hero -->
+      <div class="ve-brand-hero" data-reveal="blur" data-delay="60">
+        <div class="ve-brand-logo-wrap">
+          <img
+            src="assets/images/brands/iconiq creatives.png"
+            alt="Iconiq Creatives"
+            class="ve-brand-logo-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+          >
+          <span class="ve-brand-name-fallback" style="display:none">Iconiq Creatives</span>
+        </div>
+        <p class="ve-brand-tagline">Transforming Ideas into Seamless Motion</p>
+      </div>
+
+      <!-- Long-form intro + description -->
+      <div class="ve-block-intro" data-reveal data-delay="40">
+        <h3 class="ve-block-title">Long-Form, Highlights &amp; Teasers</h3>
+        <p class="ve-block-desc">Long-form videos, event highlights, and teasers for YouTube, events, and brand campaigns — story-driven pacing, seamless cuts, motion graphics, and sound design that keep viewers watching. Swipe through a few of our favourites.</p>
+      </div>
+
+      <!-- Featured long-form videos — driven by the SAME carousel engine as the
+           social section (window.__jlCarousel). Cards + dots are built by JS. -->
+      <div id="ve-featured-wrap" data-videos='["EJIdI_-A-Xk","6p8lryIbvQE","E3RpCk8YmKU","TEBCascqbf4","S_UCS9ZfO5g","qQupumVFqUo","9wiyyZvJRCE","sdyGSssmxeg"]'>
+        <div class="ve-video-stage">
+          <div class="ve-video-row" id="ve-cards-row" role="list" aria-label="Featured long-form videos"><!-- video cards built by video-editing.js --></div>
+          <button class="ve-varrow ve-varrow--prev" id="ve-vprev" type="button" aria-label="Previous video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="ve-varrow ve-varrow--next" id="ve-vnext" type="button" aria-label="Next video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="sm-dots" id="ve-video-dots" role="tablist" aria-label="Featured video position"></div>
+      </div>
+
+      <!-- Short-form intro + description -->
+      <div class="ve-block-intro ve-block-intro--spaced" data-reveal data-delay="40">
+        <h3 class="ve-block-title">Short-Form Content</h3>
+        <p class="ve-block-desc">Vertical edits built for Reels, TikTok, and YouTube Shorts — fast, hook-first cuts with punchy transitions and captions designed to stop the scroll.</p>
+      </div>
+
+      <!-- Vertical Videos — FB/IG Reels-style horizontal scroll -->
+      <div class="ve-vertical-wrap">
+        <div class="ve-vertical-grid" id="ve-reels-row">
+          <div class="ve-vertical-card">
+            <iframe
+              src="https://www.youtube.com/embed/90gvlWp946k?rel=0&modestbranding=1&controls=0&loop=1&playlist=90gvlWp946k&enablejsapi=1"
+              title="Vertical Video 1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <div class="ve-play-overlay">
+              <button class="ve-play-btn" aria-label="Play video">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4L16 10L6 16V4Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="ve-vertical-card">
+            <iframe
+              src="https://www.youtube.com/embed/f7XnQdJDto8?rel=0&modestbranding=1&controls=0&loop=1&playlist=f7XnQdJDto8&enablejsapi=1"
+              title="Vertical Video 2"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <div class="ve-play-overlay">
+              <button class="ve-play-btn" aria-label="Play video">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4L16 10L6 16V4Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="ve-vertical-card">
+            <iframe
+              src="https://www.youtube.com/embed/79od44LMhy0?rel=0&modestbranding=1&controls=0&loop=1&playlist=79od44LMhy0&enablejsapi=1"
+              title="Vertical Video 3"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <div class="ve-play-overlay">
+              <button class="ve-play-btn" aria-label="Play video">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4L16 10L6 16V4Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="ve-vertical-card">
+            <iframe
+              src="https://www.youtube.com/embed/t_qIgjNwSb0?rel=0&modestbranding=1&controls=0&loop=1&playlist=t_qIgjNwSb0&enablejsapi=1"
+              title="Vertical Video 4"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <div class="ve-play-overlay">
+              <button class="ve-play-btn" aria-label="Play video">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4L16 10L6 16V4Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="ve-vertical-card">
+            <iframe
+              src="https://www.youtube.com/embed/y3_785K3DZQ?rel=0&modestbranding=1&controls=0&loop=1&playlist=y3_785K3DZQ&enablejsapi=1"
+              title="Vertical Video 5"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <div class="ve-play-overlay">
+              <button class="ve-play-btn" aria-label="Play video">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4L16 10L6 16V4Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="ve-vertical-card">
+            <iframe
+              src="https://www.youtube.com/embed/IrD1VoRCpz0?rel=0&modestbranding=1&controls=0&loop=1&playlist=IrD1VoRCpz0&enablejsapi=1"
+              title="Vertical Video 6"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <div class="ve-play-overlay">
+              <button class="ve-play-btn" aria-label="Play video">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4L16 10L6 16V4Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button class="ve-reels-arrow ve-reels-arrow--prev" id="ve-reels-prev" type="button" aria-label="Scroll left" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="ve-reels-arrow ve-reels-arrow--next" id="ve-reels-next" type="button" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <!-- Footer CTAs -->
+      <div class="ve-footer" data-reveal data-delay="100">
+        <a
+          href="https://www.instagram.com/iconiqcreatives"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ve-footer-cta"
+        ><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>More on Instagram</a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 09 — FOOTER
+  ═══════════════════════════════════════ -->
+  <footer id="footer" class="footer-section" aria-label="Footer">
+
+    <div class="container">
+
+      <div class="footer-main" data-reveal>
+
+        <div class="footer-identity">
+          <p class="footer-name"><span class="footer-name-line">ICONIQ</span><span class="footer-name-line">CREATIVES</span></p>
+          <p class="footer-role">Creative Agency</p>
+          <div class="footer-subtitle-wrap" aria-live="polite" aria-atomic="true">
+            <span class="footer-rotating-title" id="footer-rotating-title">Website Design</span>
+          </div>
+          <p class="footer-tagline">Website design, social media, graphic design, and video editing — creative work built to make an impact.</p>
+        </div>
+
+        <div class="footer-contact">
+          <a href="mailto:itsmelescanojoshua@gmail.com"
+             class="footer-email-link"
+             aria-label="Send email to Iconiq Creatives">
+            itsmelescanojoshua@gmail.com
+          </a>
+
+          <nav class="footer-socials" aria-label="Social links">
+            <a href="https://www.instagram.com/iconiqcreatives"
+               target="_blank" rel="noopener noreferrer"
+               class="footer-social-link"
+               aria-label="Instagram (opens in new tab)">
+              <svg class="footer-social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/joshualescano/"
+               target="_blank" rel="noopener noreferrer"
+               class="footer-social-link"
+               aria-label="LinkedIn (opens in new tab)">
+              <svg class="footer-social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+      </div>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; <span id="footer-year"></span> <span>Iconiq Creatives</span>. All rights reserved.
+        </p>
+        <p class="footer-made">Made with intention.</p>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- Scripts — dependency order -->
+  <script src="scripts/nav.js?v=5"></script>
+  <script src="scripts/clock.js?v=2"></script>
+  <script src="scripts/hero.js?v=3"></script>
+  <script src="scripts/data-loader.js?v=5"></script>
+  <script src="scripts/website-design.js?v=1"></script>
+  <script src="scripts/social-media.js?v=35"></script>
+  <script src="scripts/graphic-design.js?v=6"></script>
+  <script src="scripts/video-editing.js?v=20"></script>
+  <script src="scripts/main.js?v=4"></script>
+
+</body>
+</html>
