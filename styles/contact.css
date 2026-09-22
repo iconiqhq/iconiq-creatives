@@ -1,0 +1,275 @@
+/* ═══════════════════════════════════════════════════════
+   CONTACT.CSS — Section 08
+   Dark premium · 6 contact channels
+═══════════════════════════════════════════════════════ */
+
+/* ── Section ───────────────────────────────────────── */
+.contact-section {
+  background: #050505;
+  position: relative;
+  padding: clamp(80px, 12vw, 140px) 0 clamp(60px, 8vw, 100px);
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 55%;
+  background: radial-gradient(ellipse at top,
+    rgba(65, 189, 254, 0.055) 0%,
+    rgba(225, 17, 251, 0.035) 45%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ct-bg-num {
+  position: absolute;
+  top: clamp(16px, 3vw, 48px);
+  right: clamp(12px, 4vw, 64px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(100px, 18vw, 220px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.025);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.ct-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.ct-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: var(--sp-4);
+}
+
+.ct-section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--color-blue);
+  display: block;
+  flex-shrink: 0;
+}
+
+.ct-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-white);
+  margin-bottom: var(--sp-4);
+}
+
+.ct-subheading {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-sm), 1.5vw, var(--text-lg));
+  color: var(--color-text-secondary);
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+/* ── Grid ───────────────────────────────────────────── */
+.ct-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2vw, 18px);
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+}
+
+/* ── Button base ────────────────────────────────────── */
+.ct-btn {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 20px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: clamp(18px, 2.5vw, 26px) clamp(18px, 2.5vw, 26px);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color var(--t-base),
+    background var(--t-base),
+    transform var(--t-base),
+    box-shadow var(--t-base);
+}
+
+/* Top accent line — revealed on hover */
+.ct-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+
+.ct-btn:hover {
+  transform: translateY(-3px);
+}
+
+.ct-btn:hover::before { opacity: 1; }
+
+/* Platform accent colours */
+.ct-whatsapp::before { background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.85), transparent); }
+.ct-telegram::before  { background: linear-gradient(90deg, transparent, rgba(0, 136, 204, 0.85), transparent); }
+.ct-wechat::before    { background: linear-gradient(90deg, transparent, rgba(9, 187, 7, 0.85),   transparent); }
+.ct-viber::before     { background: linear-gradient(90deg, transparent, rgba(115, 96, 242, 0.85), transparent); }
+.ct-email::before     { background: var(--gradient-brand-h); }
+.ct-linkedin::before  { background: linear-gradient(90deg, transparent, rgba(10, 102, 194, 0.85), transparent); }
+
+.ct-whatsapp:hover { border-color: rgba(37, 211, 102, 0.28); background: rgba(37, 211, 102, 0.05); box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(37,211,102,0.06); }
+.ct-telegram:hover  { border-color: rgba(0, 136, 204, 0.28);  background: rgba(0, 136, 204, 0.05);  box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(0,136,204,0.06); }
+.ct-wechat:hover    { border-color: rgba(9, 187, 7, 0.28);    background: rgba(9, 187, 7, 0.05);    box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(9,187,7,0.06); }
+.ct-viber:hover     { border-color: rgba(115, 96, 242, 0.28); background: rgba(115, 96, 242, 0.05); box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(115,96,242,0.06); }
+.ct-email:hover     { border-color: rgba(65, 189, 254, 0.28); background: rgba(65, 189, 254, 0.05); box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(65,189,254,0.06); }
+.ct-linkedin:hover  { border-color: rgba(10, 102, 194, 0.28); background: rgba(10, 102, 194, 0.05); box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(10,102,194,0.06); }
+
+/* ── Icon wrap ──────────────────────────────────────── */
+.ct-btn-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--t-base);
+}
+
+.ct-btn-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.ct-whatsapp .ct-btn-icon { background: rgba(37, 211, 102, 0.1); color: #25D366; }
+.ct-telegram  .ct-btn-icon { background: rgba(0, 136, 204, 0.1);  color: #0088cc; }
+.ct-wechat    .ct-btn-icon { background: rgba(9, 187, 7, 0.1);    color: #09BB07; }
+.ct-viber     .ct-btn-icon { background: rgba(115, 96, 242, 0.1); color: #7360F2; }
+.ct-email     .ct-btn-icon { background: rgba(65, 189, 254, 0.1); color: var(--color-blue); }
+.ct-linkedin  .ct-btn-icon { background: rgba(10, 102, 194, 0.1); color: #0A66C2; }
+
+.ct-whatsapp:hover .ct-btn-icon { background: rgba(37, 211, 102, 0.18); }
+.ct-telegram:hover  .ct-btn-icon { background: rgba(0, 136, 204, 0.18); }
+.ct-wechat:hover    .ct-btn-icon { background: rgba(9, 187, 7, 0.18); }
+.ct-viber:hover     .ct-btn-icon { background: rgba(115, 96, 242, 0.18); }
+.ct-email:hover     .ct-btn-icon { background: rgba(65, 189, 254, 0.18); }
+.ct-linkedin:hover  .ct-btn-icon { background: rgba(10, 102, 194, 0.18); }
+
+.ct-btn-icon svg { width: 22px; height: 22px; }
+
+/* ── Text ───────────────────────────────────────────── */
+.ct-btn-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.ct-btn-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: block;
+}
+
+.ct-btn-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--text-sm), 1.5vw, var(--text-base));
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Arrow ──────────────────────────────────────────── */
+.ct-btn-arrow {
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: color var(--t-fast), transform var(--t-fast);
+}
+
+.ct-btn:hover .ct-btn-arrow {
+  color: rgba(255, 255, 255, 0.55);
+  transform: translate(2px, -2px);
+}
+
+/* WeChat: no external arrow, shows copy hint instead */
+.ct-wechat .ct-btn-arrow { display: none; }
+
+.ct-copy-hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(9, 187, 7, 0.55);
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+
+.ct-wechat:hover .ct-copy-hint { opacity: 1; }
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ct-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ct-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Resume button ──────────────────────────────────── */
+.ct-resume::before  { background: var(--gradient-brand-h); }
+.ct-resume .ct-btn-icon { background: rgba(65, 189, 254, 0.1); color: var(--color-blue); }
+.ct-resume:hover         { border-color: rgba(65, 189, 254, 0.28); background: rgba(65, 189, 254, 0.05); box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 32px rgba(65,189,254,0.06); }
+.ct-resume:hover .ct-btn-icon { background: rgba(65, 189, 254, 0.18); }
+
+/* ── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ct-btn:hover { transform: none; }
+}
