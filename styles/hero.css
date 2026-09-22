@@ -95,7 +95,7 @@
 /* ── Logo (replaces the text badge) ─────────────────── */
 .hero-logo {
   display: block;
-  width: clamp(190px, 30vw, 320px);
+  width: clamp(130px, 20vw, 210px);
   height: auto;
   margin-bottom: clamp(24px, 4vw, 42px);
 
