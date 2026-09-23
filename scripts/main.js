@@ -21,7 +21,7 @@
   }
 
   /* Footer rotating title — same animation as hero */
-  const FOOTER_TITLES = ['Website Design', 'Social Media Management', 'Graphic Design', 'Video Editing'];
+  const FOOTER_TITLES = ['Web Design', 'Social Media Management', 'Graphic Design', 'Video Editing'];
   let footerTitleIndex = 0;
   let footerTitleEl = null;
 
