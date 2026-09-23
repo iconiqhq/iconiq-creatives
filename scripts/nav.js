@@ -113,7 +113,7 @@
      the matching section on click, on scroll, on back/forward and on load. */
   const SLUGS = {
     'hero': '/',
-    'website-design': '/website-design',
+    'website-design': '/web-design',
     'social-media': '/social-media',
     'graphic-design': '/graphic-design',
     'video-editing': '/video-editing',

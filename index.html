@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Iconiq Creatives is a creative agency for Website Design, Social Media Management, Graphic Design, and Video Editing.">
+  <meta name="description" content="Iconiq Creatives is a creative agency for Web Design, Social Media Management, Graphic Design, and Video Editing.">
   <title>Iconiq Creatives | Creative Agency</title>
 
   <!-- Favicon (Iconiq Creatives logo) -->
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="styles/video-editing.css?v=35">
   <link rel="stylesheet" href="styles/book.css?v=4">
   <link rel="stylesheet" href="styles/contact.css?v=1">
-  <link rel="stylesheet" href="styles/careers.css?v=4">
+  <link rel="stylesheet" href="styles/careers.css?v=5">
   <link rel="stylesheet" href="styles/footer.css?v=7">
 
   <!-- Chart.js -->
@@ -50,7 +50,7 @@
         <span class="nav-label">Home</span>
       </a>
 
-      <a href="/website-design" class="nav-item" data-section="website-design" aria-label="Website Design">
+      <a href="/web-design" class="nav-item" data-section="website-design" aria-label="Website Design">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="2"/>
           <line x1="2" y1="9" x2="22" y2="9"/>
@@ -140,7 +140,7 @@
       <p class="hero-lead">A creative studio specializing in Web Design, Social Media Management, Graphic Design &amp; Video Editing. Bold creative work built to make an impact.</p>
 
       <div class="hero-actions">
-        <a href="/website-design" class="hero-cta hero-cta--primary">
+        <a href="/web-design" class="hero-cta hero-cta--primary">
           View Our Work
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
         </a>
@@ -543,24 +543,33 @@
 
         <span class="careers-kicker">We're hiring</span>
         <h2 class="careers-heading" id="careers-heading">Want to create with us?</h2>
-        <p class="careers-sub">We're always on the lookout for sharp designers, editors, and social minds. If that sounds like you, send your work our way and let's talk.</p>
+        <p class="careers-sub">We're always on the lookout for sharp designers, editors, and social minds. Tell us what you do and share your work.</p>
 
-        <p class="careers-roles-label">Which roles are you interested in? Pick any:</p>
-        <div class="careers-roles" id="careers-roles" role="group" aria-label="Roles you're interested in">
-          <button type="button" class="careers-role" data-role="Graphic Design" aria-pressed="false">Graphic Design</button>
-          <button type="button" class="careers-role" data-role="Video Editing" aria-pressed="false">Video Editing</button>
-          <button type="button" class="careers-role" data-role="Social Media" aria-pressed="false">Social Media</button>
-          <button type="button" class="careers-role" data-role="Website Design" aria-pressed="false">Website Design</button>
+        <div class="careers-card">
+
+          <div class="careers-field">
+            <label class="careers-label" id="careers-roles-label">1 &nbsp;·&nbsp; What do you do?</label>
+            <div class="careers-roles" id="careers-roles" role="group" aria-labelledby="careers-roles-label">
+              <button type="button" class="careers-role" data-role="Web Design" aria-pressed="false">Web Design</button>
+              <button type="button" class="careers-role" data-role="Social Media" aria-pressed="false">Social Media</button>
+              <button type="button" class="careers-role" data-role="Graphic Design" aria-pressed="false">Graphic Design</button>
+              <button type="button" class="careers-role" data-role="Video Editing" aria-pressed="false">Video Editing</button>
+            </div>
+          </div>
+
+          <div class="careers-field">
+            <label class="careers-label" for="careers-name">2 &nbsp;·&nbsp; Your name</label>
+            <input type="text" id="careers-name" class="careers-name" placeholder="e.g. Juan dela Cruz" aria-label="Your name" autocomplete="name">
+          </div>
+
+          <a class="careers-cta is-disabled" id="careers-apply" aria-disabled="true" href="mailto:iconiqcreatives@gmail.com?subject=Careers%20Application">
+            Send Your Portfolio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+
+          <p class="careers-note" id="careers-note" role="alert" aria-live="polite"></p>
+
         </div>
-
-        <input type="text" id="careers-name" class="careers-name" placeholder="Your name" aria-label="Your name" autocomplete="name">
-
-        <a class="careers-cta is-disabled" id="careers-apply" aria-disabled="true" href="mailto:iconiqcreatives@gmail.com?subject=Careers%20Application">
-          Send Your Portfolio
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-        </a>
-
-        <p class="careers-note" id="careers-note" role="alert" aria-live="polite"></p>
 
       </div>
     </div>
@@ -583,7 +592,7 @@
           <div class="footer-subtitle-wrap" aria-live="polite" aria-atomic="true">
             <span class="footer-rotating-title" id="footer-rotating-title">Website Design</span>
           </div>
-          <p class="footer-tagline">Website design, social media, graphic design, and video editing. Creative work built to make an impact.</p>
+          <p class="footer-tagline">A creative studio specializing in Web Design, Social Media Management, Graphic Design &amp; Video Editing. Bold creative work built to make an impact.</p>
         </div>
 
         <div class="footer-contact">

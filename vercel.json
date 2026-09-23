@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/website-design", "destination": "/index.html" },
+    { "source": "/web-design", "destination": "/index.html" },
     { "source": "/social-media", "destination": "/index.html" },
     { "source": "/graphic-design", "destination": "/index.html" },
     { "source": "/video-editing", "destination": "/index.html" },

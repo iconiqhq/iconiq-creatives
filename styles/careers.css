@@ -83,54 +83,66 @@
   margin: 0 auto;
 }
 
-/* Role picker */
-.careers-roles-label {
+/* ── Form card — groups the picker into a clean, organised panel ── */
+.careers-card {
+  max-width: 460px;
+  margin: clamp(30px, 4.5vw, 46px) auto 0;
+  padding: clamp(22px, 3.6vw, 32px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 22px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 60px -30px rgba(5, 6, 12, 0.55);
+  text-align: left;
+}
+
+.careers-field { margin-bottom: clamp(18px, 2.6vw, 24px); }
+
+.careers-label {
+  display: block;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  margin: clamp(26px, 4vw, 38px) 0 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
 }
 
+/* Role chips — tidy 2-col grid, scannable */
 .careers-roles {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin: 0 0 clamp(30px, 4.5vw, 44px);
-  padding: 0;
 }
-
-/* Toggle chips — click to select (multi-select). Selected = solid white. */
 .careers-role {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: 9px;
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
   color: #ffffff;
-  padding: 9px 16px;
-  border-radius: 100px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.36);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   cursor: pointer;
-  transition: background var(--t-base), color var(--t-base), border-color var(--t-base), transform var(--t-base);
+  text-align: left;
+  transition: background var(--t-base), color var(--t-base), border-color var(--t-base);
 }
 .careers-role::before {
   content: '';
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
-  background: transparent center/11px no-repeat;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  border: 1.6px solid rgba(255, 255, 255, 0.65);
+  background: transparent center/12px no-repeat;
   transition: background var(--t-fast), border-color var(--t-fast);
   flex-shrink: 0;
 }
-.careers-role:hover { background: rgba(255, 255, 255, 0.22); }
+.careers-role:hover { background: rgba(255, 255, 255, 0.18); }
 .careers-role[aria-pressed="true"] {
   background: #ffffff;
   color: #0b0d1a;
@@ -139,7 +151,6 @@
 .careers-role[aria-pressed="true"]::before {
   border-color: #0b0d1a;
   background-color: #0b0d1a;
-  /* white check on dark tick box */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4 4 10-10'/%3E%3C/svg%3E");
 }
 .careers-role:focus-visible {
@@ -147,70 +158,64 @@
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
-/* Name input */
+/* Name input — full width to match the fields */
 .careers-name {
   width: 100%;
-  max-width: 340px;
   height: 50px;
-  padding: 0 18px;
-  margin: 0 auto clamp(16px, 2.4vw, 22px);
+  padding: 0 16px;
   display: block;
-  border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.10);
   color: #ffffff;
   font-family: var(--font-body);
   font-size: var(--text-base);
-  text-align: center;
   transition: background var(--t-base), border-color var(--t-base);
 }
-.careers-name::placeholder { color: rgba(255, 255, 255, 0.7); }
+.careers-name::placeholder { color: rgba(255, 255, 255, 0.55); }
 .careers-name:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.16);
   border-color: #ffffff;
 }
 
-/* Validation note */
-.careers-note {
-  min-height: 1.2em;
-  margin-top: 14px;
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: #ffffff;
-}
-
-/* Solid white CTA — maximum contrast on the gradient */
+/* CTA — full-width block button inside the card */
 .careers-cta {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-  height: 52px;
-  padding: 0 28px;
-  border-radius: 100px;
+  width: 100%;
+  height: 54px;
+  margin-top: clamp(6px, 1vw, 10px);
+  border-radius: 12px;
   background: #ffffff;
   color: #0b0d1a;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--text-sm);
-  letter-spacing: 0.01em;
+  font-size: var(--text-base);
   text-decoration: none;
-  box-shadow: 0 14px 40px -14px rgba(5, 6, 12, 0.5);
-  transition: transform var(--t-base), box-shadow var(--t-base);
+  box-shadow: 0 14px 40px -16px rgba(5, 6, 12, 0.5);
+  transition: transform var(--t-base), box-shadow var(--t-base), opacity var(--t-base);
 }
-.careers-cta svg { width: 17px; height: 17px; transition: transform var(--t-base); }
-.careers-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 50px -14px rgba(5, 6, 12, 0.6);
-}
+.careers-cta svg { width: 18px; height: 18px; transition: transform var(--t-base); }
+.careers-cta:hover { transform: translateY(-2px); box-shadow: 0 20px 50px -16px rgba(5, 6, 12, 0.6); }
 .careers-cta:hover svg { transform: translateX(4px); }
+.careers-cta.is-disabled { opacity: 0.45; transform: none; box-shadow: none; }
 
-/* Not ready to send yet (no role / no name) */
-.careers-cta.is-disabled {
-  opacity: 0.5;
-  transform: none;
-  box-shadow: none;
+/* Validation note */
+.careers-note {
+  min-height: 1.1em;
+  margin: 12px 0 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  .careers-roles { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
