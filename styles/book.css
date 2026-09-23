@@ -4,7 +4,7 @@
 ═══════════════════════════════════════════════════════ */
 
 .book-section {
-  background: #ffffff;
+  background: #eef1f6;   /* soft off-white so the white card stands out */
   position: relative;
   padding: clamp(80px, 12vw, 130px) 0 clamp(70px, 9vw, 110px);
   overflow: hidden;
@@ -140,7 +140,7 @@
   align-items: center;
   justify-content: center;
   background: var(--gradient-brand);
-  color: #05060a;
+  color: #ffffff;
   flex-shrink: 0;
 }
 .book-icon svg { width: 26px; height: 26px; }
