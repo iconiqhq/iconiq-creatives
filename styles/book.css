@@ -49,12 +49,34 @@
 }
 
 /* ── Header ─────────────────────────────────────────── */
-.book-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto clamp(40px, 6vw, 60px);
+/* Two-column: copy on the left, booking card on the right. */
+.book-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  max-width: 1040px;
+  margin: 0 auto;
   position: relative;
   z-index: 1;
+}
+@media (max-width: 860px) {
+  .book-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: clamp(28px, 6vw, 44px);
+  }
+}
+
+.book-header {
+  text-align: left;
+  max-width: 480px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 860px) {
+  .book-header { text-align: center; margin: 0 auto; }
 }
 
 .book-badge {

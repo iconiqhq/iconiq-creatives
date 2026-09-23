@@ -108,8 +108,8 @@
 .hero-headline {
   font-family: var(--font-brand);
   font-weight: 800;
-  font-size: clamp(2.3rem, 7.4vw, 5.2rem);
-  line-height: 0.95;
+  font-size: clamp(2rem, 6.1vw, 4.4rem);
+  line-height: 0.98;
   letter-spacing: -0.035em;
   color: var(--color-white);
   text-transform: uppercase;
