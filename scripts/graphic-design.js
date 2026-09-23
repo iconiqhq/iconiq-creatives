@@ -46,28 +46,42 @@
       return Promise.resolve(ok);
     } catch (e) { return Promise.resolve(false); }
   }
-  function shareCurrent() {
-    if (!lb.id) return;
-    const url = designURL(lb.id);
+  function shareByProject(id, title) {
+    if (!id) return;
+    const url = designURL(id);
     if (navigator.share) {
-      navigator.share({ title: 'Iconiq Creatives — ' + (lb.title || 'Design'), url: url }).catch(() => {});
+      navigator.share({ title: 'Iconiq Creatives — ' + (title || 'Design'), url: url }).catch(() => {});
       return;
     }
     copyText(url).then(ok => showToast(ok ? 'Link copied' : 'Couldn’t copy — check the address bar'));
   }
+  function shareCurrent() { shareByProject(lb.id, lb.title); }
 
   /* ── Masonry grid of covers ─────────────────────────── */
   function buildGrid(projects) {
     const grid = document.getElementById('gd-grid');
     if (!grid) return;
     grid.innerHTML = projects.map((p, i) =>
-      '<button class="gd-item" type="button" data-idx="' + i + '" aria-label="View ' + esc(p.title) + ' designs">' +
+      '<div class="gd-item" role="button" tabindex="0" data-idx="' + i + '" aria-label="View ' + esc(p.title) + ' designs">' +
         '<img class="gd-item__img" src="' + p.cover + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" draggable="false">' +
         '<span class="gd-item__label">' + esc(p.title) + '</span>' +
-      '</button>'
+        '<button class="gd-item__share" type="button" data-idx="' + i + '" aria-label="Share ' + esc(p.title) + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>' +
+        '</button>' +
+      '</div>'
     ).join('');
-    grid.querySelectorAll('.gd-item').forEach(btn => {
-      btn.addEventListener('click', () => openLightbox(projects[+btn.dataset.idx]));
+    grid.querySelectorAll('.gd-item').forEach(el => {
+      el.addEventListener('click', () => openLightbox(projects[+el.dataset.idx]));
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(projects[+el.dataset.idx]); }
+      });
+    });
+    grid.querySelectorAll('.gd-item__share').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();                       // don't open the lightbox
+        const p = projects[+btn.dataset.idx];
+        shareByProject(p.id, p.title);
+      });
     });
     reveal(grid.querySelectorAll('.gd-item'));
   }

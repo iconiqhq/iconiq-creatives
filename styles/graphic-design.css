@@ -267,6 +267,38 @@
 }
 .gd-item:hover .gd-item__img { transform: scale(1.04); }
 
+/* Share button on each tile — appears on hover (always shown on touch) */
+.gd-item__share {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+.gd-item__share svg { width: 15px; height: 15px; }
+.gd-item__share:hover { background: rgba(65, 189, 254, 0.55); }
+.gd-item:hover .gd-item__share,
+.gd-item:focus-within .gd-item__share {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (hover: none) {
+  .gd-item__share { opacity: 1; transform: none; }
+}
+
 .gd-item__label {
   position: absolute;
   left: 0; right: 0; bottom: 0;
