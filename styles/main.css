@@ -24,11 +24,12 @@
   --gradient-blue:    linear-gradient(135deg, #41BDFE, #1a8ccc);
   --gradient-pink:    linear-gradient(135deg, #E111FB, #a00ab5);
 
-  /* Typography */
-  --font-display: 'Poppins', sans-serif;   /* modern social-media / creator style */
-  --font-body:    'Poppins', sans-serif;
+  /* Typography — Syne (distinctive display, matches the wordmark) + Plus Jakarta
+     Sans (clean, characterful body). Deliberately avoids Poppins/Inter/Roboto. */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
-  --font-brand:   'Syne', sans-serif;      /* Joshua Lescano wordmark — kept as-is */
+  --font-brand:   'Syne', sans-serif;      /* Iconiq Creatives wordmark */
 
   /* Type Scale */
   --text-2xs: 0.625rem;  /* 10px */
