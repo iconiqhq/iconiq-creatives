@@ -83,26 +83,68 @@
   margin: 0 auto;
 }
 
-/* Role chips */
+/* Role picker */
+.careers-roles-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  margin: clamp(26px, 4vw, 38px) 0 14px;
+}
+
 .careers-roles {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin: clamp(26px, 4vw, 38px) 0 clamp(30px, 4.5vw, 44px);
+  margin: 0 0 clamp(30px, 4.5vw, 44px);
   padding: 0;
 }
-.careers-roles li {
+
+/* Toggle chips — click to select (multi-select). Selected = solid white. */
+.careers-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #ffffff;
-  padding: 8px 15px;
+  padding: 9px 16px;
   border-radius: 100px;
   background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  cursor: pointer;
+  transition: background var(--t-base), color var(--t-base), border-color var(--t-base), transform var(--t-base);
+}
+.careers-role::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background: transparent center/11px no-repeat;
+  transition: background var(--t-fast), border-color var(--t-fast);
+  flex-shrink: 0;
+}
+.careers-role:hover { background: rgba(255, 255, 255, 0.22); }
+.careers-role[aria-pressed="true"] {
+  background: #ffffff;
+  color: #0b0d1a;
+  border-color: #ffffff;
+}
+.careers-role[aria-pressed="true"]::before {
+  border-color: #0b0d1a;
+  background-color: #0b0d1a;
+  /* white check on dark tick box */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4 4 10-10'/%3E%3C/svg%3E");
+}
+.careers-role:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
 /* Solid white CTA — maximum contrast on the gradient */

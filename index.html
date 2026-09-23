@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles/nav.css?v=5">
+  <link rel="stylesheet" href="styles/nav.css?v=6">
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/hero.css?v=7">
   <link rel="stylesheet" href="styles/website-design.css?v=5">
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="styles/video-editing.css?v=35">
   <link rel="stylesheet" href="styles/book.css?v=4">
   <link rel="stylesheet" href="styles/contact.css?v=1">
-  <link rel="stylesheet" href="styles/careers.css?v=1">
+  <link rel="stylesheet" href="styles/careers.css?v=2">
   <link rel="stylesheet" href="styles/footer.css?v=7">
 
   <!-- Chart.js -->
@@ -102,6 +102,15 @@
           <polyline points="22,6 12,13 2,6"/>
         </svg>
         <span class="nav-label">Contact</span>
+      </a>
+
+      <a href="#careers" class="nav-item" data-section="careers" aria-label="Careers">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="7" width="19" height="13" rx="2"/>
+          <path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"/>
+          <path d="M2.5 12.5h19"/>
+        </svg>
+        <span class="nav-label">Careers</span>
       </a>
 
     </div>
@@ -536,14 +545,15 @@
         <h2 class="careers-heading" id="careers-heading">Want to create with us?</h2>
         <p class="careers-sub">We're always on the lookout for sharp designers, editors, and social minds. If that sounds like you, send your work our way and let's talk.</p>
 
-        <ul class="careers-roles" aria-label="Roles we hire for">
-          <li>Graphic Design</li>
-          <li>Video Editing</li>
-          <li>Social Media</li>
-          <li>Website Design</li>
-        </ul>
+        <p class="careers-roles-label">Which roles are you interested in? Pick any:</p>
+        <div class="careers-roles" id="careers-roles" role="group" aria-label="Roles you're interested in">
+          <button type="button" class="careers-role" data-role="Graphic Design" aria-pressed="false">Graphic Design</button>
+          <button type="button" class="careers-role" data-role="Video Editing" aria-pressed="false">Video Editing</button>
+          <button type="button" class="careers-role" data-role="Social Media" aria-pressed="false">Social Media</button>
+          <button type="button" class="careers-role" data-role="Website Design" aria-pressed="false">Website Design</button>
+        </div>
 
-        <a class="careers-cta" href="mailto:iconiqcreatives@gmail.com?subject=Careers%20Application">
+        <a class="careers-cta" id="careers-apply" href="mailto:iconiqcreatives@gmail.com?subject=Careers%20Application">
           Send Your Portfolio
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
         </a>
@@ -616,6 +626,7 @@
   <script src="scripts/graphic-design.js?v=6"></script>
   <script src="scripts/video-editing.js?v=20"></script>
   <script src="scripts/main.js?v=4"></script>
+  <script src="scripts/careers.js?v=1"></script>
 
   <!-- Cal.com embed — powers the "Book a Consultation" popup (button uses data-cal-link) -->
   <script>

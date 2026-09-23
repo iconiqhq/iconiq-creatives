@@ -205,14 +205,24 @@ body {
   }
 }
 
+/* Phones: with 8 tabs the labelled pill overflows, so go icon-only. The active
+   tab still reads via its electric-blue colour. */
 @media (max-width: 480px) {
+  .nav-label { display: none; }
+
+  .nav-pill { padding: 10px 12px; }
+  .site-nav.nav-compact .nav-pill { padding: 8px 10px; }
+
   .nav-item {
-    padding: 9px 10px;
-    min-width: 52px;
+    padding: 10px 8px;
+    min-width: 0;
+    min-height: 44px;
+    gap: 0;
   }
 
   .site-nav.nav-compact .nav-item {
-    padding: 7px 8px;
+    padding: 8px 8px;
+    min-height: 40px;
   }
 
   .nav-icon {
@@ -221,24 +231,28 @@ body {
   }
 
   .site-nav.nav-compact .nav-icon {
-    width: 18px;
-    height: 18px;
-  }
-
-  .nav-label {
-    font-size: 0.66rem;
+    width: 20px;
+    height: 20px;
   }
 
   /* No hover scale on touch */
   .nav-item:hover {
     transform: none;
+    background: transparent;
   }
 
   /* Tap feedback */
   .nav-item:active {
-    transform: scale(0.93);
+    transform: scale(0.9);
     transition: transform 100ms ease;
   }
+}
+
+/* Very small phones — tighten a touch more so nothing clips. */
+@media (max-width: 360px) {
+  .nav-pill { padding: 8px 8px; }
+  .nav-item { padding: 9px 6px; }
+  .nav-icon { width: 22px; height: 22px; }
 }
 
 /* ── Reduced motion ──────────────────────────────── */
