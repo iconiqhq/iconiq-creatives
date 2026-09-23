@@ -121,7 +121,10 @@
       mtravel = Math.max(0, mshot.clientHeight - pscr.clientHeight);
       card.style.setProperty('--webd-mtravel', mtravel + 'px');
     }
-    const dur = Math.min(16, Math.max(4, Math.max(travel, mtravel * 0.6) / 130));
+    /* One duration drives BOTH previews so they stay in sync (start and finish
+       together). Based on the desktop travel — the longer of the two — so the
+       desktop is a touch slower and the phone keeps pace. */
+    const dur = Math.min(22, Math.max(6, travel / 115));
     card.style.setProperty('--webd-scroll-dur', dur + 's');
   }
 

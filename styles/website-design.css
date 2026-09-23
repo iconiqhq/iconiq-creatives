@@ -109,12 +109,12 @@
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 40px);
-  max-width: 900px;
+  gap: clamp(56px, 7vw, 76px);   /* wide enough for the phone's right overhang */
+  max-width: 940px;
   margin: 0 auto;
 }
 
-@media (max-width: 560px) { .webd-grid { grid-template-columns: 1fr; max-width: 420px; } }
+@media (max-width: 560px) { .webd-grid { grid-template-columns: 1fr; max-width: 420px; gap: 40px; } }
 
 /* ── Card ───────────────────────────────────────────── */
 .webd-card {
@@ -291,7 +291,7 @@
 .webd-phone {
   position: absolute;
   z-index: 4;
-  right: -6px;
+  right: -50px;                 /* sit to the right so only ~half overlaps the desktop */
   bottom: 40px;
   width: clamp(64px, 26%, 108px);
   aspect-ratio: 191 / 412;
@@ -338,6 +338,11 @@
 
 /* keep the "Visit site" chip clear of the phone */
 .webd-card.has-phone .webd-card__visit { left: 10px; right: auto; }
+
+/* On one-column (phones) keep the mock from overflowing the screen edge. */
+@media (max-width: 560px) {
+  .webd-phone { right: -14px; }
+}
 
 /* Hover (pointer devices only) — lift the frame + auto-scroll the live site */
 @media (hover: hover) {
