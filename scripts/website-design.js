@@ -1,21 +1,20 @@
 /* website-design.js — Section 02: Iconiq Creatives website portfolio.
-   Each card shows a full-page screenshot of the LIVE website. On hover the
-   screenshot scrolls from top to bottom, previewing the whole page; the card
-   links to the live site (new tab). A branded monogram sits behind as a
-   fallback while the shot loads or if it can't be fetched. */
+   Each card shows a full-page DESKTOP screenshot in a browser frame plus a
+   MOBILE screenshot in an iPhone 17 Pro frame overlapping the corner. On hover
+   both previews scroll from top to bottom; the card links to the live site. */
 
 (function () {
   'use strict';
 
-  /* Full-page screenshot service (no key needed). A local `thumb` in the
-     JSON overrides it. width/1000 keeps files reasonable; fullpage captures
-     the entire scroll height so there's a real page to scroll through. */
   function shotURL(site) {
     if (site.thumb) return site.thumb;
     if (/^https?:\/\//.test(site.url || '')) {
       return 'https://image.thum.io/get/width/1000/fullpage/' + site.url;
     }
     return '';
+  }
+  function mobileShotURL(site) {
+    return site.mobileThumb || '';
   }
 
   function esc(s) {
@@ -49,15 +48,26 @@
     const mono = esc(initials(site.name));
     const url = esc(site.url || '#');
     const shot = shotURL(site);
+    const mshot = mobileShotURL(site);
 
-    /* Screenshot layer — removes itself on error so the fallback shows. */
     const img = shot
       ? '<img class="webd-shot" src="' + esc(shot) + '" alt="' + name + ' website" ' +
         'loading="lazy" decoding="async" draggable="false" onerror="this.remove()">'
       : '';
 
+    /* iPhone 17 Pro mock overlapping the bottom-right corner. */
+    const phone = mshot
+      ? '<span class="webd-phone" aria-hidden="true">' +
+          '<span class="webd-phone__island"></span>' +
+          '<span class="webd-phone__screen">' +
+            '<img class="webd-mshot" src="' + esc(mshot) + '" alt="" ' +
+              'loading="lazy" decoding="async" draggable="false" onerror="this.remove()">' +
+          '</span>' +
+        '</span>'
+      : '';
+
     return '' +
-      '<div class="webd-card" style="--webd-accent:' + esc(accent) + '" data-idx="' + i + '">' +
+      '<div class="webd-card' + (mshot ? ' has-phone' : '') + '" style="--webd-accent:' + esc(accent) + '" data-idx="' + i + '">' +
         '<span class="webd-card__frame">' +
           '<span class="webd-card__bar" aria-hidden="true">' +
             '<span class="webd-card__dots"><i></i><i></i><i></i></span>' +
@@ -75,6 +85,7 @@
             '</span>' +
           '</span>' +
         '</span>' +
+        phone +
         '<span class="webd-card__meta">' +
           '<span class="webd-card__name">' + name + '</span>' +
           '<span class="webd-card__cat">' + cat + '</span>' +
@@ -92,17 +103,26 @@
     els.forEach(e => o.observe(e));
   }
 
-  /* Once the shot loads, work out how far it scrolls (its rendered height
-     minus the visible viewport) and set a duration for a steady speed. */
-  function measure(img) {
-    const card = img.closest('.webd-card');
-    const vp = img.closest('.webd-card__viewport');
-    if (!card || !vp) return;
-    const travel = Math.max(0, img.clientHeight - vp.clientHeight);
-    const dur = Math.min(16, Math.max(4, travel / 130));   // ~130px/sec
-    card.style.setProperty('--webd-travel', travel + 'px');
+  /* Work out how far each preview scrolls (rendered height − visible height)
+     and set one hover duration so both finish together. */
+  function measureCard(card) {
+    if (!card) return;
+    const shot = card.querySelector('.webd-shot');
+    const vp = card.querySelector('.webd-card__viewport');
+    let travel = 0;
+    if (shot && vp) {
+      travel = Math.max(0, shot.clientHeight - vp.clientHeight);
+      card.style.setProperty('--webd-travel', travel + 'px');
+    }
+    const mshot = card.querySelector('.webd-mshot');
+    const pscr = card.querySelector('.webd-phone__screen');
+    let mtravel = 0;
+    if (mshot && pscr) {
+      mtravel = Math.max(0, mshot.clientHeight - pscr.clientHeight);
+      card.style.setProperty('--webd-mtravel', mtravel + 'px');
+    }
+    const dur = Math.min(16, Math.max(4, Math.max(travel, mtravel * 0.6) / 130));
     card.style.setProperty('--webd-scroll-dur', dur + 's');
-    card.classList.add('is-live');
   }
 
   function buildGrid(sites) {
@@ -110,20 +130,22 @@
     if (!grid) return;
     grid.innerHTML = sites.map(cardHTML).join('');
     grid.querySelectorAll('.webd-card').forEach((el, i) => {
-      el.style.setProperty('--webd-delay', (i % 3) * 70 + 'ms');
+      el.style.setProperty('--webd-delay', (i % 2) * 80 + 'ms');
     });
 
-    grid.querySelectorAll('.webd-shot').forEach(img => {
-      if (img.complete && img.naturalHeight) measure(img);
-      else img.addEventListener('load', () => measure(img));
+    grid.querySelectorAll('.webd-card').forEach(card => {
+      const shot = card.querySelector('.webd-shot');
+      const mshot = card.querySelector('.webd-mshot');
+      const onShot = () => { card.classList.add('is-live'); measureCard(card); };
+      const onM = () => { card.classList.add('is-live-m'); measureCard(card); };
+      if (shot) { (shot.complete && shot.naturalHeight) ? onShot() : shot.addEventListener('load', onShot); }
+      if (mshot) { (mshot.complete && mshot.naturalHeight) ? onM() : mshot.addEventListener('load', onM); }
     });
 
     let raf = null;
     window.addEventListener('resize', () => {
       if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        grid.querySelectorAll('.webd-card.is-live .webd-shot').forEach(measure);
-      });
+      raf = requestAnimationFrame(() => grid.querySelectorAll('.webd-card').forEach(measureCard));
     });
 
     reveal(grid.querySelectorAll('.webd-card'));

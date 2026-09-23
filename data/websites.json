@@ -1,12 +1,13 @@
 {
-  "_note": "Edit this file to update the Website Design section. Each card shows the screenshot in 'thumb' and scrolls through it on hover; 'url' opens the live site in a new tab. To refresh a screenshot, capture the site full-page and save it to assets/images/websites/. If you omit 'thumb', a live screenshot is fetched automatically from the URL.",
+  "_note": "Each card shows a desktop screenshot ('thumb') in a browser frame plus a mobile screenshot ('mobileThumb') in an iPhone frame; both scroll on hover. 'url' opens the live site in a new tab. To refresh, re-capture the site full-page (desktop + mobile) into assets/images/websites/.",
   "websites": [
     {
       "id": "salmo-construction",
       "name": "Salmo Construction Services",
       "category": "Construction · Company Website",
       "url": "https://salmoconstruction.com",
-      "thumb": "assets/images/websites/salmo-construction.webp?v=3",
+      "thumb": "assets/images/websites/salmo-construction.webp?v=4",
+      "mobileThumb": "assets/images/websites/salmo-construction-mobile.webp?v=1",
       "accent": "#41BDFE"
     },
     {
@@ -15,6 +16,7 @@
       "category": "Construction · Company Website",
       "url": "https://artsons-website.vercel.app/",
       "thumb": "assets/images/websites/artsons.webp?v=2",
+      "mobileThumb": "assets/images/websites/artsons-mobile.webp?v=1",
       "accent": "#E111FB"
     }
   ]

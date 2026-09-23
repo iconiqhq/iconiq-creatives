@@ -287,6 +287,58 @@
   color: var(--color-text-muted);
 }
 
+/* ── iPhone 17 Pro mock — overlaps the browser frame's bottom-right ── */
+.webd-phone {
+  position: absolute;
+  z-index: 4;
+  right: -6px;
+  bottom: 40px;
+  width: clamp(64px, 26%, 108px);
+  aspect-ratio: 191 / 412;
+  border-radius: clamp(14px, 4.5vw, 22px);
+  background: linear-gradient(150deg, #33333b 0%, #0b0b0f 60%);
+  box-shadow:
+    0 20px 34px -14px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition: opacity 0.5s ease, transform 0.5s var(--ease-out-quart);
+  pointer-events: none;
+}
+.webd-card.is-live-m .webd-phone { opacity: 1; transform: none; }
+
+.webd-phone__screen {
+  position: absolute;
+  inset: 3px;
+  border-radius: clamp(11px, 3.6vw, 18px);
+  overflow: hidden;
+  background: #0d0d10;
+}
+.webd-mshot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: translateY(0);
+  transition: transform 0.9s var(--ease-out-quart);
+}
+.webd-phone__island {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32%;
+  height: 6px;
+  border-radius: 100px;
+  background: #000;
+  z-index: 2;
+}
+
+/* keep the "Visit site" chip clear of the phone */
+.webd-card.has-phone .webd-card__visit { left: 10px; right: auto; }
+
 /* Hover (pointer devices only) — lift the frame + auto-scroll the live site */
 @media (hover: hover) {
   .webd-card:hover .webd-card__frame,
@@ -302,6 +354,13 @@
   .webd-card:hover .webd-shot,
   .webd-card:focus-within .webd-shot {
     transform: translateY(calc(-1 * var(--webd-travel, 0px)));
+    transition: transform var(--webd-scroll-dur, 6s) linear;
+  }
+
+  /* The phone scrolls at the same time. */
+  .webd-card:hover .webd-mshot,
+  .webd-card:focus-within .webd-mshot {
+    transform: translateY(calc(-1 * var(--webd-mtravel, 0px)));
     transition: transform var(--webd-scroll-dur, 6s) linear;
   }
 
@@ -360,4 +419,6 @@
   .webd-card__visit { transition: none; }
   .webd-card:hover .webd-shot,
   .webd-card:focus-within .webd-shot { transform: translateY(0); }
+  .webd-card:hover .webd-mshot,
+  .webd-card:focus-within .webd-mshot { transform: translateY(0); }
 }
