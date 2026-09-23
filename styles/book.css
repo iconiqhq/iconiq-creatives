@@ -57,25 +57,22 @@
   z-index: 1;
 }
 
-.book-section-label {
+.book-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  gap: 8px;
+  padding: 7px 15px 7px 12px;
+  border: 1px solid rgba(65, 189, 254, 0.28);
+  border-radius: 100px;
+  background: rgba(65, 189, 254, 0.06);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.01em;
   color: var(--color-blue);
-  margin-bottom: clamp(14px, 2vw, 20px);
+  margin-bottom: clamp(16px, 2.2vw, 22px);
 }
-.book-section-label::before,
-.book-section-label::after {
-  content: '';
-  width: 22px;
-  height: 1px;
-  background: var(--gradient-brand-h);
-  display: block;
-}
+.book-badge svg { width: 15px; height: 15px; flex-shrink: 0; }
 
 .book-heading {
   font-family: var(--font-display);
