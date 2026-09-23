@@ -109,7 +109,9 @@
         '<button class="gd-lb__share" type="button" aria-label="Share this project">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>' +
         '</button>' +
-        '<button class="gd-lb__close" type="button" aria-label="Close">&times;</button>' +
+        '<button class="gd-lb__close" type="button" aria-label="Close">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+        '</button>' +
         '<div class="gd-lb__stage">' +
           '<div class="gd-lb__track"></div>' +
           '<button class="gd-lb__nav gd-lb__prev" type="button" aria-label="Previous">&#8249;</button>' +

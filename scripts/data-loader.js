@@ -91,6 +91,7 @@
       return mergeFollowers(data, overrides);
     },
     loadWebsites:    () => loadJSON('data/websites.json'),
+    loadMentorship:  () => loadJSON('data/mentorship.json'),
     loadDesign:      () => loadJSON('data/design.json'),
     loadVideos:      () => loadJSON('data/videos.json'),
   };

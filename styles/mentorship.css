@@ -1,0 +1,655 @@
+/* ═══════════════════════════════════════════════════════
+   MENTORSHIP.CSS — Section 03
+   Creator cards (social profile-card UI) · Story rings · Before/After growth
+═══════════════════════════════════════════════════════ */
+
+/* ── Section ───────────────────────────────────────── */
+.mentorship-section {
+  background: #020202;
+  position: relative;
+  padding: clamp(80px, 12vw, 140px) 0 clamp(60px, 8vw, 100px);
+  overflow: hidden;
+}
+
+/* Pink atmospheric glow top-right */
+.mentorship-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 60%;
+  height: 65%;
+  background: radial-gradient(ellipse at center, rgba(225, 17, 251, 0.065) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Faint background section number */
+.ms-bg-num {
+  position: absolute;
+  top: clamp(16px, 3vw, 48px);
+  left: clamp(12px, 4vw, 64px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(100px, 18vw, 220px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.032);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.ms-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(32px, 5vw, 52px);
+  text-align: left;
+}
+
+.ms-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: var(--sp-4);
+  justify-content: flex-start;
+}
+
+.ms-section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--color-pink);
+  display: block;
+  flex-shrink: 0;
+}
+
+.ms-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-white);
+  margin-bottom: var(--sp-4);
+}
+
+.ms-subheading {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-sm), 1.5vw, var(--text-lg));
+  color: var(--color-text-secondary);
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+/* ── Aggregate Stats Bar ───────────────────────────── */
+.ms-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 48px);
+  margin-bottom: clamp(40px, 6vw, 64px);
+  position: relative;
+  z-index: 1;
+}
+
+.ms-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.ms-stat-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  line-height: 1;
+  color: var(--color-white);
+  min-width: 3ch;
+  text-align: left;
+}
+
+.ms-stat-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.ms-stat-divider {
+  width: 1px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+/* ── Story Ring ─────────────────────────────────────── */
+@property --ms-ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.ms-ring {
+  --ms-ring-angle: 0deg;
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  padding: 10px;
+  background: conic-gradient(
+    from var(--ms-ring-angle),
+    var(--ring-from) 0%,
+    var(--ring-to)   50%,
+    var(--ring-from) 100%
+  );
+  flex-shrink: 0;
+  transition: box-shadow 0.35s ease;
+  animation: ms-ring-spin 4s linear infinite;
+  position: relative;
+}
+
+@keyframes ms-ring-spin {
+  to { --ms-ring-angle: 360deg; }
+}
+
+.ms-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffffff;          /* white gap between the story ring and the picture */
+  padding: 3px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-ring-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.ms-ring-initial {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--ring-from);
+  text-transform: uppercase;
+}
+
+/* Status dot badge on ring */
+.ms-ring::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.ms-card.status-active    .ms-ring::after { background: #22c55e; }
+.ms-card.status-on-hold   .ms-ring::after { background: #f59e0b; }
+.ms-card.status-completed .ms-ring::after { background: #ef4444; }
+
+.ms-card:hover .ms-ring::after {
+  transform: scale(1.2);
+}
+
+/* ── Card — same profile-card UI as the social cards ── */
+.ms-card {
+  flex: 0 0 auto;            /* keep width in the carousel engine (don't shrink) */
+  width: 228px;
+  height: 344px;
+  background: #ffffff;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.16s linear;
+}
+
+/* Default state: full-bleed profile picture overlaying the profile card.
+   Fades out on hover to reveal the social-style card underneath. */
+.ms-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.ms-cover-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.ms-cover-initial {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 5rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--ring-from), var(--ring-to));
+}
+
+.ms-cover-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.35) 36%,
+    transparent 64%);
+}
+
+.ms-cover-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 22px 24px;
+  text-align: left;
+}
+
+.ms-cover-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.ms-cover-niche {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ms-card:hover .ms-cover,
+.ms-card:focus-within .ms-cover {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Banner (cover image) — image or solid brand colour via the JSON `banner` */
+.ms-banner {
+  width: 100%;
+  height: 96px;
+  flex-shrink: 0;
+  background:
+    radial-gradient(130% 150% at 18% -20%, color-mix(in srgb, var(--brand, #22c55e) 30%, #ffffff) 0%, transparent 60%),
+    linear-gradient(120deg, color-mix(in srgb, var(--brand, #22c55e) 12%, #eef2f7) 0%, #e9edf2 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Body — avatar + name are centered; growth sits below the niche */
+.ms-body {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px 22px;
+  width: 100%;
+}
+
+/* Circular avatar overlaps the banner */
+.ms-body .ms-ring {
+  width: 84px;
+  height: 84px;
+  padding: 4px;
+  margin-top: -44px;
+}
+
+.ms-brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+  line-height: 1.15;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+  text-align: center;
+}
+
+.ms-verified-badge {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.ms-brand-industry {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+/* ── Before / After growth (light theme) ────────────── */
+.ms-growth-block {
+  width: 100%;
+  background: rgba(20, 22, 28, 0.03);
+  border: 1px solid rgba(20, 22, 28, 0.08);
+  border-radius: var(--radius-md);
+  padding: 8px 11px;
+}
+
+.ms-platform-growth {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(20, 22, 28, 0.07);
+}
+
+.ms-platform-growth:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ms-platform-growth:first-child {
+  padding-top: 0;
+}
+
+.ms-pg-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.ms-pg-icon {
+  width: 13px;
+  height: 13px;
+  color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ms-pg-icon svg { width: 13px; height: 13px; }
+
+.ms-pg-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.ms-growth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.ms-growth-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.ms-growth-col.after {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.ms-growth-col-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.ms-growth-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: #0a0a0a;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.ms-growth-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ms-growth-arrow-icon {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ms-growth-pct {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #16a34a;
+  white-space: nowrap;
+}
+
+/* ── Duration ───────────────────────────────────────── */
+.ms-duration {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.42);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ── Status pill (revealed on hover, mirrors the social cards) ── */
+.ms-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;              /* pin to the bottom → same spot on every creator */
+  padding: 5px 12px 5px 10px;
+  border-radius: 999px;
+  background: rgba(20, 22, 28, 0.06);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #14161c;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.ms-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ring-from, #22c55e);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring-from, #22c55e) 24%, transparent);
+  flex-shrink: 0;
+}
+
+.ms-card:hover .ms-status-tag,
+.ms-card:focus-within .ms-status-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Row Wrapper ────────────────────────────────────── */
+.ms-row-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.ms-row-wrap::before,
+.ms-row-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(32px, 5vw, 88px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ms-row-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #020202 0%, transparent 100%);
+}
+
+.ms-row-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #020202 0%, transparent 100%);
+}
+
+/* Same carousel engine as the social cards — needs these track styles. */
+.ms-cards-row {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  max-width: 580px;          /* fits the two creators, centered; clones sit off-screen */
+  margin-inline: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: var(--sp-4) 4px var(--sp-8);
+  cursor: pointer;
+  -webkit-overflow-scrolling: touch;
+}
+.ms-cards-row::-webkit-scrollbar { display: none; }
+/* Desktop static row: just the creators, centered, no carousel/scroll. */
+.ms-cards-row.ms-static {
+  overflow: visible;
+  justify-content: center;
+  cursor: default;
+  max-width: none;
+}
+#ms-cards-row.sm-dragging {
+  scroll-behavior: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Carousel dots ──────────────────────────────────── */
+#ms-dots {
+  margin-top: var(--sp-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* Round dots (engine creates plain <button>s), sized by JS dotScale (TikTok). */
+#ms-dots button {
+  width: 8px;
+  height: 8px;
+  min-width: 0;    /* opt out of the global 44px mobile touch-target sizing */
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transform-origin: center;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+#ms-dots button[aria-current="true"] {
+  background: #fff;   /* size handled by JS dotScale */
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ms-stats-bar {
+    gap: 18px;
+  }
+  .ms-card {
+    width: 236px;
+    height: 380px;
+  }
+}
+
+/* Mobile: compact the creator card so it stays a bit smaller and still fits. */
+@media (max-width: 639px) {
+  /* 2-up, same as social: main card anchored left with space, next is a smaller
+     preview. Mandatory snap — the engine's clone loop gives the last card runway,
+     so there's no shake at the boundary. */
+  #ms-cards-row {
+    max-width: none;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    padding-left: 16px;
+    padding-right: 8px;
+  }
+  #ms-cards-row .ms-card { scroll-snap-align: start; }
+  .ms-banner { height: 72px; }
+  .ms-body { padding: 0 16px 14px; }
+  .ms-body .ms-ring { width: 72px; height: 72px; margin-top: -38px; padding: 3px; }
+  .ms-brand-name { font-size: 1.2rem; margin-top: 8px; margin-bottom: 4px; }
+  .ms-cover-name { font-size: 1.25rem; }
+  .ms-brand-industry { margin-bottom: 8px; }
+  .ms-growth-block { padding: 8px 10px; }
+  .ms-platform-growth { padding: 5px 0; }
+  .ms-growth-num { font-size: var(--text-base); }
+  .ms-status-tag { display: none; }   /* hover pill is useless on touch — reclaim the space */
+}
+
+@media (max-width: 480px) {
+  .ms-card {
+    width: 208px;
+    height: 356px;
+  }
+  .ms-stats-bar {
+    flex-wrap: wrap;
+    gap: 14px 20px;
+  }
+  .ms-stat-divider {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ms-card .ms-ring {
+    animation: none;
+  }
+}

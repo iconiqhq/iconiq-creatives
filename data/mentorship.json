@@ -1,0 +1,52 @@
+{
+  "mentees": [
+    {
+      "id": "nick",
+      "name": "Kuya Nick Art",
+      "handle": "@nickdavidkhan09",
+      "niche": "Art | Drawing",
+      "photo": "assets/images/mentorship/Nick.png",
+      "banner": "#22c55e",
+      "status": "active",
+      "mentorshipFrom": "2024-07",
+      "mentorshipTo": null,
+      "platforms": [
+        {
+          "name": "Tiktok",
+          "icon": "tiktok",
+          "url": "https://www.tiktok.com/@nickdavidkhan09?_r=1&_t=ZS-96jM5rZTi9x",
+          "beforeFollowers": 500,
+          "currentFollowers": 21100
+        },
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://www.facebook.com/share/18FsD497Fn/?mibextid=wwXIfr",
+          "beforeFollowers": 100,
+          "currentFollowers": 11000
+        }
+      ]
+    },
+    {
+      "id": "zhara",
+      "name": "Zhara",
+      "handle": "@zhara0x",
+      "niche": "Web3 Content Creator",
+      "photo": "assets/images/brands/zhara.png",
+      "banner": "assets/images/brands/banners/zhara.jpeg",
+      "verified": true,
+      "status": "completed",
+      "mentorshipFrom": "2025-01",
+      "mentorshipTo": "2025-07",
+      "platforms": [
+        {
+          "name": "X",
+          "icon": "x",
+          "url": "https://x.com/zhara0x?s=21",
+          "beforeFollowers": null,
+          "currentFollowers": 2200
+        }
+      ]
+    }
+  ]
+}
