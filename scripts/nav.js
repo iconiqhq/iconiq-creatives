@@ -157,7 +157,7 @@
 
   /* Back / forward → scroll to the section for the new path. */
   window.addEventListener('popstate', () => {
-    if (location.hash.indexOf('#project=') === 0) return;   // social lightbox owns that
+    if (location.hash && (location.hash.indexOf('#project=') === 0 || location.hash.indexOf('#design=') === 0)) return;   // a lightbox owns the URL
     const id = idFromPath(location.pathname);
     if (id) scrollToId(id);
   });
@@ -169,7 +169,7 @@
     pathTick = true;
     requestAnimationFrame(() => {
       pathTick = false;
-      if (location.hash.indexOf('#project=') === 0) return;
+      if (location.hash && (location.hash.indexOf('#project=') === 0 || location.hash.indexOf('#design=') === 0)) return;
       const mark = window.innerHeight * 0.4;
       let winner = sections[0];
       for (const s of sections) { if (s.getBoundingClientRect().top <= mark) winner = s; }
@@ -181,7 +181,9 @@
   const loadId = idFromPath(location.pathname);
   if (loadId && loadId !== 'hero') {
     window.addEventListener('load', () => { setTimeout(() => scrollToId(loadId, 'auto'), 60); });
-  } else if (location.hash) {
+  } else if (location.hash &&
+             location.hash.indexOf('#project=') !== 0 &&
+             location.hash.indexOf('#design=') !== 0) {
     history.replaceState(null, '', location.pathname + location.search);
   }
 

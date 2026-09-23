@@ -342,6 +342,48 @@
 /* On touch/mobile the close button is replaced by swipe-up/down to dismiss */
 @media (hover: none) { .gd-lb__close { display: none; } }
 
+/* Share button — top-left, mirrors the close button; stays on touch too */
+.gd-lb__share {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  z-index: 6;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.gd-lb__share svg { width: 16px; height: 16px; }
+.gd-lb__share:hover { background: rgba(65, 189, 254, 0.35); transform: translateY(-1px); }
+@media (max-width: 640px) { .gd-lb__share { top: -6px; left: 0; } }
+
+/* Toast (share feedback) */
+.gd-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 104px);
+  transform: translateX(-50%) translateY(10px);
+  z-index: 100000;
+  background: rgba(18, 18, 24, 0.96);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.gd-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
 /* Stage — the image carousel */
 .gd-lb__stage {
   position: relative;

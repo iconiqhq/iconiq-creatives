@@ -6,11 +6,54 @@
   'use strict';
 
   let lbEl = null;
-  const lb = { images: [], idx: 0 };
+  const lb = { images: [], idx: 0, id: '', title: '' };
+  let allProjects = [];          // set in init(), used by deep-link handlers
+  let preLbHash = '';            // hash before the lightbox opened (to restore on close)
 
   function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ── Share the current project via its own deep link ─────────────
+     Native share sheet where available, else copy the link + toast.
+     The shareable URL is /graphic-design#design=<id>. */
+  function designURL(id) {
+    return location.origin + '/graphic-design#design=' + encodeURIComponent(id);
+  }
+  let toastEl, toastTimer;
+  function showToast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'gd-toast';
+      toastEl.setAttribute('role', 'status');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).then(() => true, () => false);
+    }
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.top = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy'); document.body.removeChild(ta);
+      return Promise.resolve(ok);
+    } catch (e) { return Promise.resolve(false); }
+  }
+  function shareCurrent() {
+    if (!lb.id) return;
+    const url = designURL(lb.id);
+    if (navigator.share) {
+      navigator.share({ title: 'Iconiq Creatives — ' + (lb.title || 'Design'), url: url }).catch(() => {});
+      return;
+    }
+    copyText(url).then(ok => showToast(ok ? 'Link copied' : 'Couldn’t copy — check the address bar'));
   }
 
   /* ── Masonry grid of covers ─────────────────────────── */
@@ -49,6 +92,9 @@
     el.innerHTML =
       '<div class="gd-lb__backdrop" data-close></div>' +
       '<div class="gd-lb__panel" role="document">' +
+        '<button class="gd-lb__share" type="button" aria-label="Share this project">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>' +
+        '</button>' +
         '<button class="gd-lb__close" type="button" aria-label="Close">&times;</button>' +
         '<div class="gd-lb__stage">' +
           '<div class="gd-lb__track"></div>' +
@@ -60,6 +106,7 @@
     document.body.appendChild(el);
 
     el.querySelector('.gd-lb__close').addEventListener('click', () => closeLightbox());
+    el.querySelector('.gd-lb__share').addEventListener('click', shareCurrent);
     el.querySelector('.gd-lb__backdrop').addEventListener('click', () => closeLightbox());
     el.querySelector('.gd-lb__prev').addEventListener('click', () => goTo(lb.idx - 1));
     el.querySelector('.gd-lb__next').addEventListener('click', () => goTo(lb.idx + 1));
@@ -73,13 +120,21 @@
     return el;
   }
 
-  function openLightbox(project) {
+  function openLightbox(project, fromHistory) {
     if (!lbEl) lbEl = buildShell();
     const track = lbEl.querySelector('.gd-lb__track');
     const dots = lbEl.querySelector('.gd-lb__dots');
     lbEl.setAttribute('aria-label', (project.title || 'Design') + ' preview');
     lb.images = project.images || [];
     lb.idx = 0;
+    lb.id = project.id || '';
+    lb.title = project.title || '';
+
+    /* Give the open project a shareable/deep-linkable URL (#design=<id>). */
+    if (!fromHistory && lb.id) {
+      preLbHash = location.hash;
+      history.pushState({ gdDesign: lb.id }, '', '#design=' + encodeURIComponent(lb.id));
+    }
 
     track.innerHTML = lb.images.map((src, i) =>
       '<div class="gd-lb__slide"><img src="' + src + '" alt="' + esc(project.title) + ' — ' + (i + 1) + '"' +
@@ -95,10 +150,15 @@
     requestAnimationFrame(() => { setX(0, false); syncNav(); });
   }
 
-  function closeLightbox() {
+  function closeLightbox(fromHistory) {
     if (lbEl) lbEl.hidden = true;
     document.body.classList.remove('gd-lb-open');
     resetPanel(false);
+    lb.id = '';
+    /* Restore the address bar to what it was before opening (drop #design=). */
+    if (!fromHistory && location.hash.indexOf('#design=') === 0) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
   }
 
   function step() { return lbEl.querySelector('.gd-lb__stage').clientWidth; }
@@ -202,13 +262,36 @@
     window.addEventListener('resize', () => { if (lbEl && !lbEl.hidden) setX(-lb.idx * step(), false); });
   }
 
+  function projectFromHash() {
+    const m = location.hash.match(/^#design=(.+)$/);
+    if (!m) return null;
+    const id = decodeURIComponent(m[1]);
+    return allProjects.find(p => String(p.id) === id) || null;
+  }
+
+  /* Back/forward + shared links: keep the lightbox in sync with the URL. */
+  window.addEventListener('popstate', () => {
+    const proj = projectFromHash();
+    if (proj) {
+      if (!lbEl || lbEl.hidden || lb.id !== String(proj.id)) openLightbox(proj, true);
+    } else if (lbEl && !lbEl.hidden) {
+      closeLightbox(true);
+    }
+  });
+
   /* ── Init ───────────────────────────────────────────── */
   async function init() {
     if (!window.PortfolioData) return;
     let data;
     try { data = await window.PortfolioData.loadDesign(); } catch (e) { return; }
     const projects = (data && data.projects) || [];
-    if (projects.length) buildGrid(projects);
+    if (!projects.length) return;
+    allProjects = projects;
+    buildGrid(projects);
+
+    /* Deep link: opened with #design=<id> → open that project. */
+    const proj = projectFromHash();
+    if (proj) openLightbox(proj, true);
   }
   document.addEventListener('DOMContentLoaded', init);
 })();
