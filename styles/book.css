@@ -1,0 +1,188 @@
+/* ═══════════════════════════════════════════════════════
+   BOOK.CSS — Section 06 (Iconiq Creatives)
+   Cal.com online consultation · Dark card · Brand gradient
+═══════════════════════════════════════════════════════ */
+
+.book-section {
+  background: #060606;
+  position: relative;
+  padding: clamp(80px, 12vw, 130px) 0 clamp(70px, 9vw, 110px);
+  overflow: hidden;
+}
+
+.book-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -6%;
+  width: 48%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(225, 17, 251, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.book-section::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  left: -6%;
+  width: 46%;
+  height: 55%;
+  background: radial-gradient(ellipse at center, rgba(65, 189, 254, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.book-bg-num {
+  position: absolute;
+  top: clamp(16px, 3vw, 48px);
+  left: clamp(12px, 4vw, 64px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(100px, 18vw, 220px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.book-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto clamp(40px, 6vw, 60px);
+  position: relative;
+  z-index: 1;
+}
+
+.book-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: clamp(14px, 2vw, 20px);
+}
+.book-section-label::before,
+.book-section-label::after {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--gradient-brand-h);
+  display: block;
+}
+
+.book-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin-bottom: clamp(12px, 1.6vw, 18px);
+}
+
+.book-sub {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-sm), 1.4vw, var(--text-base));
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.book-grid {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  text-align: left;
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  padding: clamp(26px, 3.4vw, 34px);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: transform var(--t-base), box-shadow var(--t-base), border-color var(--t-base), background var(--t-base);
+}
+
+@media (hover: hover) {
+  .book-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(65, 189, 254, 0.5);
+    background: rgba(65, 189, 254, 0.05);
+    box-shadow: 0 24px 50px -26px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(65, 189, 254, 0.28);
+  }
+}
+.book-card:active { transform: scale(0.99); transition-duration: 0.1s; }
+.book-card:focus-visible {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(65, 189, 254, 0.35);
+}
+
+.book-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-brand);
+  color: #05060a;
+  flex-shrink: 0;
+}
+.book-icon svg { width: 26px; height: 26px; }
+
+.book-card-body { display: flex; flex-direction: column; gap: 7px; }
+.book-card-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+}
+.book-card-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.book-card-cta {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+.book-card-cta svg { width: 14px; height: 14px; transition: transform var(--t-base); }
+.book-card:hover .book-card-cta svg { transform: translateX(4px); }
+
+@media (max-width: 480px) {
+  .book-card { padding: 24px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-card { transition: none; }
+  .book-card-cta svg { transition: none; }
+}

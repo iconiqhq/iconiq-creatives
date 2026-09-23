@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="styles/social-media.css?v=33">
   <link rel="stylesheet" href="styles/graphic-design.css?v=10">
   <link rel="stylesheet" href="styles/video-editing.css?v=35">
+  <link rel="stylesheet" href="styles/book.css?v=1">
   <link rel="stylesheet" href="styles/contact.css?v=1">
   <link rel="stylesheet" href="styles/footer.css?v=6">
 
@@ -391,11 +392,50 @@
 
 
   <!-- ═══════════════════════════════════════
-       SECTION 06 — CONTACT
+       SECTION 06 — BOOK (Cal.com online consultation)
+  ═══════════════════════════════════════ -->
+  <section id="book" class="book-section" aria-labelledby="book-heading">
+
+    <span class="book-bg-num" aria-hidden="true">06</span>
+
+    <div class="container">
+
+      <div class="book-header" data-reveal>
+        <span class="book-section-label">Book a Consultation</span>
+        <h2 class="book-heading" id="book-heading">Let's Talk It Through</h2>
+        <p class="book-sub">Pick a time that works for you — a free online consultation over video call. You'll get an instant confirmation, plus a reminder before we meet.</p>
+      </div>
+
+      <div class="book-grid" data-reveal="scale" data-delay="150">
+
+        <button type="button" class="book-card"
+                data-cal-link="iconiqcreatives/30min"
+                data-cal-config='{"layout":"month_view"}'
+                aria-label="Book an online consultation over video call">
+          <span class="book-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m23 7-7 5 7 5V7Z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </span>
+          <span class="book-card-body">
+            <span class="book-card-title">Online Consultation</span>
+            <span class="book-card-desc">Meet online over video call at your chosen date and time.</span>
+          </span>
+          <span class="book-card-cta">Pick a time
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 07 — CONTACT
   ═══════════════════════════════════════ -->
   <section id="contact" class="contact-section" aria-label="Contact">
 
-    <span class="ct-bg-num" aria-hidden="true">06</span>
+    <span class="ct-bg-num" aria-hidden="true">07</span>
 
     <div class="container">
 
@@ -476,7 +516,7 @@
 
 
   <!-- ═══════════════════════════════════════
-       SECTION 07 — FOOTER
+       SECTION 08 — FOOTER
   ═══════════════════════════════════════ -->
   <footer id="footer" class="footer-section" aria-label="Footer">
 
@@ -537,6 +577,13 @@
   <script src="scripts/graphic-design.js?v=6"></script>
   <script src="scripts/video-editing.js?v=20"></script>
   <script src="scripts/main.js?v=4"></script>
+
+  <!-- Cal.com embed — powers the "Book a Consultation" popup (button uses data-cal-link) -->
+  <script>
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", { origin: "https://cal.com" });
+    Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+  </script>
 
 </body>
 </html>
