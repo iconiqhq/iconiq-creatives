@@ -147,6 +147,40 @@
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
+/* Name input */
+.careers-name {
+  width: 100%;
+  max-width: 340px;
+  height: 50px;
+  padding: 0 18px;
+  margin: 0 auto clamp(16px, 2.4vw, 22px);
+  display: block;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  text-align: center;
+  transition: background var(--t-base), border-color var(--t-base);
+}
+.careers-name::placeholder { color: rgba(255, 255, 255, 0.7); }
+.careers-name:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+
+/* Validation note */
+.careers-note {
+  min-height: 1.2em;
+  margin-top: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #ffffff;
+}
+
 /* Solid white CTA — maximum contrast on the gradient */
 .careers-cta {
   display: inline-flex;
@@ -171,6 +205,13 @@
   box-shadow: 0 20px 50px -14px rgba(5, 6, 12, 0.6);
 }
 .careers-cta:hover svg { transform: translateX(4px); }
+
+/* Not ready to send yet (no role / no name) */
+.careers-cta.is-disabled {
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .careers-kicker::before { animation: none; }

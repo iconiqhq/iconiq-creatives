@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="styles/video-editing.css?v=35">
   <link rel="stylesheet" href="styles/book.css?v=4">
   <link rel="stylesheet" href="styles/contact.css?v=1">
-  <link rel="stylesheet" href="styles/careers.css?v=2">
+  <link rel="stylesheet" href="styles/careers.css?v=3">
   <link rel="stylesheet" href="styles/footer.css?v=7">
 
   <!-- Chart.js -->
@@ -553,10 +553,14 @@
           <button type="button" class="careers-role" data-role="Website Design" aria-pressed="false">Website Design</button>
         </div>
 
-        <a class="careers-cta" id="careers-apply" href="mailto:iconiqcreatives@gmail.com?subject=Careers%20Application">
+        <input type="text" id="careers-name" class="careers-name" placeholder="Your name" aria-label="Your name" autocomplete="name">
+
+        <a class="careers-cta is-disabled" id="careers-apply" aria-disabled="true" href="mailto:iconiqcreatives@gmail.com?subject=Careers%20Application">
           Send Your Portfolio
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
         </a>
+
+        <p class="careers-note" id="careers-note" role="alert" aria-live="polite"></p>
 
       </div>
     </div>
@@ -626,7 +630,7 @@
   <script src="scripts/graphic-design.js?v=6"></script>
   <script src="scripts/video-editing.js?v=20"></script>
   <script src="scripts/main.js?v=4"></script>
-  <script src="scripts/careers.js?v=1"></script>
+  <script src="scripts/careers.js?v=2"></script>
 
   <!-- Cal.com embed — powers the "Book a Consultation" popup (button uses data-cal-link) -->
   <script>
