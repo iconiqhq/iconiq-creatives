@@ -127,15 +127,65 @@
     card.style.setProperty('--webd-scroll-dur', dur + 's');
   }
 
+  /* Map the phone's scroll fraction (steady) to the desktop's fraction via the
+     site's syncPoints, so the desktop slows on sections that run longer on
+     mobile. Falls back to 1:1 (linear) when no points are given. */
+  function desktopFrac(card, p) {
+    const pts = card.__sync;
+    if (!pts || pts.length < 2) return p;
+    for (let i = 1; i < pts.length; i++) {
+      if (p <= pts[i][0]) {
+        const a = pts[i - 1], b = pts[i];
+        const span = (b[0] - a[0]) || 1;
+        return a[1] + (b[1] - a[1]) * ((p - a[0]) / span);
+      }
+    }
+    return 1;
+  }
+
+  /* Hover scroll driven by rAF (not a CSS transition) so the two previews stay
+     locked frame-by-frame. The phone is the steady driver; the desktop follows
+     the mapping. On leave it eases back to the top a few times faster. */
+  function bindScroller(card) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const shot = card.querySelector('.webd-shot');
+    const mshot = card.querySelector('.webd-mshot');
+    let raf = null, dir = 0, prog = 0, last = 0;
+
+    function apply() {
+      const travel = parseFloat(getComputedStyle(card).getPropertyValue('--webd-travel')) || 0;
+      const mtravel = parseFloat(getComputedStyle(card).getPropertyValue('--webd-mtravel')) || 0;
+      if (shot) shot.style.transform = 'translateY(' + (-travel * desktopFrac(card, prog)) + 'px)';
+      if (mshot) mshot.style.transform = 'translateY(' + (-mtravel * prog) + 'px)';
+    }
+    function tick(now) {
+      const dt = (now - last) / 1000; last = now;
+      const dur = parseFloat(getComputedStyle(card).getPropertyValue('--webd-scroll-dur')) || 18;
+      prog += dir * dt / (dir > 0 ? dur : dur / 3.5);   // return ~3.5x faster
+      if (prog > 1) prog = 1; else if (prog < 0) prog = 0;
+      apply();
+      if ((dir > 0 && prog < 1) || (dir < 0 && prog > 0)) raf = requestAnimationFrame(tick);
+      else raf = null;
+    }
+    function run(d) { dir = d; last = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+    card.addEventListener('mouseenter', () => run(1));
+    card.addEventListener('mouseleave', () => run(-1));
+    card.addEventListener('focusin', () => run(1));
+    card.addEventListener('focusout', () => run(-1));
+  }
+
   function buildGrid(sites) {
     const grid = document.getElementById('webd-grid');
     if (!grid) return;
     grid.innerHTML = sites.map(cardHTML).join('');
-    grid.querySelectorAll('.webd-card').forEach((el, i) => {
+    const cards = grid.querySelectorAll('.webd-card');
+    cards.forEach((el, i) => {
       el.style.setProperty('--webd-delay', (i % 2) * 80 + 'ms');
+      el.__sync = (sites[i] && sites[i].syncPoints) || null;
+      bindScroller(el);
     });
 
-    grid.querySelectorAll('.webd-card').forEach(card => {
+    cards.forEach(card => {
       const shot = card.querySelector('.webd-shot');
       const mshot = card.querySelector('.webd-mshot');
       const onShot = () => { card.classList.add('is-live'); measureCard(card); };
@@ -147,10 +197,10 @@
     let raf = null;
     window.addEventListener('resize', () => {
       if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => grid.querySelectorAll('.webd-card').forEach(measureCard));
+      raf = requestAnimationFrame(() => cards.forEach(measureCard));
     });
 
-    reveal(grid.querySelectorAll('.webd-card'));
+    reveal(cards);
   }
 
   async function init() {

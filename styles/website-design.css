@@ -232,14 +232,11 @@
   display: block;
   z-index: 2;
   opacity: 0;
-  transform: translateY(0);
-  transition: transform 0.9s var(--ease-out-quart);
+  transform: translateY(0);            /* transform is driven by JS (rAF) */
+  transition: opacity 0.5s ease;
   pointer-events: none;
 }
-.webd-card.is-live .webd-shot {
-  opacity: 1;
-  transition: transform 0.9s var(--ease-out-quart), opacity 0.5s ease;
-}
+.webd-card.is-live .webd-shot { opacity: 1; }
 
 /* Hover "Visit site" chip — small, so the scrolling site stays visible */
 .webd-card__visit {
@@ -321,8 +318,7 @@
   width: 100%;
   height: auto;
   display: block;
-  transform: translateY(0);
-  transition: transform 0.9s var(--ease-out-quart);
+  transform: translateY(0);            /* transform is driven by JS (rAF) */
 }
 .webd-phone__island {
   position: absolute;
@@ -355,19 +351,7 @@
       0 0 36px -8px color-mix(in srgb, var(--webd-accent) 40%, transparent);
   }
 
-  /* The scroll: slide the full-page shot up to its bottom, steady speed. */
-  .webd-card:hover .webd-shot,
-  .webd-card:focus-within .webd-shot {
-    transform: translateY(calc(-1 * var(--webd-travel, 0px)));
-    transition: transform var(--webd-scroll-dur, 6s) linear;
-  }
-
-  /* The phone scrolls at the same time. */
-  .webd-card:hover .webd-mshot,
-  .webd-card:focus-within .webd-mshot {
-    transform: translateY(calc(-1 * var(--webd-mtravel, 0px)));
-    transition: transform var(--webd-scroll-dur, 6s) linear;
-  }
+  /* The desktop + phone scroll is driven by JS (rAF) so they stay content-locked. */
 
   .webd-card:hover .webd-card__visit,
   .webd-card:focus-within .webd-card__visit {
