@@ -49,6 +49,14 @@
   margin-bottom: var(--sp-3);
 }
 
+/* Wordmark image — same logo as the hero so both read identically. */
+.footer-logo {
+  display: block;
+  width: clamp(150px, 22vw, 200px);
+  height: auto;
+  margin-bottom: var(--sp-4);
+}
+
 .footer-name-line {
   display: block;
   position: relative;
