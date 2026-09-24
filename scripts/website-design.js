@@ -147,7 +147,7 @@
 
   /* Hover scroll driven by rAF (not a CSS transition) so the two previews stay
      locked frame-by-frame. The phone is the steady driver; the desktop follows
-     the mapping. On leave it eases back to the top a few times faster. */
+     the mapping. On leave it snaps straight back to the top (home view). */
   function bindScroller(card) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const shot = card.querySelector('.webd-shot');
@@ -170,10 +170,12 @@
       else raf = null;
     }
     function run(d) { dir = d; last = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+    /* On leave, snap straight back to the top (home view) — no scroll-back. */
+    function reset() { dir = 0; if (raf) { cancelAnimationFrame(raf); raf = null; } prog = 0; apply(); }
     card.addEventListener('mouseenter', () => run(1));
-    card.addEventListener('mouseleave', () => run(-1));
+    card.addEventListener('mouseleave', reset);
     card.addEventListener('focusin', () => run(1));
-    card.addEventListener('focusout', () => run(-1));
+    card.addEventListener('focusout', reset);
   }
 
   function buildGrid(sites) {
