@@ -122,8 +122,10 @@
       card.style.setProperty('--webd-mtravel', mtravel + 'px');
     }
     /* One duration drives BOTH previews so they start and finish together
-       (in sync). Slower pace so the desktop doesn't outrun the phone. */
-    const dur = Math.min(26, Math.max(9, travel / 90));
+       (in sync). Pace it off whichever preview travels farthest and hold a
+       calm, roughly constant speed (~70px/s) so tall pages don't race by. */
+    const drive = Math.max(travel, mtravel);
+    const dur = Math.min(44, Math.max(14, drive / 70));
     card.style.setProperty('--webd-scroll-dur', dur + 's');
   }
 
@@ -161,7 +163,7 @@
     function tick(now) {
       const dt = (now - last) / 1000; last = now;
       const dur = parseFloat(getComputedStyle(card).getPropertyValue('--webd-scroll-dur')) || 18;
-      prog += dir * dt / (dir > 0 ? dur : dur / 1.5);   // ease back up a touch faster, not a snap
+      prog += dir * dt / (dir > 0 ? dur : dur / 1.8);   // rewind a bit faster than it plays, still smooth
       if (prog > 1) prog = 1; else if (prog < 0) prog = 0;
       apply();
       if ((dir > 0 && prog < 1) || (dir < 0 && prog > 0)) raf = requestAnimationFrame(tick);
