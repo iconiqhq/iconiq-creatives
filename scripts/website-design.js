@@ -161,7 +161,7 @@
     function tick(now) {
       const dt = (now - last) / 1000; last = now;
       const dur = parseFloat(getComputedStyle(card).getPropertyValue('--webd-scroll-dur')) || 18;
-      prog += dir * dt / (dir > 0 ? dur : dur / 3.5);   // return ~3.5x faster
+      prog += dir * dt / (dir > 0 ? dur : dur / 1.5);   // ease back up a touch faster, not a snap
       if (prog > 1) prog = 1; else if (prog < 0) prog = 0;
       apply();
       if ((dir > 0 && prog < 1) || (dir < 0 && prog > 0)) raf = requestAnimationFrame(tick);
