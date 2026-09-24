@@ -6,9 +6,9 @@
       "name": "Salmo Construction Services",
       "category": "Construction · Company Website",
       "url": "https://salmoconstruction.com",
-      "thumb": "assets/images/websites/salmo-construction.webp?v=4",
-      "mobileThumb": "assets/images/websites/salmo-construction-mobile.webp?v=2",
-      "syncPoints": [[0, 0], [0.28, 0.12], [0.47, 0.29], [0.56, 0.39], [0.73, 0.50], [1, 1]],
+      "thumb": "assets/images/websites/salmo-construction.webp?v=5",
+      "mobileThumb": "assets/images/websites/salmo-construction-mobile.webp?v=3",
+      "syncPoints": [[0, 0], [0.114, 0.109], [0.223, 0.245], [0.367, 0.311], [0.479, 0.464], [0.563, 0.595], [0.688, 0.691], [0.86, 0.801], [1, 1]],
       "accent": "#41BDFE"
     },
     {
@@ -17,8 +17,8 @@
       "category": "Construction · Company Website",
       "url": "https://artsons-website.vercel.app/",
       "thumb": "assets/images/websites/artsons.webp?v=2",
-      "mobileThumb": "assets/images/websites/artsons-mobile.webp?v=1",
-      "syncPoints": [[0, 0], [0.28, 0.12], [0.47, 0.29], [0.56, 0.39], [0.73, 0.50], [1, 1]],
+      "mobileThumb": "assets/images/websites/artsons-mobile.webp?v=2",
+      "syncPoints": [[0, 0], [0.138, 0.135], [0.239, 0.224], [0.432, 0.417], [0.556, 0.521], [0.676, 0.63], [0.761, 0.708], [0.887, 0.797], [0.926, 0.885], [1, 1]],
       "accent": "#E111FB"
     }
   ]
