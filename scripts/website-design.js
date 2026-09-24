@@ -163,7 +163,7 @@
     function tick(now) {
       const dt = (now - last) / 1000; last = now;
       const dur = parseFloat(getComputedStyle(card).getPropertyValue('--webd-scroll-dur')) || 18;
-      prog += dir * dt / (dir > 0 ? dur : dur / 1.8);   // rewind a bit faster than it plays, still smooth
+      prog += dir * dt / dur;   // rewind eases back at the same calm speed it scrolled — no fast snap to top
       if (prog > 1) prog = 1; else if (prog < 0) prog = 0;
       apply();
       if ((dir > 0 && prog < 1) || (dir < 0 && prog > 0)) raf = requestAnimationFrame(tick);
