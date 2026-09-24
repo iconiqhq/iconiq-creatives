@@ -1,13 +1,6 @@
 {
-  "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/web-design", "destination": "/index.html" },
-    { "source": "/social-media", "destination": "/index.html" },
-    { "source": "/graphic-design", "destination": "/index.html" },
-    { "source": "/video-editing", "destination": "/index.html" },
-    { "source": "/book", "destination": "/index.html" },
-    { "source": "/contact", "destination": "/index.html" },
-    { "source": "/careers", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
