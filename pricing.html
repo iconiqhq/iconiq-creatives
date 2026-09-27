@@ -15,7 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles/main.css?v=3">
-  <link rel="stylesheet" href="styles/pricing.css?v=2">
+  <link rel="stylesheet" href="styles/nav.css?v=6">
+  <link rel="stylesheet" href="styles/pricing.css?v=4">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -42,7 +43,7 @@
     </section>
 
     <!-- Web design (featured) -->
-    <section class="pr-section">
+    <section class="pr-section" id="sec-web">
       <div class="pr-section-head pr-reveal">
         <span class="pr-section-num">01</span>
         <h2 class="pr-section-title">Web design</h2>
@@ -68,7 +69,7 @@
     </section>
 
     <!-- À la carte rates -->
-    <section class="pr-section">
+    <section class="pr-section" id="sec-rates">
       <div class="pr-section-head pr-reveal">
         <span class="pr-section-num">02</span>
         <h2 class="pr-section-title">Per-project rates</h2>
@@ -107,7 +108,7 @@
     </section>
 
     <!-- Social media packages -->
-    <section class="pr-section">
+    <section class="pr-section" id="sec-social">
       <div class="pr-section-head pr-reveal">
         <span class="pr-section-num">03</span>
         <h2 class="pr-section-title">Social media management</h2>
@@ -160,19 +161,61 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
           </a>
         </div>
+
+        <!-- Custom -->
+        <div class="pr-plan pr-reveal">
+          <h3 class="pr-plan-name">Custom</h3>
+          <p class="pr-plan-desc">Something bigger or different? We'll shape a plan around your brand.</p>
+          <div class="pr-plan-price">
+            <span class="pr-plan-amount">Let's talk</span>
+          </div>
+          <div class="pr-plan-divider"></div>
+          <ul class="pr-features">
+            <li class="pr-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Tailored platform mix</li>
+            <li class="pr-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Custom deliverables &amp; volume</li>
+            <li class="pr-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Dedicated strategy &amp; support</li>
+            <li class="pr-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Flexible scope, ads &amp; reporting</li>
+          </ul>
+          <a class="pr-plan-cta pr-plan-cta--ghost" href="/book">Book a meeting
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
       </div>
       <p class="pr-note">Every brand is different — packages are tailored to your goals after a quick consultation.</p>
     </section>
 
     <!-- Payment -->
-    <section class="pr-section">
+    <section class="pr-section" id="sec-pay">
       <div class="pr-section-head pr-reveal">
         <span class="pr-section-num">04</span>
         <h2 class="pr-section-title">Payment methods</h2>
       </div>
       <div class="pr-pay">
         <div class="pr-pay-card pr-reveal">
-          <p class="pr-pay-label">GoTyme</p>
+          <p class="pr-pay-label">GoTyme &middot; InstaPay</p>
+
+          <figure class="pr-qr">
+            <span class="pr-qr-tile">
+              <img class="pr-qr-img" src="assets/images/pay/gotyme-qr.png?v=1"
+                   alt="GoTyme InstaPay QR — Philip Joshua Lescano"
+                   loading="lazy" decoding="async"
+                   onerror="this.closest('.pr-pay-card').classList.add('qr-off')">
+            </span>
+            <figcaption class="pr-qr-cap">Scan with any InstaPay-enabled app to pay.</figcaption>
+          </figure>
+
+          <div class="pr-qr-actions">
+            <a class="pr-qr-btn pr-qr-btn--primary" id="pr-qr-save"
+               href="assets/images/pay/gotyme-qr.png?v=1" download="iconiq-gotyme-qr.png">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+              Save
+            </a>
+            <button class="pr-qr-btn" id="pr-qr-share" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5L8.6 10.5"/></svg>
+              Share
+            </button>
+          </div>
+
           <div class="pr-pay-row">
             <span class="pr-pay-key">Account number</span><br>
             <span class="pr-pay-val">0187 1527 5471</span>
@@ -209,6 +252,30 @@
 
   </div>
 
+  <!-- Liquid glass pill nav — pricing sections -->
+  <nav class="site-nav" id="pr-nav" aria-label="Pricing sections">
+    <div class="nav-pill">
+      <a href="#sec-web" class="nav-item" data-target="sec-web" aria-label="Web design">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 8h20"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+        <span class="nav-label">Web</span>
+      </a>
+      <a href="#sec-rates" class="nav-item" data-target="sec-rates" aria-label="Per-project rates">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4L12 22l-9-9V4a1 1 0 0 1 1-1h9l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        <span class="nav-label">Rates</span>
+      </a>
+      <a href="#sec-social" class="nav-item" data-target="sec-social" aria-label="Social media">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        <span class="nav-label">Social</span>
+      </a>
+      <a href="#sec-pay" class="nav-item" data-target="sec-pay" aria-label="Payment">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <span class="nav-label">Pay</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pr-toast" id="pr-toast" role="status" aria-live="polite"></div>
+
   <script>
     document.getElementById('pr-year').textContent = new Date().getFullYear();
     (function () {
@@ -218,6 +285,74 @@
         es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); } });
       }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
       els.forEach(function (e) { o.observe(e); });
+    })();
+
+    /* ── Liquid nav: smooth scroll, active highlight, compact on scroll ── */
+    (function () {
+      var nav = document.getElementById('pr-nav');
+      var items = Array.prototype.slice.call(nav.querySelectorAll('.nav-item'));
+      var secs = items.map(function (i) { return document.getElementById(i.dataset.target); });
+
+      items.forEach(function (item) {
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          var t = document.getElementById(item.dataset.target);
+          if (!t) return;
+          var top = t.getBoundingClientRect().top + window.scrollY - 24;
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        });
+      });
+
+      function setActive(id) {
+        items.forEach(function (i) { i.classList.toggle('nav-active', i.dataset.target === id); });
+      }
+
+      var lastY = window.scrollY, ticking = false;
+      function onScroll() {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(function () {
+          var y = window.scrollY;
+          if (y > lastY && y > 60) nav.classList.add('nav-compact');
+          else if (y < lastY) nav.classList.remove('nav-compact');
+          var mid = window.innerHeight * 0.45, winner = secs[0], winId = items[0].dataset.target;
+          for (var k = 0; k < secs.length; k++) {
+            if (secs[k] && secs[k].getBoundingClientRect().top <= mid) { winner = secs[k]; winId = items[k].dataset.target; }
+          }
+          setActive(winId);
+          lastY = y; ticking = false;
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    /* ── QR share ── */
+    (function () {
+      var btn = document.getElementById('pr-qr-share');
+      if (!btn) return;
+      var toast = document.getElementById('pr-toast'), tt;
+      function showToast(msg) {
+        toast.textContent = msg; toast.classList.add('show');
+        clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+      }
+      var url = 'assets/images/pay/gotyme-qr.png?v=1';
+      var abs = new URL(url, location.href).href;
+      btn.addEventListener('click', async function () {
+        try {
+          var res = await fetch(url);
+          var blob = await res.blob();
+          var file = new File([blob], 'iconiq-gotyme-qr.png', { type: blob.type || 'image/png' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: 'Iconiq Creatives — GoTyme QR', text: 'Pay Iconiq Creatives via GoTyme InstaPay.' });
+            return;
+          }
+        } catch (e) { /* fall through */ }
+        try {
+          if (navigator.share) { await navigator.share({ title: 'Iconiq Creatives — GoTyme QR', text: 'Pay Iconiq Creatives via GoTyme InstaPay.', url: abs }); return; }
+          await navigator.clipboard.writeText(abs);
+          showToast('QR link copied to clipboard');
+        } catch (e) { /* user cancelled */ }
+      });
     })();
   </script>
 </body>
