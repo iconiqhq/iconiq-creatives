@@ -180,6 +180,22 @@
   box-shadow: 0 30px 66px -30px rgba(0, 0, 0, 0.85),
               0 0 56px -16px rgba(65, 189, 254, 0.3);
 }
+.pr-web + .pr-web { margin-top: clamp(14px, 2vw, 20px); }
+/* Custom web build — plainer card so the priced one leads */
+.pr-web--custom {
+  background: rgba(255, 255, 255, 0.028);
+}
+.pr-web--custom::before { background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), transparent 55%); }
+.pr-web--custom:hover {
+  box-shadow: 0 30px 66px -30px rgba(0, 0, 0, 0.85),
+              0 0 56px -16px rgba(225, 17, 251, 0.28);
+}
+.pr-web--custom .pr-web-amount {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--color-white);
+}
+.pr-web--custom .pr-card-icon { background: rgba(225, 17, 251, 0.12); color: var(--color-pink); }
 .pr-web-info { max-width: 580px; }
 .pr-web-title {
   font-family: var(--font-brand);
@@ -421,11 +437,12 @@
 
 .pr-plan-cta {
   margin-top: auto;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
   height: 50px;
+  padding: 0 22px;
   border-radius: var(--radius-full);
   font-family: var(--font-display);
   font-weight: 600;
@@ -433,6 +450,9 @@
   text-decoration: none;
   transition: transform var(--t-base), box-shadow var(--t-base), background var(--t-base), color var(--t-base), border-color var(--t-base);
 }
+/* Plan-card buttons span the card; web-card button hugs its content */
+.pr-plan > .pr-plan-cta { width: 100%; }
+.pr-web .pr-plan-cta { display: inline-flex; }
 .pr-plan-cta--ghost {
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: var(--color-white);
