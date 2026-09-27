@@ -147,6 +147,77 @@
   letter-spacing: -0.02em;
 }
 
+/* ── Web design — featured full-width offer ──────────── */
+.pr-web {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(22px, 4vw, 48px);
+  border: 1px solid transparent;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(120deg, rgba(65, 189, 254, 0.08), rgba(225, 17, 251, 0.08)),
+    rgba(255, 255, 255, 0.02);
+  padding: clamp(24px, 3.4vw, 42px);
+  overflow: hidden;
+  transition: transform var(--t-base), box-shadow var(--t-base);
+}
+.pr-web::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--gradient-brand);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.pr-web:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 66px -30px rgba(0, 0, 0, 0.85),
+              0 0 56px -16px rgba(65, 189, 254, 0.3);
+}
+.pr-web-info { max-width: 580px; }
+.pr-web-title {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+  letter-spacing: -0.02em;
+  margin: 16px 0 8px;
+}
+.pr-web-desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.55; }
+.pr-web-buy { flex-shrink: 0; text-align: right; }
+.pr-web-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.pr-web-amount {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pr-web .pr-plan-cta { display: inline-flex; }
+
+@media (max-width: 720px) {
+  .pr-web { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .pr-web-buy { text-align: left; width: 100%; }
+  .pr-web-price { justify-content: flex-start; }
+  .pr-web .pr-plan-cta { width: 100%; }
+}
+
 /* ── À la carte rate cards ───────────────────────────── */
 .pr-rates {
   display: grid;
