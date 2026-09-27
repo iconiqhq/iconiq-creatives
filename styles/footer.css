@@ -267,6 +267,21 @@
   color: var(--color-text-faint);
 }
 
+.footer-links {
+  display: flex;
+  gap: var(--sp-4);
+}
+.footer-link {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--t-base);
+}
+.footer-link:hover { color: var(--color-blue); }
+
 /* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
   .footer-main {
