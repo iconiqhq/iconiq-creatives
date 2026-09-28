@@ -16,7 +16,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=8">
+  <link rel="stylesheet" href="styles/pricing.css?v=9">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -204,13 +204,46 @@
           </div>
 
           <figure class="pr-qr">
-            <button class="pr-qr-trigger" id="pr-qr-trigger" type="button"
-                    aria-haspopup="dialog" aria-controls="pr-qr-modal">
+            <button class="pr-qr-trigger" type="button"
+                    aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                    data-qr-src="assets/images/pay/gotyme-qr.png?v=1"
+                    data-qr-file="iconiq-gotyme-qr.png"
+                    data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
+                    data-qr-label="GoTyme · InstaPay"
+                    data-qr-name="Philip Joshua Lescano"
+                    data-qr-number="0187 1527 5471">
               <span class="pr-qr-glyph" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h.01M20 21h1v-3M21 17v.01"/></svg>
               </span>
               <span class="pr-qr-trigger-text">
                 <span class="pr-qr-trigger-title">Pay in GoTyme</span>
+                <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
+              </span>
+              <span class="pr-qr-trigger-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              </span>
+            </button>
+          </figure>
+        </div>
+        <div class="pr-pay-card pr-reveal">
+          <div class="pr-pay-head">
+            <span class="pr-pay-logo pr-pay-logo--mono" style="--mono:#f26a21" aria-hidden="true">M</span>
+            <p class="pr-pay-label">Maribank &middot; InstaPay</p>
+          </div>
+
+          <figure class="pr-qr">
+            <button class="pr-qr-trigger" type="button"
+                    aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                    data-qr-src="assets/images/pay/maribank-qr.png?v=1"
+                    data-qr-file="iconiq-maribank-qr.png"
+                    data-qr-label="Maribank · InstaPay"
+                    data-qr-name="Philip Joshua Lescano"
+                    data-qr-number="1857 5703 893">
+              <span class="pr-qr-glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h.01M20 21h1v-3M21 17v.01"/></svg>
+              </span>
+              <span class="pr-qr-trigger-text">
+                <span class="pr-qr-trigger-title">Pay in Maribank</span>
                 <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
               </span>
               <span class="pr-qr-trigger-arrow" aria-hidden="true">
@@ -275,33 +308,29 @@
 
   <!-- Centered QR lightbox -->
   <div class="pr-qr-modal" id="pr-qr-modal" role="dialog" aria-modal="true"
-       aria-label="GoTyme InstaPay QR code" hidden>
+       aria-label="Payment QR code" hidden>
     <div class="pr-qr-modal-backdrop" data-qr-close></div>
     <div class="pr-qr-modal-card">
       <button class="pr-qr-modal-close" type="button" data-qr-close aria-label="Close QR">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <span class="pr-pay-logo pr-qr-modal-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank" decoding="async"></span>
-      <p class="pr-qr-modal-label">GoTyme &middot; InstaPay</p>
+      <span class="pr-pay-logo pr-qr-modal-logo" id="pr-qr-modal-logo"><img id="pr-qr-modal-logo-img" src="" alt="" decoding="async"></span>
+      <p class="pr-qr-modal-label" id="pr-qr-modal-label"></p>
       <span class="pr-qr-tile">
-        <img class="pr-qr-img" src="assets/images/pay/gotyme-qr.png?v=1"
-             alt="GoTyme InstaPay QR — Philip Joshua Lescano"
-             decoding="async"
-             onerror="document.querySelector('.pr-pay-card').classList.add('qr-off')">
+        <img class="pr-qr-img" id="pr-qr-modal-img" src="" alt="" decoding="async">
       </span>
       <div class="pr-qr-modal-info">
         <div class="pr-qr-modal-row">
           <span class="pr-qr-modal-key">Account Name</span>
-          <span class="pr-qr-modal-name">Philip Joshua Lescano</span>
+          <span class="pr-qr-modal-name" id="pr-qr-modal-name"></span>
         </div>
         <div class="pr-qr-modal-row">
           <span class="pr-qr-modal-key">Account Number</span>
-          <span class="pr-qr-modal-acct">0187 1527 5471</span>
+          <span class="pr-qr-modal-acct" id="pr-qr-modal-acct"></span>
         </div>
       </div>
       <div class="pr-qr-actions">
-        <a class="pr-qr-btn pr-qr-btn--primary" id="pr-qr-save"
-           href="assets/images/pay/gotyme-qr.png?v=1" download="iconiq-gotyme-qr.png">
+        <a class="pr-qr-btn pr-qr-btn--primary" id="pr-qr-save" href="" download="qr.png">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
           Save
         </a>
@@ -365,16 +394,44 @@
       onScroll();
     })();
 
-    /* ── QR lightbox: hidden until revealed, opens centered ── */
+    /* ── QR lightbox: data-driven, one modal for every payment method ── */
     (function () {
-      var trigger = document.getElementById('pr-qr-trigger');
+      var triggers = document.querySelectorAll('.pr-qr-trigger');
       var modal = document.getElementById('pr-qr-modal');
-      if (!trigger || !modal) return;
-      var closers = modal.querySelectorAll('[data-qr-close]');
-      var lastFocus = null;
+      if (!triggers.length || !modal) return;
 
-      function openModal() {
-        lastFocus = document.activeElement;
+      var logoWrap = document.getElementById('pr-qr-modal-logo');
+      var logoImg = document.getElementById('pr-qr-modal-logo-img');
+      var labelEl = document.getElementById('pr-qr-modal-label');
+      var qrImg = document.getElementById('pr-qr-modal-img');
+      var nameEl = document.getElementById('pr-qr-modal-name');
+      var acctEl = document.getElementById('pr-qr-modal-acct');
+      var saveBtn = document.getElementById('pr-qr-save');
+      var shareBtn = document.getElementById('pr-qr-share');
+      var closers = modal.querySelectorAll('[data-qr-close]');
+      var toast = document.getElementById('pr-toast'), tt;
+      var lastFocus = null, current = {};
+
+      function showToast(msg) {
+        toast.textContent = msg; toast.classList.add('show');
+        clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+      }
+
+      function populate(btn) {
+        var d = btn.dataset;
+        current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '' };
+        labelEl.textContent = d.qrLabel || '';
+        qrImg.src = d.qrSrc; qrImg.alt = (d.qrLabel || 'Payment') + ' QR — ' + (d.qrName || '');
+        nameEl.textContent = d.qrName || '';
+        acctEl.textContent = d.qrNumber || '';
+        saveBtn.href = d.qrSrc; saveBtn.setAttribute('download', current.file);
+        if (d.qrLogo) { logoImg.src = d.qrLogo; logoImg.alt = (d.qrLabel || ''); logoWrap.hidden = false; }
+        else { logoImg.removeAttribute('src'); logoWrap.hidden = true; }
+      }
+
+      function openModal(btn) {
+        populate(btn);
+        lastFocus = btn;
         modal.hidden = false;
         document.body.classList.add('pr-modal-open');
         requestAnimationFrame(function () { modal.classList.add('open'); });
@@ -384,49 +441,44 @@
       function closeModal() {
         modal.classList.remove('open');
         document.body.classList.remove('pr-modal-open');
-        var done = function () {
-          modal.hidden = true;
-          modal.removeEventListener('transitionend', done);
-        };
+        var done = function () { modal.hidden = true; modal.removeEventListener('transitionend', done); };
         modal.addEventListener('transitionend', done);
         setTimeout(done, 320);
         if (lastFocus && lastFocus.focus) lastFocus.focus();
       }
 
-      trigger.addEventListener('click', openModal);
+      Array.prototype.forEach.call(triggers, function (btn) {
+        btn.addEventListener('click', function () { openModal(btn); });
+      });
       Array.prototype.forEach.call(closers, function (c) { c.addEventListener('click', closeModal); });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !modal.hidden) closeModal();
       });
-    })();
 
-    /* ── QR share ── */
-    (function () {
-      var btn = document.getElementById('pr-qr-share');
-      if (!btn) return;
-      var toast = document.getElementById('pr-toast'), tt;
-      function showToast(msg) {
-        toast.textContent = msg; toast.classList.add('show');
-        clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+      /* Share the currently shown QR */
+      if (shareBtn) {
+        shareBtn.addEventListener('click', async function () {
+          var url = current.src;
+          if (!url) return;
+          var abs = new URL(url, location.href).href;
+          var title = 'Iconiq Creatives — ' + current.label;
+          var text = 'Pay Iconiq Creatives via ' + current.label + '.';
+          try {
+            var res = await fetch(url);
+            var blob = await res.blob();
+            var file = new File([blob], current.file, { type: blob.type || 'image/png' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              await navigator.share({ files: [file], title: title, text: text });
+              return;
+            }
+          } catch (e) { /* fall through */ }
+          try {
+            if (navigator.share) { await navigator.share({ title: title, text: text, url: abs }); return; }
+            await navigator.clipboard.writeText(abs);
+            showToast('QR link copied to clipboard');
+          } catch (e) { /* user cancelled */ }
+        });
       }
-      var url = 'assets/images/pay/gotyme-qr.png?v=1';
-      var abs = new URL(url, location.href).href;
-      btn.addEventListener('click', async function () {
-        try {
-          var res = await fetch(url);
-          var blob = await res.blob();
-          var file = new File([blob], 'iconiq-gotyme-qr.png', { type: blob.type || 'image/png' });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({ files: [file], title: 'Iconiq Creatives — GoTyme QR', text: 'Pay Iconiq Creatives via GoTyme InstaPay.' });
-            return;
-          }
-        } catch (e) { /* fall through */ }
-        try {
-          if (navigator.share) { await navigator.share({ title: 'Iconiq Creatives — GoTyme QR', text: 'Pay Iconiq Creatives via GoTyme InstaPay.', url: abs }); return; }
-          await navigator.clipboard.writeText(abs);
-          showToast('QR link copied to clipboard');
-        } catch (e) { /* user cancelled */ }
-      });
     })();
   </script>
 </body>
