@@ -779,10 +779,12 @@
 }
 body.pr-modal-open { overflow: hidden; }
 
-.pr-qr-actions { display: flex; gap: 10px; margin-top: 6px; }
+.pr-qr-actions { display: flex; gap: 10px; margin-top: 6px; width: 100%; }
 .pr-qr-btn {
+  flex: 1 1 0;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-family: var(--font-display);
   font-weight: 600;
@@ -796,7 +798,7 @@ body.pr-modal-open { overflow: hidden; }
   text-decoration: none;
   transition: transform var(--t-base), background var(--t-base), border-color var(--t-base), box-shadow var(--t-base);
 }
-.pr-qr-btn svg { width: 16px; height: 16px; }
+.pr-qr-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 .pr-qr-btn:hover { transform: translateY(-2px); border-color: rgba(65, 189, 254, 0.5); background: rgba(65, 189, 254, 0.08); }
 .pr-qr-btn--primary {
   background: var(--gradient-brand-h);
