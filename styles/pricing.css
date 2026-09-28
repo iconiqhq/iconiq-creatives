@@ -541,8 +541,7 @@
   align-items: center;
   gap: 14px;
   width: 100%;
-  max-width: 320px;
-  padding: 16px 18px;
+  padding: 18px 20px;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.10);
   background:
@@ -589,6 +588,23 @@
   color: #05060a;
 }
 .pr-qr-glyph svg { width: 26px; height: 26px; }
+
+/* Bank logo used as the trigger icon */
+.pr-qr-logo {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.6);
+}
+.pr-qr-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Collapse the QR block for methods with no code (e.g. BDO) */
+.pr-qr-tile[hidden],
+.pr-qr-actions[hidden],
+.pr-pay-logo[hidden] { display: none !important; }
 
 .pr-qr-trigger-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .pr-qr-trigger-title {

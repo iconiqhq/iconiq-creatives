@@ -16,7 +16,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=9">
+  <link rel="stylesheet" href="styles/pricing.css?v=10">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -197,75 +197,57 @@
         <h2 class="pr-section-title">Payment methods</h2>
       </div>
       <div class="pr-pay">
-        <div class="pr-pay-card pr-reveal">
-          <div class="pr-pay-head">
-            <span class="pr-pay-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank" loading="lazy" decoding="async"></span>
-            <p class="pr-pay-label">GoTyme &middot; InstaPay</p>
-          </div>
+        <button class="pr-qr-trigger pr-reveal" type="button"
+                aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                data-qr-src="assets/images/pay/gotyme-qr.png?v=1"
+                data-qr-file="iconiq-gotyme-qr.png"
+                data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
+                data-qr-label="GoTyme · InstaPay"
+                data-qr-name="Philip Joshua Lescano"
+                data-qr-number="0187 1527 5471">
+          <span class="pr-qr-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank"></span>
+          <span class="pr-qr-trigger-text">
+            <span class="pr-qr-trigger-title">Pay with GoTyme</span>
+            <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
+          </span>
+          <span class="pr-qr-trigger-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </span>
+        </button>
 
-          <figure class="pr-qr">
-            <button class="pr-qr-trigger" type="button"
-                    aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                    data-qr-src="assets/images/pay/gotyme-qr.png?v=1"
-                    data-qr-file="iconiq-gotyme-qr.png"
-                    data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
-                    data-qr-label="GoTyme · InstaPay"
-                    data-qr-name="Philip Joshua Lescano"
-                    data-qr-number="0187 1527 5471">
-              <span class="pr-qr-glyph" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h.01M20 21h1v-3M21 17v.01"/></svg>
-              </span>
-              <span class="pr-qr-trigger-text">
-                <span class="pr-qr-trigger-title">Pay in GoTyme</span>
-                <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
-              </span>
-              <span class="pr-qr-trigger-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-              </span>
-            </button>
-          </figure>
-        </div>
-        <div class="pr-pay-card pr-reveal">
-          <div class="pr-pay-head">
-            <span class="pr-pay-logo pr-pay-logo--mono" style="--mono:#f26a21" aria-hidden="true">M</span>
-            <p class="pr-pay-label">Maribank &middot; InstaPay</p>
-          </div>
+        <button class="pr-qr-trigger pr-reveal" type="button"
+                aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                data-qr-src="assets/images/pay/maribank-qr.png?v=1"
+                data-qr-file="iconiq-maribank-qr.png"
+                data-qr-logo="assets/images/pay/maribank-logo.png?v=1"
+                data-qr-label="Maribank · InstaPay"
+                data-qr-name="Philip Joshua Lescano"
+                data-qr-number="1857 5703 893">
+          <span class="pr-qr-logo"><img src="assets/images/pay/maribank-logo.png?v=1" alt="Maribank"></span>
+          <span class="pr-qr-trigger-text">
+            <span class="pr-qr-trigger-title">Pay with Maribank</span>
+            <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
+          </span>
+          <span class="pr-qr-trigger-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </span>
+        </button>
 
-          <figure class="pr-qr">
-            <button class="pr-qr-trigger" type="button"
-                    aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                    data-qr-src="assets/images/pay/maribank-qr.png?v=1"
-                    data-qr-file="iconiq-maribank-qr.png"
-                    data-qr-label="Maribank · InstaPay"
-                    data-qr-name="Philip Joshua Lescano"
-                    data-qr-number="1857 5703 893">
-              <span class="pr-qr-glyph" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h.01M20 21h1v-3M21 17v.01"/></svg>
-              </span>
-              <span class="pr-qr-trigger-text">
-                <span class="pr-qr-trigger-title">Pay in Maribank</span>
-                <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
-              </span>
-              <span class="pr-qr-trigger-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-              </span>
-            </button>
-          </figure>
-        </div>
-        <div class="pr-pay-card pr-reveal">
-          <div class="pr-pay-head">
-            <span class="pr-pay-logo"><img src="assets/images/pay/bdo-logo.jpg?v=1" alt="BDO" loading="lazy" decoding="async"></span>
-            <p class="pr-pay-label">BDO</p>
-          </div>
-          <div class="pr-pay-row">
-            <span class="pr-pay-key">Account name</span><br>
-            <span class="pr-pay-val">Philip Joshua Lescano</span>
-          </div>
-          <div class="pr-pay-row">
-            <span class="pr-pay-key">Savings account no.</span><br>
-            <span class="pr-pay-val">0019 9052 2287</span>
-          </div>
-        </div>
+        <button class="pr-qr-trigger pr-reveal" type="button"
+                aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                data-qr-logo="assets/images/pay/bdo-logo.jpg?v=1"
+                data-qr-label="BDO"
+                data-qr-name="Philip Joshua Lescano"
+                data-qr-number="0019 9052 2287">
+          <span class="pr-qr-logo"><img src="assets/images/pay/bdo-logo.jpg?v=1" alt="BDO"></span>
+          <span class="pr-qr-trigger-text">
+            <span class="pr-qr-trigger-title">Pay with BDO</span>
+            <span class="pr-qr-trigger-sub">Tap to view details</span>
+          </span>
+          <span class="pr-qr-trigger-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </span>
+        </button>
       </div>
     </section>
 
@@ -408,6 +390,8 @@
       var acctEl = document.getElementById('pr-qr-modal-acct');
       var saveBtn = document.getElementById('pr-qr-save');
       var shareBtn = document.getElementById('pr-qr-share');
+      var tileEl = modal.querySelector('.pr-qr-tile');
+      var actionsEl = modal.querySelector('.pr-qr-actions');
       var closers = modal.querySelectorAll('[data-qr-close]');
       var toast = document.getElementById('pr-toast'), tt;
       var lastFocus = null, current = {};
@@ -421,12 +405,19 @@
         var d = btn.dataset;
         current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '' };
         labelEl.textContent = d.qrLabel || '';
-        qrImg.src = d.qrSrc; qrImg.alt = (d.qrLabel || 'Payment') + ' QR — ' + (d.qrName || '');
         nameEl.textContent = d.qrName || '';
         acctEl.textContent = d.qrNumber || '';
-        saveBtn.href = d.qrSrc; saveBtn.setAttribute('download', current.file);
         if (d.qrLogo) { logoImg.src = d.qrLogo; logoImg.alt = (d.qrLabel || ''); logoWrap.hidden = false; }
         else { logoImg.removeAttribute('src'); logoWrap.hidden = true; }
+        /* QR-based methods show the code + save/share; others (e.g. BDO) show details only */
+        if (d.qrSrc) {
+          qrImg.src = d.qrSrc; qrImg.alt = (d.qrLabel || 'Payment') + ' QR — ' + (d.qrName || '');
+          saveBtn.href = d.qrSrc; saveBtn.setAttribute('download', current.file);
+          tileEl.hidden = false; actionsEl.hidden = false;
+        } else {
+          qrImg.removeAttribute('src');
+          tileEl.hidden = true; actionsEl.hidden = true;
+        }
       }
 
       function openModal(btn) {
