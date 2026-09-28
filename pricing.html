@@ -16,7 +16,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=7">
+  <link rel="stylesheet" href="styles/pricing.css?v=8">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -198,7 +198,10 @@
       </div>
       <div class="pr-pay">
         <div class="pr-pay-card pr-reveal">
-          <p class="pr-pay-label">GoTyme &middot; InstaPay</p>
+          <div class="pr-pay-head">
+            <span class="pr-pay-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank" loading="lazy" decoding="async"></span>
+            <p class="pr-pay-label">GoTyme &middot; InstaPay</p>
+          </div>
 
           <figure class="pr-qr">
             <button class="pr-qr-trigger" id="pr-qr-trigger" type="button"
@@ -217,7 +220,10 @@
           </figure>
         </div>
         <div class="pr-pay-card pr-reveal">
-          <p class="pr-pay-label">BDO</p>
+          <div class="pr-pay-head">
+            <span class="pr-pay-logo"><img src="assets/images/pay/bdo-logo.jpg?v=1" alt="BDO" loading="lazy" decoding="async"></span>
+            <p class="pr-pay-label">BDO</p>
+          </div>
           <div class="pr-pay-row">
             <span class="pr-pay-key">Account name</span><br>
             <span class="pr-pay-val">Philip Joshua Lescano</span>
@@ -275,6 +281,7 @@
       <button class="pr-qr-modal-close" type="button" data-qr-close aria-label="Close QR">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
+      <span class="pr-pay-logo pr-qr-modal-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank" decoding="async"></span>
       <p class="pr-qr-modal-label">GoTyme &middot; InstaPay</p>
       <span class="pr-qr-tile">
         <img class="pr-qr-img" src="assets/images/pay/gotyme-qr.png?v=1"
