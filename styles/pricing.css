@@ -504,15 +504,116 @@
 .pr-pay-key { font-size: var(--text-2xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
 .pr-pay-val { font-family: var(--font-mono); font-size: var(--text-base); color: var(--color-white); }
 
-/* QR (GoTyme) */
-.pr-qr { margin: 2px 0 16px; }
+/* QR (GoTyme) — hidden behind a branded trigger, revealed in a centered lightbox */
+.pr-qr { margin: 2px 0 18px; }
+
+/* ── Locked trigger tile ─────────────────────────────── */
+.pr-qr-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(65, 189, 254, 0.12), transparent 60%),
+    radial-gradient(120% 140% at 100% 100%, rgba(225, 17, 251, 0.12), transparent 60%),
+    rgba(255, 255, 255, 0.028);
+  color: var(--color-white);
+  cursor: pointer;
+  overflow: hidden;
+  text-align: left;
+  transition: transform var(--t-base), border-color var(--t-base), box-shadow var(--t-base);
+}
+/* moving sheen sweep so the covered code feels "alive" */
+.pr-qr-trigger::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.10), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s var(--ease-out-quart);
+  pointer-events: none;
+}
+.pr-qr-trigger:hover,
+.pr-qr-trigger:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(65, 189, 254, 0.45);
+  box-shadow: 0 22px 50px -24px rgba(65, 189, 254, 0.55);
+  outline: none;
+}
+.pr-qr-trigger:hover::after,
+.pr-qr-trigger:focus-visible::after { left: 120%; }
+
+.pr-qr-glyph {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gradient-brand-h);
+  color: #05060a;
+}
+.pr-qr-glyph svg { width: 26px; height: 26px; }
+
+.pr-qr-trigger-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pr-qr-trigger-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-base);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+.pr-qr-trigger-sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+.pr-qr-trigger-arrow {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--color-text-secondary);
+  transition: color var(--t-base), border-color var(--t-base), transform var(--t-base);
+}
+.pr-qr-trigger-arrow svg { width: 15px; height: 15px; }
+.pr-qr-trigger:hover .pr-qr-trigger-arrow,
+.pr-qr-trigger:focus-visible .pr-qr-trigger-arrow {
+  color: var(--color-blue);
+  border-color: rgba(65, 189, 254, 0.45);
+  transform: scale(1.08);
+}
+
+.pr-qr-cap {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+/* ── White QR tile (used inside the lightbox) ────────── */
 .pr-qr-tile {
   position: relative;
-  max-width: 230px;
-  padding: 14px;
+  width: 100%;
+  max-width: 260px;
+  padding: 16px;
   border-radius: var(--radius-lg);
   background: #fff;
-  box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
 }
 .pr-qr-tile::before {
   content: "";
@@ -527,14 +628,95 @@
   pointer-events: none;
 }
 .pr-qr-img { width: 100%; height: auto; display: block; border-radius: 8px; }
-.pr-qr-cap {
-  margin-top: 12px;
+
+/* ── Centered lightbox ───────────────────────────────── */
+.pr-qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.pr-qr-modal[hidden] { display: none; }
+.pr-qr-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 5, 10, 0.72);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.pr-qr-modal.open .pr-qr-modal-backdrop { opacity: 1; }
+
+.pr-qr-modal-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: min(360px, 100%);
+  padding: clamp(28px, 5vw, 40px) clamp(22px, 4vw, 32px) clamp(24px, 4vw, 32px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(16, 16, 22, 0.96);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px) scale(0.94);
+  transition: opacity 0.32s var(--ease-out-quart), transform 0.32s var(--ease-out-quart);
+}
+.pr-qr-modal.open .pr-qr-modal-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.pr-qr-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--t-base), border-color var(--t-base), background var(--t-base), transform var(--t-base);
+}
+.pr-qr-modal-close svg { width: 16px; height: 16px; }
+.pr-qr-modal-close:hover {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  transform: rotate(90deg);
+}
+.pr-qr-modal-label {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-blue);
 }
-.pr-qr-actions { display: flex; gap: 10px; margin-bottom: 20px; }
+.pr-qr-modal-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--color-white);
+  margin-top: 2px;
+}
+.pr-qr-modal-acct {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+body.pr-modal-open { overflow: hidden; }
+
+.pr-qr-actions { display: flex; gap: 10px; margin-top: 6px; }
 .pr-qr-btn {
   display: inline-flex;
   align-items: center;
@@ -560,8 +742,7 @@
   box-shadow: 0 12px 32px -12px rgba(225, 17, 251, 0.5);
 }
 .pr-qr-btn--primary:hover { box-shadow: 0 16px 40px -12px rgba(65, 189, 254, 0.55); }
-.pr-pay-card.qr-off .pr-qr,
-.pr-pay-card.qr-off .pr-qr-actions { display: none; }
+.pr-pay-card.qr-off .pr-qr { display: none; }
 
 /* toast */
 .pr-toast {
@@ -659,4 +840,7 @@
 @media (prefers-reduced-motion: reduce) {
   .pr-reveal { opacity: 1; transform: none; transition: none; }
   .pr-card, .pr-plan, .pr-cta-btn, .pr-plan-cta, .pr-back { transition: none; }
+  .pr-qr-trigger, .pr-qr-trigger::after, .pr-qr-modal-card,
+  .pr-qr-modal-backdrop, .pr-qr-modal-close { transition: none; }
+  .pr-qr-modal-card { transform: none; }
 }
