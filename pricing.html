@@ -16,7 +16,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=6">
+  <link rel="stylesheet" href="styles/pricing.css?v=7">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -207,8 +207,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h.01M20 21h1v-3M21 17v.01"/></svg>
               </span>
               <span class="pr-qr-trigger-text">
-                <span class="pr-qr-trigger-title">Reveal QR code</span>
-                <span class="pr-qr-trigger-sub">Tap to show &amp; scan</span>
+                <span class="pr-qr-trigger-title">Pay in GoTyme</span>
+                <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
               </span>
               <span class="pr-qr-trigger-arrow" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -216,11 +216,6 @@
             </button>
             <figcaption class="pr-qr-cap">Scan with any InstaPay-enabled app to pay.</figcaption>
           </figure>
-
-          <div class="pr-pay-row">
-            <span class="pr-pay-key">Account number</span><br>
-            <span class="pr-pay-val">0187 1527 5471</span>
-          </div>
         </div>
         <div class="pr-pay-card pr-reveal">
           <p class="pr-pay-label">BDO</p>
@@ -288,8 +283,16 @@
              decoding="async"
              onerror="document.querySelector('.pr-pay-card').classList.add('qr-off')">
       </span>
-      <p class="pr-qr-modal-name">Philip Joshua Lescano</p>
-      <p class="pr-qr-modal-acct">0187 1527 5471</p>
+      <div class="pr-qr-modal-info">
+        <div class="pr-qr-modal-row">
+          <span class="pr-qr-modal-key">Name</span>
+          <span class="pr-qr-modal-name">Philip Joshua Lescano</span>
+        </div>
+        <div class="pr-qr-modal-row">
+          <span class="pr-qr-modal-key">Number</span>
+          <span class="pr-qr-modal-acct">0187 1527 5471</span>
+        </div>
+      </div>
       <div class="pr-qr-actions">
         <a class="pr-qr-btn pr-qr-btn--primary" id="pr-qr-save"
            href="assets/images/pay/gotyme-qr.png?v=1" download="iconiq-gotyme-qr.png">

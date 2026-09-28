@@ -701,18 +701,37 @@
   text-transform: uppercase;
   color: var(--color-blue);
 }
+.pr-qr-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 2px;
+}
+.pr-qr-modal-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+.pr-qr-modal-key {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
 .pr-qr-modal-name {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-lg);
   color: var(--color-white);
-  margin-top: 2px;
 }
 .pr-qr-modal-acct {
   font-family: var(--font-mono);
   font-size: var(--text-base);
   letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
+  color: var(--color-white);
 }
 body.pr-modal-open { overflow: hidden; }
 
