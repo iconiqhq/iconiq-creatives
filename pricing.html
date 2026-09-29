@@ -557,25 +557,47 @@
         });
       }
 
-      /* Save the whole branded card as an image — QR/details included, buttons excluded. */
+      /* Save the whole branded card as an image — QR/details included, buttons excluded.
+         On touch devices, route through the share sheet so the user can "Save to Photos";
+         on desktop, download the file directly. */
+      var isTouch = (navigator.maxTouchPoints > 0) ||
+        (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
       if (saveBtn) {
         saveBtn.addEventListener('click', async function () {
           if (typeof html2canvas !== 'function') { showToast('Save unavailable'); return; }
           card.classList.add('is-capturing');
+          var blob;
           try {
             var canvas = await html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true });
-            var blob = await new Promise(function (res) { canvas.toBlob(res, 'image/png'); });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url; a.download = 'iconiq-' + (current.slug || 'payment') + '.png';
-            document.body.appendChild(a); a.click(); a.remove();
-            setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
-            showToast('Saved');
+            blob = await new Promise(function (res) { canvas.toBlob(res, 'image/png'); });
           } catch (e) {
-            showToast('Could not save image');
-          } finally {
             card.classList.remove('is-capturing');
+            showToast('Could not save image');
+            return;
           }
+          card.classList.remove('is-capturing');
+
+          var name = 'iconiq-' + (current.slug || 'payment') + '.png';
+          var file = new File([blob], name, { type: 'image/png' });
+
+          /* Mobile: open the native sheet → "Save Image" / "Save to Photos" (gallery). */
+          if (isTouch && navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({ files: [file], title: 'Iconiq Creatives — ' + (current.label || 'Payment') });
+              return;
+            } catch (e) {
+              if (e && e.name === 'AbortError') return; /* user dismissed */
+              /* otherwise fall through to download */
+            }
+          }
+
+          /* Desktop / fallback: direct download. */
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url; a.download = name;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+          showToast('Saved');
         });
       }
     })();
