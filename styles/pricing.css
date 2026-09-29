@@ -922,12 +922,5 @@ body.pr-modal-open { overflow: hidden; }
   min-width: 240px;
 }
 
-/* ── Nav "Book" item — reads as an action, not a section ─ */
-.nav-item--book {
-  background: linear-gradient(90deg, rgba(65, 189, 254, 0.18), rgba(225, 17, 251, 0.18));
-  color: #fff;
-}
-.nav-item--book:hover {
-  background: linear-gradient(90deg, rgba(65, 189, 254, 0.34), rgba(225, 17, 251, 0.34));
-  color: #fff;
-}
+/* Book nav item behaves like every other tab: muted when inactive, electric
+   blue when it's the active section (handled by the shared .nav-active rule). */
