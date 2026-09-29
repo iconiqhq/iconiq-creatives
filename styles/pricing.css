@@ -910,3 +910,24 @@ body.pr-modal-open { overflow: hidden; }
   .pr-qr-modal-backdrop, .pr-qr-modal-close { transition: none; }
   .pr-qr-modal-card { transform: none; }
 }
+
+/* ── Single shared section CTA (e.g. Social media) ─────── */
+.pr-section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(20px, 3vw, 30px);
+}
+.pr-section-cta .pr-plan-cta {
+  width: auto;
+  min-width: 240px;
+}
+
+/* ── Nav "Book" item — reads as an action, not a section ─ */
+.nav-item--book {
+  background: linear-gradient(90deg, rgba(65, 189, 254, 0.18), rgba(225, 17, 251, 0.18));
+  color: #fff;
+}
+.nav-item--book:hover {
+  background: linear-gradient(90deg, rgba(65, 189, 254, 0.34), rgba(225, 17, 251, 0.34));
+  color: #fff;
+}
