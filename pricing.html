@@ -562,13 +562,37 @@
          on desktop, download the file directly. */
       var isTouch = (navigator.maxTouchPoints > 0) ||
         (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+
+      /* Fetch an image URL as a data: URL so html2canvas always has it inline
+         (mobile browsers often skip <img> that isn't decoded yet in the clone). */
+      async function urlToDataURL(url) {
+        var res = await fetch(url, { cache: 'force-cache' });
+        var blob = await res.blob();
+        return await new Promise(function (resolve, reject) {
+          var fr = new FileReader();
+          fr.onload = function () { resolve(fr.result); };
+          fr.onerror = reject;
+          fr.readAsDataURL(blob);
+        });
+      }
+
       if (saveBtn) {
         saveBtn.addEventListener('click', async function () {
           if (typeof html2canvas !== 'function') { showToast('Save unavailable'); return; }
           card.classList.add('is-capturing');
           var blob;
           try {
-            var canvas = await html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true });
+            /* Pre-inline the QR + bank logo so they always render in the saved image. */
+            var qrData = null, logoData = null;
+            try { if (current.src) qrData = await urlToDataURL(current.src); } catch (e) {}
+            try { var ls = logoImg.getAttribute('src'); if (ls) logoData = await urlToDataURL(ls); } catch (e) {}
+            var canvas = await html2canvas(card, {
+              backgroundColor: null, scale: 2, useCORS: true, imageTimeout: 0,
+              onclone: function (doc) {
+                if (qrData) { var q = doc.getElementById('pr-qr-modal-img'); if (q) q.src = qrData; }
+                if (logoData) { var lg = doc.getElementById('pr-qr-modal-logo-img'); if (lg) lg.src = logoData; }
+              }
+            });
             blob = await new Promise(function (res) { canvas.toBlob(res, 'image/png'); });
           } catch (e) {
             card.classList.remove('is-capturing');
