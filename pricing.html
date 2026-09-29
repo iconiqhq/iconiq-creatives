@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=14">
+  <link rel="stylesheet" href="styles/pricing.css?v=16">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -192,6 +192,7 @@
                 data-qr-file="iconiq-gotyme-qr.png"
                 data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
                 data-slug="gotyme"
+                data-brand="#14C6D4"
                 data-qr-label="GoTyme · InstaPay"
                 data-qr-name="Philip Joshua Lescano"
                 data-qr-number="0187 1527 5471">
@@ -211,6 +212,7 @@
                 data-qr-file="iconiq-maribank-qr.png"
                 data-qr-logo="assets/images/pay/maribank-logo.png?v=1"
                 data-slug="maribank"
+                data-brand="#F26A21"
                 data-qr-label="Maribank · InstaPay"
                 data-qr-name="Philip Joshua Lescano"
                 data-qr-number="1857 5703 893">
@@ -228,6 +230,7 @@
                 aria-haspopup="dialog" aria-controls="pr-qr-modal"
                 data-qr-logo="assets/images/pay/bdo-logo.jpg?v=1"
                 data-slug="bdo"
+                data-brand="#1466B3"
                 data-qr-label="BDO"
                 data-qr-name="Philip Joshua Lescano"
                 data-qr-number="0019 9052 2287">
@@ -308,7 +311,7 @@
         </div>
       </div>
       <div class="pr-qr-actions">
-        <a class="pr-qr-btn pr-qr-btn--primary" id="pr-qr-save" href="" download="qr.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg><span>Save</span></a>
+        <button class="pr-qr-btn pr-qr-btn--primary" id="pr-qr-save" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg><span>Save</span></button>
         <button class="pr-qr-btn" id="pr-qr-share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5L8.6 10.5"/></svg><span>Share</span></button>
       </div>
     </div>
@@ -316,6 +319,7 @@
 
   <div class="pr-toast" id="pr-toast" role="status" aria-live="polite"></div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     /* Path the visitor actually arrived on — captured before any module rewrites the URL. */
     var __initPath = location.pathname;
@@ -425,6 +429,7 @@
       var shareBtn = document.getElementById('pr-qr-share');
       var tileEl = modal.querySelector('.pr-qr-tile');
       var actionsEl = modal.querySelector('.pr-qr-actions');
+      var card = modal.querySelector('.pr-qr-modal-card');
       var closers = modal.querySelectorAll('[data-qr-close]');
       var toast = document.getElementById('pr-toast'), tt;
       var lastFocus = null, current = {};
@@ -434,23 +439,33 @@
         clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 2200);
       }
 
+      /* Tint the whole card to the bank's brand colour. */
+      function applyBrand(hex) {
+        var h = (hex || '#41BDFE').replace('#', '');
+        if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+        var r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+        card.style.setProperty('--brand', '#' + h);
+        card.style.setProperty('--brand-tint', 'rgba(' + r + ',' + g + ',' + b + ',0.16)');
+        card.style.setProperty('--brand-border', 'rgba(' + r + ',' + g + ',' + b + ',0.55)');
+        card.style.setProperty('--brand-glow', 'rgba(' + r + ',' + g + ',' + b + ',0.45)');
+      }
+
       function populate(btn) {
         var d = btn.dataset;
-        current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '' };
+        current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '', slug: d.slug || 'payment' };
+        applyBrand(d.brand);
         labelEl.textContent = d.qrLabel || '';
         nameEl.textContent = d.qrName || '';
         acctEl.textContent = d.qrNumber || '';
         if (d.qrLogo) { logoImg.src = d.qrLogo; logoImg.alt = (d.qrLabel || ''); logoWrap.hidden = false; }
         else { logoImg.removeAttribute('src'); logoWrap.hidden = true; }
-        /* QR-based methods show the code + save/share; others (e.g. BDO) show details only */
-        if (d.qrSrc) {
-          qrImg.src = d.qrSrc; qrImg.alt = (d.qrLabel || 'Payment') + ' QR — ' + (d.qrName || '');
-          saveBtn.href = d.qrSrc; saveBtn.setAttribute('download', current.file);
-          tileEl.hidden = false; actionsEl.hidden = false;
-        } else {
-          qrImg.removeAttribute('src');
-          tileEl.hidden = true; actionsEl.hidden = true;
-        }
+        /* QR methods show the code + Share; every method shows Save (saves the whole card). */
+        var hasQr = !!d.qrSrc;
+        if (hasQr) { qrImg.src = d.qrSrc; qrImg.alt = (d.qrLabel || 'Payment') + ' QR — ' + (d.qrName || ''); }
+        else { qrImg.removeAttribute('src'); }
+        tileEl.hidden = !hasQr;
+        shareBtn.hidden = !hasQr;
+        actionsEl.hidden = false;
       }
 
       /* Each payment method has its own shareable link, e.g. /pricing/pay/gotyme */
@@ -539,6 +554,28 @@
             await navigator.clipboard.writeText(abs);
             showToast('QR link copied to clipboard');
           } catch (e) { /* user cancelled */ }
+        });
+      }
+
+      /* Save the whole branded card as an image — QR/details included, buttons excluded. */
+      if (saveBtn) {
+        saveBtn.addEventListener('click', async function () {
+          if (typeof html2canvas !== 'function') { showToast('Save unavailable'); return; }
+          card.classList.add('is-capturing');
+          try {
+            var canvas = await html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true });
+            var blob = await new Promise(function (res) { canvas.toBlob(res, 'image/png'); });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = 'iconiq-' + (current.slug || 'payment') + '.png';
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+            showToast('Saved');
+          } catch (e) {
+            showToast('Could not save image');
+          } finally {
+            card.classList.remove('is-capturing');
+          }
         });
       }
     })();

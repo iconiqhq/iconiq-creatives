@@ -604,6 +604,7 @@
 /* Collapse the QR block for methods with no code (e.g. BDO) */
 .pr-qr-tile[hidden],
 .pr-qr-actions[hidden],
+.pr-qr-btn[hidden],
 .pr-pay-logo[hidden] { display: none !important; }
 
 .pr-qr-trigger-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
@@ -664,7 +665,7 @@
   inset: -1.5px;
   border-radius: inherit;
   padding: 1.5px;
-  background: var(--gradient-brand);
+  background: linear-gradient(140deg, var(--brand, #41BDFE), var(--brand-glow, rgba(65, 189, 254, 0.45)));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -694,6 +695,11 @@
 .pr-qr-modal.open .pr-qr-modal-backdrop { opacity: 1; }
 
 .pr-qr-modal-card {
+  /* Brand accent — overridden per bank in JS (applyBrand); these are the fallbacks. */
+  --brand: #41BDFE;
+  --brand-tint: rgba(65, 189, 254, 0.16);
+  --brand-border: rgba(65, 189, 254, 0.55);
+  --brand-glow: rgba(65, 189, 254, 0.45);
   position: relative;
   z-index: 1;
   display: flex;
@@ -703,14 +709,23 @@
   width: min(360px, 100%);
   padding: clamp(28px, 5vw, 40px) clamp(22px, 4vw, 32px) clamp(24px, 4vw, 32px);
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(16, 16, 22, 0.96);
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--brand-border);
+  background:
+    radial-gradient(130% 85% at 50% -12%, var(--brand-tint), transparent 72%),
+    rgba(16, 16, 22, 0.98);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9), 0 0 50px -8px var(--brand-glow);
   text-align: center;
   opacity: 0;
   transform: translateY(14px) scale(0.94);
   transition: opacity 0.32s var(--ease-out-quart), transform 0.32s var(--ease-out-quart);
 }
+/* While capturing to an image, drop the action buttons + close from the shot. */
+.pr-qr-modal-card.is-capturing .pr-qr-actions,
+.pr-qr-modal-card.is-capturing .pr-qr-modal-close { display: none !important; }
+/* html2canvas can't render the masked gradient ring, so it would flood the QR's
+   transparent pixels with the brand colour — hide the ring while capturing. */
+.pr-qr-modal-card.is-capturing .pr-qr-tile::before { display: none !important; }
+.pr-qr-modal-card.is-capturing .pr-qr-tile { background: #fff; }
 .pr-qr-modal.open .pr-qr-modal-card {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -743,7 +758,7 @@
   font-size: var(--text-2xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-blue);
+  color: var(--brand, var(--color-blue));
 }
 .pr-qr-modal-info {
   display: flex;
