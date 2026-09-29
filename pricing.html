@@ -269,7 +269,7 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
         <span class="nav-label">Social</span>
       </a>
-      <a href="/pricing/rates" class="nav-item" data-target="sec-rates" data-slug="rates" aria-label="Per-project rates">
+      <a href="/pricing/per-project" class="nav-item" data-target="sec-rates" data-slug="per-project" aria-label="Per-project rates">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M2 13h20"/></svg>
         <span class="nav-label">Per Project</span>
       </a>
@@ -388,7 +388,7 @@
 
       /* Deep-link: if we arrived on /pricing/<slug>, jump to that section on load. */
       (function initFromPath() {
-        var m = __initPath.replace(/\/+$/, '').match(/\/pricing\/([a-z]+)/i);
+        var m = __initPath.replace(/\/+$/, '').match(/\/pricing\/([a-z-]+)/i);
         if (m) {
           var slug = m[1].toLowerCase();
           var it = items.find(function (i) { return i.dataset.slug === slug; });
@@ -400,7 +400,7 @@
       })();
 
       window.addEventListener('popstate', function () {
-        var m = location.pathname.replace(/\/+$/, '').match(/\/pricing\/([a-z]+)/i);
+        var m = location.pathname.replace(/\/+$/, '').match(/\/pricing\/([a-z-]+)/i);
         var slug = m ? m[1].toLowerCase() : '';
         var it = items.find(function (i) { return i.dataset.slug === slug; });
         scrollToSection(it ? document.getElementById(it.dataset.target) : document.body, true);
