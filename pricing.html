@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=16">
+  <link rel="stylesheet" href="styles/pricing.css?v=18">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -319,7 +319,6 @@
 
   <div class="pr-toast" id="pr-toast" role="status" aria-live="polite"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     /* Path the visitor actually arrived on — captured before any module rewrites the URL. */
     var __initPath = location.pathname;
@@ -452,7 +451,8 @@
 
       function populate(btn) {
         var d = btn.dataset;
-        current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '', slug: d.slug || 'payment' };
+        current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '', slug: d.slug || 'payment',
+                    brand: d.brand || '#41BDFE', name: d.qrName || '', number: d.qrNumber || '' };
         applyBrand(d.brand);
         labelEl.textContent = d.qrLabel || '';
         nameEl.textContent = d.qrName || '';
@@ -558,48 +558,109 @@
       }
 
       /* Save the whole branded card as an image — QR/details included, buttons excluded.
-         On touch devices, route through the share sheet so the user can "Save to Photos";
-         on desktop, download the file directly. */
+         The card is drawn with the Canvas 2D API directly (no html2canvas): drawImage +
+         fillText render identically on every device, including mobile Safari/Chrome. */
       var isTouch = (navigator.maxTouchPoints > 0) ||
         (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
-      /* Fetch an image URL as a data: URL so html2canvas always has it inline
-         (mobile browsers often skip <img> that isn't decoded yet in the clone). */
-      async function urlToDataURL(url) {
-        var res = await fetch(url, { cache: 'force-cache' });
-        var blob = await res.blob();
-        return await new Promise(function (resolve, reject) {
-          var fr = new FileReader();
-          fr.onload = function () { resolve(fr.result); };
-          fr.onerror = reject;
-          fr.readAsDataURL(blob);
-        });
+      function hexRgb(hex) {
+        var h = (hex || '#41BDFE').replace('#', '');
+        if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+        return { r: parseInt(h.slice(0, 2), 16), g: parseInt(h.slice(2, 4), 16), b: parseInt(h.slice(4, 6), 16) };
+      }
+      function rrPath(c, x, y, w, h, r) {
+        c.beginPath();
+        c.moveTo(x + r, y);
+        c.arcTo(x + w, y, x + w, y + h, r);
+        c.arcTo(x + w, y + h, x, y + h, r);
+        c.arcTo(x, y + h, x, y, r);
+        c.arcTo(x, y, x + w, y, r);
+        c.closePath();
+      }
+      function spacedText(c, text, cx, y, ls) {
+        var i, total = 0;
+        for (i = 0; i < text.length; i++) total += c.measureText(text[i]).width + (i < text.length - 1 ? ls : 0);
+        var x = cx - total / 2, prev = c.textAlign; c.textAlign = 'left';
+        for (i = 0; i < text.length; i++) { c.fillText(text[i], x, y); x += c.measureText(text[i]).width + ls; }
+        c.textAlign = prev;
+      }
+
+      async function renderCardCanvas() {
+        try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
+        var S = 3, W = 360, cx = W / 2;
+        var rgb = hexRgb(current.brand);
+        var hasQr = !!(current.src && qrImg.naturalWidth);
+        var hasLogo = !!(logoImg && logoImg.naturalWidth && !logoWrap.hidden);
+
+        /* Sequential vertical layout (CSS px). */
+        var y = 34, logoS = 52, tileS = 300, tilePad = 16;
+        var logoY = y; if (hasLogo) y += logoS + 20; else y += 6;
+        var labelY = y; y += 24;
+        var tileX = cx - tileS / 2, tileY = 0;
+        if (hasQr) { y += 4; tileY = y; y += tileS + 26; } else { y += 6; }
+        var nameLabelY = y; y += 22; var nameY = y; y += 34;
+        var numLabelY = y; y += 22; var numY = y; y += 26;
+        var H = y + 30;
+
+        var cvs = document.createElement('canvas');
+        cvs.width = W * S; cvs.height = H * S;
+        var c = cvs.getContext('2d'); c.scale(S, S);
+        c.textBaseline = 'alphabetic';
+
+        /* Card background + brand tint + border. */
+        rrPath(c, 0, 0, W, H, 24); c.fillStyle = 'rgb(16,16,22)'; c.fill();
+        var g = c.createRadialGradient(cx, -30, 20, cx, -30, W);
+        g.addColorStop(0, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.22)');
+        g.addColorStop(1, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0)');
+        c.save(); rrPath(c, 0, 0, W, H, 24); c.clip(); c.fillStyle = g; c.fillRect(0, 0, W, H); c.restore();
+        c.save(); rrPath(c, 0.5, 0.5, W - 1, H - 1, 24); c.lineWidth = 1;
+        c.strokeStyle = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.55)'; c.stroke(); c.restore();
+
+        /* Logo badge. */
+        if (hasLogo) {
+          var lx = cx - logoS / 2;
+          c.save(); rrPath(c, lx, logoY, logoS, logoS, 13); c.clip();
+          c.drawImage(logoImg, lx, logoY, logoS, logoS); c.restore();
+        }
+
+        /* Method label. */
+        c.textAlign = 'center';
+        c.fillStyle = current.brand; c.font = '600 11px "JetBrains Mono", monospace';
+        spacedText(c, (current.label || '').toUpperCase(), cx, labelY + 8, 2);
+
+        /* White QR tile + QR. */
+        if (hasQr) {
+          c.save(); rrPath(c, tileX, tileY, tileS, tileS, 18); c.fillStyle = '#fff'; c.fill(); c.restore();
+          var qi = tileS - tilePad * 2;
+          c.drawImage(qrImg, tileX + tilePad, tileY + tilePad, qi, qi);
+        }
+
+        /* Account name + number. */
+        c.fillStyle = 'rgba(255,255,255,0.4)'; c.font = '500 10px "JetBrains Mono", monospace';
+        spacedText(c, 'ACCOUNT NAME', cx, nameLabelY + 8, 1.4);
+        c.fillStyle = '#fff'; c.font = '700 20px "Syne", sans-serif';
+        c.fillText(current.name || '', cx, nameY + 20);
+        c.fillStyle = 'rgba(255,255,255,0.4)'; c.font = '500 10px "JetBrains Mono", monospace';
+        spacedText(c, 'ACCOUNT NUMBER', cx, numLabelY + 8, 1.4);
+        c.fillStyle = '#fff'; c.font = '500 18px "JetBrains Mono", monospace';
+        spacedText(c, current.number || '', cx, numY + 16, 2);
+
+        return cvs;
       }
 
       if (saveBtn) {
         saveBtn.addEventListener('click', async function () {
-          if (typeof html2canvas !== 'function') { showToast('Save unavailable'); return; }
-          card.classList.add('is-capturing');
           var blob;
           try {
-            /* Pre-inline the QR + bank logo so they always render in the saved image. */
-            var qrData = null, logoData = null;
-            try { if (current.src) qrData = await urlToDataURL(current.src); } catch (e) {}
-            try { var ls = logoImg.getAttribute('src'); if (ls) logoData = await urlToDataURL(ls); } catch (e) {}
-            var canvas = await html2canvas(card, {
-              backgroundColor: null, scale: 2, useCORS: true, imageTimeout: 0,
-              onclone: function (doc) {
-                if (qrData) { var q = doc.getElementById('pr-qr-modal-img'); if (q) q.src = qrData; }
-                if (logoData) { var lg = doc.getElementById('pr-qr-modal-logo-img'); if (lg) lg.src = logoData; }
-              }
-            });
+            if (current.src && !qrImg.naturalWidth) { try { await qrImg.decode(); } catch (e) {} }
+            if (!logoWrap.hidden && !logoImg.naturalWidth) { try { await logoImg.decode(); } catch (e) {} }
+            var canvas = await renderCardCanvas();
             blob = await new Promise(function (res) { canvas.toBlob(res, 'image/png'); });
+            if (!blob) throw new Error('no blob');
           } catch (e) {
-            card.classList.remove('is-capturing');
             showToast('Could not save image');
             return;
           }
-          card.classList.remove('is-capturing');
 
           var name = 'iconiq-' + (current.slug || 'payment') + '.png';
           var file = new File([blob], name, { type: 'image/png' });

@@ -722,6 +722,10 @@
 /* While capturing to an image, drop the action buttons + close from the shot. */
 .pr-qr-modal-card.is-capturing .pr-qr-actions,
 .pr-qr-modal-card.is-capturing .pr-qr-modal-close { display: none !important; }
+/* Neutralise the open-animation transform (and its transition) so measured geometry
+   matches html2canvas's untransformed layout — otherwise the composited QR/logo mis-scale. */
+.pr-qr-modal.open .pr-qr-modal-card.is-capturing,
+.pr-qr-modal-card.is-capturing { transform: none !important; transition: none !important; }
 /* html2canvas can't render the masked gradient ring, so it would flood the QR's
    transparent pixels with the brand colour — hide the ring while capturing. */
 .pr-qr-modal-card.is-capturing .pr-qr-tile::before { display: none !important; }
