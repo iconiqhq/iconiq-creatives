@@ -188,6 +188,7 @@
                 data-qr-src="assets/images/pay/gotyme-qr.png?v=1"
                 data-qr-file="iconiq-gotyme-qr.png"
                 data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
+                data-slug="gotyme"
                 data-qr-label="GoTyme · InstaPay"
                 data-qr-name="Philip Joshua Lescano"
                 data-qr-number="0187 1527 5471">
@@ -206,6 +207,7 @@
                 data-qr-src="assets/images/pay/maribank-qr.png?v=1"
                 data-qr-file="iconiq-maribank-qr.png"
                 data-qr-logo="assets/images/pay/maribank-logo.png?v=1"
+                data-slug="maribank"
                 data-qr-label="Maribank · InstaPay"
                 data-qr-name="Philip Joshua Lescano"
                 data-qr-number="1857 5703 893">
@@ -222,6 +224,7 @@
         <button class="pr-qr-trigger pr-reveal" type="button"
                 aria-haspopup="dialog" aria-controls="pr-qr-modal"
                 data-qr-logo="assets/images/pay/bdo-logo.jpg?v=1"
+                data-slug="bdo"
                 data-qr-label="BDO"
                 data-qr-name="Philip Joshua Lescano"
                 data-qr-number="0019 9052 2287">
@@ -311,6 +314,8 @@
   <div class="pr-toast" id="pr-toast" role="status" aria-live="polite"></div>
 
   <script>
+    /* Path the visitor actually arrived on — captured before any module rewrites the URL. */
+    var __initPath = location.pathname;
     document.getElementById('pr-year').textContent = new Date().getFullYear();
     (function () {
       var els = document.querySelectorAll('.pr-reveal');
@@ -361,6 +366,8 @@
         if (ticking) return; ticking = true;
         requestAnimationFrame(function () {
           var y = window.scrollY;
+          /* A payment modal owns the URL while open (e.g. /pricing/pay/gotyme) — don't clobber it. */
+          if (document.body.classList.contains('pr-modal-open')) { lastY = y; ticking = false; return; }
           if (y > lastY && y > 60) nav.classList.add('nav-compact');
           else if (y < lastY) nav.classList.remove('nav-compact');
           var mid = window.innerHeight * 0.45, winId = items[0].dataset.target;
@@ -378,7 +385,7 @@
 
       /* Deep-link: if we arrived on /pricing/<slug>, jump to that section on load. */
       (function initFromPath() {
-        var m = location.pathname.replace(/\/+$/, '').match(/\/pricing\/([a-z]+)/i);
+        var m = __initPath.replace(/\/+$/, '').match(/\/pricing\/([a-z]+)/i);
         if (m) {
           var slug = m[1].toLowerCase();
           var it = items.find(function (i) { return i.dataset.slug === slug; });
@@ -443,16 +450,25 @@
         }
       }
 
-      function openModal(btn) {
+      /* Each payment method has its own shareable link, e.g. /pricing/pay/gotyme */
+      var bySlug = {};
+      Array.prototype.forEach.call(triggers, function (b) { if (b.dataset.slug) bySlug[b.dataset.slug] = b; });
+      var PAY_RE = /\/pricing\/pay\/([a-z]+)/i;
+      var openSlug = null;
+      function payHref(slug) { return '/pricing/pay/' + slug; }
+
+      function showModal(btn) {
         populate(btn);
         lastFocus = btn;
+        openSlug = btn.dataset.slug || null;
         modal.hidden = false;
         document.body.classList.add('pr-modal-open');
         requestAnimationFrame(function () { modal.classList.add('open'); });
         var closeBtn = modal.querySelector('.pr-qr-modal-close');
         if (closeBtn) closeBtn.focus();
       }
-      function closeModal() {
+      function hideModal() {
+        openSlug = null;
         modal.classList.remove('open');
         document.body.classList.remove('pr-modal-open');
         var done = function () { modal.hidden = true; modal.removeEventListener('transitionend', done); };
@@ -461,12 +477,41 @@
         if (lastFocus && lastFocus.focus) lastFocus.focus();
       }
 
+      /* history modes: 'push' (user opens), 'replace' (deep-link on load), 'none' (popstate) */
+      function openModal(btn, mode) {
+        showModal(btn);
+        if (!btn.dataset.slug) return;
+        if (mode === 'push') history.pushState({ pay: btn.dataset.slug }, '', payHref(btn.dataset.slug));
+        else if (mode === 'replace') history.replaceState({ pay: btn.dataset.slug }, '', payHref(btn.dataset.slug));
+      }
+      function closeModal(mode) {
+        hideModal();
+        if (mode !== 'none' && PAY_RE.test(location.pathname)) history.replaceState({}, '', '/pricing/pay');
+      }
+
       Array.prototype.forEach.call(triggers, function (btn) {
-        btn.addEventListener('click', function () { openModal(btn); });
+        btn.addEventListener('click', function () { openModal(btn, 'push'); });
       });
-      Array.prototype.forEach.call(closers, function (c) { c.addEventListener('click', closeModal); });
+      Array.prototype.forEach.call(closers, function (c) { c.addEventListener('click', function () { closeModal(); }); });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !modal.hidden) closeModal();
+      });
+
+      /* Deep-link: /pricing/pay/<bank> opens that method's QR on load. */
+      (function initPayFromPath() {
+        var m = __initPath.match(PAY_RE);
+        if (m && bySlug[m[1].toLowerCase()]) {
+          var b = bySlug[m[1].toLowerCase()];
+          setTimeout(function () { openModal(b, 'replace'); }, 80);
+        }
+      })();
+
+      /* Back/forward moves between the open QR and the plain payment view. */
+      window.addEventListener('popstate', function () {
+        var m = location.pathname.match(PAY_RE);
+        var slug = m ? m[1].toLowerCase() : null;
+        if (slug && bySlug[slug]) { if (openSlug !== slug) openModal(bySlug[slug], 'none'); }
+        else if (!modal.hidden) { closeModal('none'); }
       });
 
       /* Share the currently shown QR */
