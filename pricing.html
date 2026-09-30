@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=6">
-  <link rel="stylesheet" href="styles/pricing.css?v=18">
+  <link rel="stylesheet" href="styles/pricing.css?v=19">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -447,6 +447,9 @@
         card.style.setProperty('--brand-tint', 'rgba(' + r + ',' + g + ',' + b + ',0.16)');
         card.style.setProperty('--brand-border', 'rgba(' + r + ',' + g + ',' + b + ',0.55)');
         card.style.setProperty('--brand-glow', 'rgba(' + r + ',' + g + ',' + b + ',0.45)');
+        /* Pick readable text for the Save button: dark on light brands, white on dark ones. */
+        var lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        card.style.setProperty('--brand-ink', lum > 0.55 ? '#05060a' : '#ffffff');
       }
 
       function populate(btn) {

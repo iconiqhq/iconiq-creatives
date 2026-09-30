@@ -820,16 +820,18 @@ body.pr-modal-open { overflow: hidden; }
 .pr-qr-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 .pr-qr-btn:hover { transform: translateY(-2px); border-color: rgba(65, 189, 254, 0.5); background: rgba(65, 189, 254, 0.08); }
 .pr-qr-btn--primary {
-  background: var(--gradient-brand-h);
-  color: #05060a;
+  /* Tinted to the active bank's brand colour (set per-method in JS). */
+  background: var(--brand, var(--color-blue));
+  color: var(--brand-ink, #05060a);
   border-color: transparent;
   /* spread near -blur keeps the glow from poking past the pill's rounded ends */
-  box-shadow: 0 14px 26px -24px rgba(225, 17, 251, 0.6);
+  box-shadow: 0 14px 26px -24px var(--brand-glow, rgba(65, 189, 254, 0.6));
 }
 .pr-qr-btn--primary:hover {
-  background: var(--gradient-brand-h);
+  background: var(--brand, var(--color-blue));
+  color: var(--brand-ink, #05060a);
   border-color: transparent;
-  box-shadow: 0 18px 32px -30px rgba(225, 17, 251, 0.7);
+  box-shadow: 0 18px 32px -28px var(--brand-glow, rgba(65, 189, 254, 0.7));
 }
 .pr-pay-card.qr-off .pr-qr { display: none; }
 
