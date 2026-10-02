@@ -147,6 +147,61 @@
   letter-spacing: -0.02em;
 }
 
+/* ── Scroll-changing section backgrounds ─────────────────
+   Web design rides the brand gradient (like the Careers section);
+   Per-project rates sits on a light panel — so the backdrop shifts
+   as you scroll. Each band is full-bleed via a 100vw ::after. */
+.pr-section--grad,
+.pr-section--light {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(44px, 6vw, 80px) 0;
+  margin: clamp(10px, 2vw, 20px) 0;
+}
+.pr-section--grad::after,
+.pr-section--light::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+}
+.pr-section--grad::after { background: var(--gradient-brand); }
+.pr-section--light::after { background: #f3f4f7; }
+
+/* Web design on the gradient — light headings + solid dark card for contrast */
+.pr-section--grad .pr-section-num { color: rgba(255, 255, 255, 0.9); }
+.pr-section--grad .pr-section-title { color: #ffffff; }
+.pr-section--grad .pr-section-num,
+.pr-section--grad .pr-section-title { text-shadow: 0 2px 16px rgba(0, 0, 0, 0.28); }
+.pr-section--grad .pr-web {
+  background: rgba(10, 12, 20, 0.52);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.pr-section--grad .pr-web::before { background: rgba(255, 255, 255, 0.28); }
+
+/* Per-project rates on the light panel — dark text + white cards */
+.pr-section--light .pr-section-num { color: #1f6fd6; }
+.pr-section--light .pr-section-title { color: #0b0d14; }
+.pr-section--light .pr-card {
+  background: #ffffff;
+  border-color: rgba(10, 14, 25, 0.10);
+  box-shadow: 0 14px 34px -22px rgba(10, 14, 25, 0.4);
+  backdrop-filter: none;
+}
+.pr-section--light .pr-card:hover { box-shadow: 0 22px 46px -24px rgba(10, 14, 25, 0.5); }
+.pr-section--light .pr-card-title { color: #0b0d14; }
+.pr-section--light .pr-card-sub { color: #6b7280; }
+.pr-section--light .pr-row { border-top-color: rgba(10, 14, 25, 0.09); }
+.pr-section--light .pr-row-name { color: #1a1e28; }
+.pr-section--light .pr-row-meta { color: #8a8f99; }
+.pr-section--light .pr-row-lead { border-bottom-color: rgba(10, 14, 25, 0.18); }
+.pr-section--light .pr-row-price { color: #0b0d14; }
+
 /* ── Web design — featured full-width offer ──────────── */
 .pr-web {
   position: relative;
