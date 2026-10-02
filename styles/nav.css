@@ -205,34 +205,34 @@ body {
   }
 }
 
-/* Phones: with 8 tabs the labelled pill overflows, so go icon-only. The active
-   tab still reads via its electric-blue colour. */
+/* Phones: keep the text label under the icon (compact), matching desktop/tablet. */
 @media (max-width: 480px) {
-  .nav-label { display: none; }
+  .nav-label { font-size: 0.6rem; letter-spacing: 0.01em; }
+  .site-nav.nav-compact .nav-label { font-size: 0.56rem; }
 
-  .nav-pill { padding: 10px 12px; }
-  .site-nav.nav-compact .nav-pill { padding: 8px 10px; }
+  .nav-pill { padding: 8px 8px; }
+  .site-nav.nav-compact .nav-pill { padding: 6px 8px; }
 
   .nav-item {
-    padding: 10px 8px;
+    padding: 7px 6px;
     min-width: 0;
-    min-height: 44px;
-    gap: 0;
+    min-height: 46px;
+    gap: 3px;
   }
 
   .site-nav.nav-compact .nav-item {
-    padding: 8px 8px;
-    min-height: 40px;
+    padding: 6px 6px;
+    min-height: 42px;
   }
 
   .nav-icon {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
 
   .site-nav.nav-compact .nav-icon {
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
   }
 
   /* No hover scale on touch */
@@ -250,9 +250,10 @@ body {
 
 /* Very small phones — tighten a touch more so nothing clips. */
 @media (max-width: 360px) {
-  .nav-pill { padding: 8px 8px; }
-  .nav-item { padding: 9px 6px; }
-  .nav-icon { width: 22px; height: 22px; }
+  .nav-pill { padding: 7px 6px; }
+  .nav-item { padding: 6px 4px; gap: 2px; }
+  .nav-icon { width: 20px; height: 20px; }
+  .nav-label { font-size: 0.55rem; }
 }
 
 /* ── Reduced motion ──────────────────────────────── */
