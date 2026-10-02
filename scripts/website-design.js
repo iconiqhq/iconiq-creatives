@@ -180,6 +180,10 @@
     card.addEventListener('mouseleave', reset);
     card.addEventListener('focusin', () => run(1));
     card.addEventListener('focusout', reset);
+
+    /* Expose controls so touch devices (no hover) can auto-play when in view. */
+    card.__play = () => run(1);
+    card.__reset = reset;
   }
 
   function buildGrid(sites) {
@@ -193,14 +197,33 @@
       bindScroller(el);
     });
 
+    /* Touch devices have no hover, so auto-play the previews when a card is
+       centred in the viewport (and rewind when it leaves, so it replays). */
+    const autoPlay = window.matchMedia('(hover: none)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const inView = (el) => {
+      const r = el.getBoundingClientRect(), h = window.innerHeight || 0;
+      return r.top < h * 0.6 && r.bottom > h * 0.4;
+    };
+
     cards.forEach(card => {
       const shot = card.querySelector('.webd-shot');
       const mshot = card.querySelector('.webd-mshot');
-      const onShot = () => { card.classList.add('is-live'); measureCard(card); };
-      const onM = () => { card.classList.add('is-live-m'); measureCard(card); };
+      const onShot = () => { card.classList.add('is-live'); measureCard(card); if (autoPlay && card.__play && inView(card)) card.__play(); };
+      const onM = () => { card.classList.add('is-live-m'); measureCard(card); if (autoPlay && card.__play && inView(card)) card.__play(); };
       if (shot) { (shot.complete && shot.naturalHeight) ? onShot() : shot.addEventListener('load', onShot); }
       if (mshot) { (mshot.complete && mshot.naturalHeight) ? onM() : mshot.addEventListener('load', onM); }
     });
+
+    if (autoPlay && 'IntersectionObserver' in window) {
+      const playObs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.intersectionRatio >= 0.55) { if (e.target.__play) e.target.__play(); }
+          else if (e.target.__reset) { e.target.__reset(); }
+        });
+      }, { threshold: [0, 0.55, 1] });
+      cards.forEach((c) => playObs.observe(c));
+    }
 
     let raf = null;
     window.addEventListener('resize', () => {
