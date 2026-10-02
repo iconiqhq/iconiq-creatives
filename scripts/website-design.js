@@ -43,6 +43,7 @@
   function cardHTML(site, i) {
     const accent = site.accent || '#41BDFE';
     const name = esc(site.name);
+    const logo = site.logo ? esc(site.logo) : '';
     const cat = esc(site.category || 'Website');
     const host = esc(hostLabel(site));
     const mono = esc(initials(site.name));
@@ -87,7 +88,10 @@
         '</span>' +
         phone +
         '<span class="webd-card__meta">' +
-          '<span class="webd-card__name">' + name + '</span>' +
+          (logo
+            ? '<img class="webd-card__logo" src="' + logo + '" alt="' + name + '" ' +
+              'loading="lazy" decoding="async" draggable="false">'
+            : '<span class="webd-card__name">' + name + '</span>') +
           '<span class="webd-card__cat">' + cat + '</span>' +
         '</span>' +
         '<a class="webd-card__link" href="' + url + '" target="_blank" rel="noopener noreferrer" ' +

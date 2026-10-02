@@ -276,6 +276,24 @@
   color: var(--color-white);
   transition: color var(--t-fast);
 }
+/* Brand logo (with name) in place of the plain text name */
+.webd-card__logo {
+  display: block;
+  align-self: flex-start;
+  height: 30px;
+  width: auto;
+  max-width: 82%;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 2px;
+  opacity: 0.95;
+  transition: opacity var(--t-fast), transform var(--t-fast);
+}
+.webd-card:hover .webd-card__logo,
+.webd-card:focus-within .webd-card__logo {
+  opacity: 1;
+  transform: translateY(-1px);
+}
 .webd-card__cat {
   font-family: var(--font-mono);
   font-size: 11px;

@@ -4,6 +4,7 @@
     {
       "id": "salmo-construction",
       "name": "Salmo Construction Services",
+      "logo": "assets/images/brands/salmo-logo.png?v=1",
       "category": "Construction · Company Website",
       "url": "https://salmoconstruction.com",
       "thumb": "assets/images/websites/salmo-construction.webp?v=10",
@@ -14,11 +15,11 @@
     {
       "id": "artsons",
       "name": "Artsons Corp.",
+      "logo": "assets/images/brands/artsons-logo.png?v=1",
       "category": "Construction · Company Website",
       "url": "https://artsons-website.vercel.app/",
-      "thumb": "assets/images/websites/artsons.webp?v=3",
-      "mobileThumb": "assets/images/websites/artsons-mobile.webp?v=13",
-      "syncPoints": [[0, 0], [0.089, 0.095], [0.157, 0.153], [0.273, 0.298], [0.354, 0.383], [0.434, 0.467], [0.515, 0.551], [0.596, 0.636], [0.681, 0.723], [0.742, 0.794], [0.887, 0.894], [1, 1]],
+      "thumb": "assets/images/websites/artsons.webp?v=7",
+      "mobileThumb": "assets/images/websites/artsons-mobile.webp?v=17",
       "accent": "#DA6AA4"
     }
   ]
