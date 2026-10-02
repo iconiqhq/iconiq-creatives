@@ -1005,6 +1005,58 @@ body.pr-modal-open { overflow: hidden; }
   .pr-rates, .pr-pay { grid-template-columns: 1fr; }
 }
 
+/* ── Social packages → wheel carousel on phones ─────────────
+   Same card styling; the motion (scroll-snap 2-up + coverflow
+   shrink/fade on the peeking card + dots) mirrors the Artsons
+   featured-project wheel. JS drives the coverflow + dots. */
+.pr-pkg-dots { display: none; }
+@media (max-width: 760px) {
+  .pr-packages {
+    display: flex;
+    grid-template-columns: none;
+    align-items: stretch;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 6px 16px 10px;
+    scroll-padding-left: 16px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    /* pull the track to the page edges so cards can peek off-screen */
+    margin-left: calc(-1 * clamp(20px, 5vw, 48px));
+    margin-right: calc(-1 * clamp(20px, 5vw, 48px));
+    padding-left: clamp(20px, 5vw, 48px);
+    padding-right: clamp(20px, 5vw, 48px);
+    scroll-padding-left: clamp(20px, 5vw, 48px);
+  }
+  .pr-packages::-webkit-scrollbar { display: none; }
+  .pr-packages > .pr-plan {
+    flex: 0 0 84%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .pr-plan.cf-spin { will-change: transform, opacity; }
+
+  .pr-pkg-dots {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 18px;
+  }
+  .pr-pkg-dots button {
+    width: 8px; height: 8px; padding: 0;
+    border: none; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    cursor: pointer;
+    transition: background var(--t-base), transform var(--t-base);
+  }
+  .pr-pkg-dots button[aria-current="true"] {
+    background: var(--color-blue);
+    transform: scale(1.35);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pr-reveal { opacity: 1; transform: none; transition: none; }
   .pr-card, .pr-plan, .pr-cta-btn, .pr-plan-cta, .pr-back { transition: none; }

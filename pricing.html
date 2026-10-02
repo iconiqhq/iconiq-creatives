@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=8">
-  <link rel="stylesheet" href="styles/pricing.css?v=23">
+  <link rel="stylesheet" href="styles/pricing.css?v=24">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -688,6 +688,73 @@
           showToast('Saved');
         });
       }
+    })();
+
+    /* ── Social packages: wheel carousel on phones ──────────────
+       Horizontal scroll-snap (2-up) with a coverflow shrink/fade on the
+       card peeking in from the right + dots — the motion mirrors the
+       Artsons featured-project wheel. Card styling stays as-is. */
+    (function () {
+      var track = document.querySelector('.pr-packages');
+      if (!track) return;
+      var cards = Array.prototype.slice.call(track.querySelectorAll('.pr-plan'));
+      if (cards.length < 2) return;
+      var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var isMobile = function () { return window.innerWidth < 760; };
+
+      /* Dots */
+      var dotsWrap = document.createElement('div');
+      dotsWrap.className = 'pr-pkg-dots';
+      dotsWrap.setAttribute('role', 'tablist');
+      dotsWrap.setAttribute('aria-label', 'Social media plans');
+      var dots = cards.map(function (c, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Go to plan ' + (i + 1));
+        b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+        b.addEventListener('click', function () {
+          var tr = track.getBoundingClientRect(), r = c.getBoundingClientRect();
+          track.scrollTo({ left: track.scrollLeft + (r.left - tr.left) - 16, behavior: 'smooth' });
+        });
+        dotsWrap.appendChild(b);
+        return b;
+      });
+      track.parentNode.insertBefore(dotsWrap, track.nextSibling);
+
+      function activeIndex() {
+        var tr = track.getBoundingClientRect(), best = 0, bd = Infinity;
+        cards.forEach(function (c, i) {
+          var d = Math.abs(c.getBoundingClientRect().left - tr.left - 16);
+          if (d < bd) { bd = d; best = i; }
+        });
+        return best;
+      }
+      function syncDots() {
+        var a = activeIndex();
+        dots.forEach(function (d, k) { d.setAttribute('aria-current', k === a ? 'true' : 'false'); });
+      }
+      function clearCF(c) { c.style.transform = ''; c.style.opacity = ''; c.style.transformOrigin = ''; c.classList.remove('cf-spin'); }
+      function coverflow() {
+        if (REDUCED || !isMobile()) { cards.forEach(clearCF); return; }
+        var tr = track.getBoundingClientRect(), vw = tr.width || 1;
+        cards.forEach(function (c) {
+          var left = c.getBoundingClientRect().left - tr.left;   /* 0 at left edge, grows toward the right */
+          var dm = Math.min(1, Math.max(0, left / vw));
+          if (dm < 0.08) { clearCF(c); return; }                 /* snapped card stays flat */
+          c.style.transformOrigin = 'left center';
+          c.style.transform = 'scale(' + (1 - 0.12 * dm).toFixed(3) + ')';
+          c.style.opacity = (1 - 0.18 * dm).toFixed(3);
+          c.classList.add('cf-spin');
+        });
+      }
+
+      var tick = false;
+      track.addEventListener('scroll', function () {
+        if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; coverflow(); syncDots(); }); }
+      }, { passive: true });
+      window.addEventListener('resize', function () { coverflow(); syncDots(); });
+      requestAnimationFrame(function () { coverflow(); syncDots(); });
     })();
   </script>
 </body>
