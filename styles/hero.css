@@ -328,6 +328,13 @@
   .hero-actions { width: 100%; }
 }
 
+/* Phones: the clamp() minimum (2rem) was too big for small screens, so the
+   long headline words jammed edge-to-edge. Let the headline scale with the
+   viewport again (and loosen the line-height a touch) so it breathes. */
+@media (max-width: 480px) {
+  .hero-headline { font-size: clamp(1.5rem, 7vw, 2rem); line-height: 1.06; }
+}
+
 @media (max-width: 400px) {
   .hero-badge { font-size: 0.6rem; letter-spacing: 0.1em; }
   .scroll-hint { display: none; }
