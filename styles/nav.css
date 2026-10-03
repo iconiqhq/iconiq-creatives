@@ -274,7 +274,8 @@ body {
     width: 100%;
     gap: 0;
     justify-content: space-around;
-    border-radius: 0;
+    /* rounded top corners (FB-style sheet), square at the bottom edge */
+    border-radius: 22px 22px 0 0;
     border-left: 0;
     border-right: 0;
     border-bottom: 0;
