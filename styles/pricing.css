@@ -566,6 +566,25 @@
 /* Light "Per-project" band — darken the body copy for contrast; brand labels stay. */
 .pr-section--light .pr-terms-row { color: rgba(20, 22, 30, 0.62); }
 
+/* Per-project: the Video "included / not included" note belongs to the Video
+   card only. On the mobile carousel it eases away when you swipe to Graphic
+   Design, and eases back on Video. (Desktop shows both cards, so it stays.) */
+#sec-rates .pr-terms {
+  overflow: hidden;
+  max-height: 200px;
+  transition: opacity 0.4s var(--t-ease, ease),
+              transform 0.4s var(--t-ease, ease),
+              max-height 0.45s var(--t-ease, ease),
+              margin-top 0.45s var(--t-ease, ease);
+}
+#sec-rates .pr-terms.is-hidden {
+  opacity: 0;
+  transform: translateY(-8px);
+  max-height: 0;
+  margin-top: 0;
+  pointer-events: none;
+}
+
 /* ── Payment ─────────────────────────────────────────── */
 .pr-pay {
   display: grid;

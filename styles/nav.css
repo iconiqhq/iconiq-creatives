@@ -263,9 +263,9 @@ body {
    the whole width. Phones only; tablets/desktop keep the pill.
 ═══════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .site-nav { bottom: 18px; left: 0; right: 0; }
+  .site-nav { bottom: 10px; left: 0; right: 0; }
   @supports (padding: env(safe-area-inset-bottom)) {
-    .site-nav { bottom: calc(18px + env(safe-area-inset-bottom)); }
+    .site-nav { bottom: calc(10px + env(safe-area-inset-bottom)); }
   }
 
   /* Near-full-width bar: small gap on left and right, floated up a touch,
