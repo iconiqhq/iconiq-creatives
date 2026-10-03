@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=8">
-  <link rel="stylesheet" href="styles/pricing.css?v=26">
+  <link rel="stylesheet" href="styles/pricing.css?v=27">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -690,74 +690,88 @@
       }
     })();
 
-    /* ── Social packages: wheel carousel on phones ──────────────
-       Horizontal scroll-snap (2-up) with a coverflow shrink/fade on the
-       card peeking in from the right + dots — the motion mirrors the
-       Artsons featured-project wheel. Card styling stays as-is. */
+    /* ── Wheel carousels on phones ──────────────────────────────
+       The Social-media packages AND the Per-project rate cards become the same
+       swipe carousel on phones: horizontal scroll-snap with a coverflow
+       shrink/fade on the card peeking in from the right, plus scaling dots —
+       the exact motion + dot look of the Artsons featured-project wheel.
+       Card styling stays as-is; one generic initialiser drives both tracks. */
     (function () {
-      var track = document.querySelector('.pr-packages');
-      if (!track) return;
-      var cards = Array.prototype.slice.call(track.querySelectorAll('.pr-plan'));
-      if (cards.length < 2) return;
       var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var isMobile = function () { return window.innerWidth < 760; };
+      /* Portfolio dot curve: active pops to 1.2×, neighbours ease down to 0.4×. */
+      function dotScale(d) { d = Math.abs(d); return d === 0 ? 1.2 : Math.max(0.4, 1 - d * 0.18); }
 
-      /* Dots */
-      var dotsWrap = document.createElement('div');
-      dotsWrap.className = 'pr-pkg-dots';
-      dotsWrap.setAttribute('role', 'tablist');
-      dotsWrap.setAttribute('aria-label', 'Social media plans');
-      var dots = cards.map(function (c, i) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('role', 'tab');
-        b.setAttribute('aria-label', 'Go to plan ' + (i + 1));
-        b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
-        b.addEventListener('click', function () {
-          var tr = track.getBoundingClientRect(), r = c.getBoundingClientRect();
-          track.scrollTo({ left: track.scrollLeft + (r.left - tr.left) - 16, behavior: 'smooth' });
+      function initCarousel(track, label) {
+        if (!track) return;
+        var cards = Array.prototype.slice.call(track.children).filter(function (c) {
+          return c.nodeType === 1 && (c.classList.contains('pr-plan') || c.classList.contains('pr-card'));
         });
-        dotsWrap.appendChild(b);
-        return b;
-      });
-      track.parentNode.insertBefore(dotsWrap, track.nextSibling);
+        if (cards.length < 2) return;
 
-      /* Cache each card's left position (within the scroll content) ONCE, so the
-         scroll loop only reads scrollLeft — no per-frame getBoundingClientRect
-         (that layout-thrash was the lag). Re-measure on resize/load. */
-      var meta = [], vw = 1;
-      function measure() {
-        var tl = track.getBoundingClientRect().left, sl = track.scrollLeft;
-        vw = track.clientWidth || 1;
-        meta = cards.map(function (c) { return { el: c, left: (c.getBoundingClientRect().left - tl) + sl }; });
-      }
-      function activeIndex() {
-        var sl = track.scrollLeft, best = 0, bd = Infinity;
-        for (var i = 0; i < meta.length; i++) { var d = Math.abs(meta[i].left - sl); if (d < bd) { bd = d; best = i; } }
-        return best;
-      }
-      function syncDots() {
-        var a = activeIndex();
-        for (var k = 0; k < dots.length; k++) dots[k].setAttribute('aria-current', k === a ? 'true' : 'false');
-      }
-      function coverflow() {
-        if (REDUCED || !isMobile()) { cards.forEach(function (c) { c.style.transform = ''; c.style.opacity = ''; }); return; }
-        var sl = track.scrollLeft;
-        for (var i = 0; i < meta.length; i++) {
-          var m = meta[i], dm = Math.min(1, Math.max(0, (m.left - sl) / vw));
-          if (dm < 0.08) { m.el.style.transform = 'scale(1)'; m.el.style.opacity = '1'; }
-          else { m.el.style.transform = 'scale(' + (1 - 0.12 * dm).toFixed(3) + ')'; m.el.style.opacity = (1 - 0.18 * dm).toFixed(3); }
+        /* Dots — same markup/behaviour as the portfolio wheel. */
+        var dotsWrap = document.createElement('div');
+        dotsWrap.className = 'pr-pkg-dots';
+        dotsWrap.setAttribute('role', 'tablist');
+        dotsWrap.setAttribute('aria-label', label);
+        var dots = cards.map(function (c, i) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role', 'tab');
+          b.setAttribute('aria-label', 'Go to card ' + (i + 1));
+          b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+          b.addEventListener('click', function () {
+            track.scrollTo({ left: Math.max(0, meta[i].left - padL), behavior: 'smooth' });
+          });
+          dotsWrap.appendChild(b);
+          return b;
+        });
+        track.parentNode.insertBefore(dotsWrap, track.nextSibling);
+
+        /* Cache each card's left position (within the scroll content) ONCE, so the
+           scroll loop only reads scrollLeft — no per-frame getBoundingClientRect
+           (that layout-thrash was the lag). Re-measure on resize/load. */
+        var meta = [], vw = 1, padL = 0;
+        function measure() {
+          var tl = track.getBoundingClientRect().left, sl = track.scrollLeft;
+          vw = track.clientWidth || 1;
+          padL = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+          meta = cards.map(function (c) { return { el: c, left: (c.getBoundingClientRect().left - tl) + sl }; });
         }
+        function activeIndex() {
+          var sl = track.scrollLeft, best = 0, bd = Infinity;
+          for (var i = 0; i < meta.length; i++) { var d = Math.abs((meta[i].left - padL) - sl); if (d < bd) { bd = d; best = i; } }
+          return best;
+        }
+        function syncDots() {
+          var a = activeIndex();
+          for (var k = 0; k < dots.length; k++) {
+            dots[k].setAttribute('aria-current', k === a ? 'true' : 'false');
+            dots[k].style.transform = 'scale(' + dotScale(k - a) + ')';
+          }
+        }
+        function coverflow() {
+          if (REDUCED || !isMobile()) { cards.forEach(function (c) { c.style.transform = ''; c.style.opacity = ''; }); return; }
+          var sl = track.scrollLeft;
+          for (var i = 0; i < meta.length; i++) {
+            var m = meta[i], dm = Math.min(1, Math.max(0, ((m.left - padL) - sl) / vw));
+            if (dm < 0.06) { m.el.style.transform = 'scale(1)'; m.el.style.opacity = '1'; }
+            else { m.el.style.transform = 'scale(' + (1 - 0.12 * dm).toFixed(3) + ')'; m.el.style.opacity = (1 - 0.18 * dm).toFixed(3); }
+          }
+        }
+
+        var tick = false;
+        track.addEventListener('scroll', function () {
+          if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; coverflow(); syncDots(); }); }
+        }, { passive: true });
+        window.addEventListener('resize', function () { measure(); coverflow(); syncDots(); });
+        measure(); coverflow(); syncDots();
+        requestAnimationFrame(function () { measure(); coverflow(); syncDots(); });
+        window.addEventListener('load', function () { measure(); coverflow(); syncDots(); });
       }
 
-      var tick = false;
-      track.addEventListener('scroll', function () {
-        if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; coverflow(); syncDots(); }); }
-      }, { passive: true });
-      window.addEventListener('resize', function () { measure(); coverflow(); syncDots(); });
-      measure(); coverflow(); syncDots();
-      requestAnimationFrame(function () { measure(); coverflow(); syncDots(); });
-      window.addEventListener('load', function () { measure(); coverflow(); syncDots(); });
+      initCarousel(document.querySelector('.pr-packages'), 'Social media plans');
+      initCarousel(document.querySelector('.pr-rates'), 'Per-project rates');
     })();
   </script>
 </body>

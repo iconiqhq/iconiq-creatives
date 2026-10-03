@@ -1005,22 +1005,27 @@ body.pr-modal-open { overflow: hidden; }
   .pr-rates, .pr-pay { grid-template-columns: 1fr; }
 }
 
-/* ── Social packages → wheel carousel on phones ─────────────
-   Same card styling; the motion (scroll-snap 2-up + coverflow
-   shrink/fade on the peeking card + dots) mirrors the Artsons
-   featured-project wheel. JS drives the coverflow + dots. */
+/* ── Pricing cards → wheel carousel on phones ───────────────
+   Both the Social-media packages and the Per-project rate cards become the
+   same swipe carousel on phones: scroll-snap (card + peek) with a coverflow
+   shrink/fade on the card peeking in from the right, plus scaling dots —
+   the exact motion + dot look of the Artsons featured-project wheel.
+   JS drives the coverflow + dots. */
 .pr-pkg-dots { display: none; }
 @media (max-width: 760px) {
-  .pr-packages {
+  .pr-packages,
+  .pr-rates {
     display: flex;
     grid-template-columns: none;
     align-items: stretch;
     gap: 14px;
     overflow-x: auto;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 6px 16px 10px;
-    scroll-padding-left: 16px;
+    /* top padding gives the "Most Popular" badge (which sits above the card at
+       top:-13px) room inside the scroll container, which would otherwise clip it */
+    padding: 24px 16px 12px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     /* pull the track to the page edges so cards can peek off-screen */
@@ -1030,44 +1035,51 @@ body.pr-modal-open { overflow: hidden; }
     padding-right: clamp(20px, 5vw, 48px);
     scroll-padding-left: clamp(20px, 5vw, 48px);
   }
-  .pr-packages::-webkit-scrollbar { display: none; }
-  .pr-packages > .pr-plan {
-    flex: 0 0 84%;
+  .pr-packages::-webkit-scrollbar,
+  .pr-rates::-webkit-scrollbar { display: none; }
+  .pr-packages > .pr-plan,
+  .pr-rates > .pr-card {
+    flex: 0 0 80%;
     min-width: 0;
     scroll-snap-align: start;
     transform-origin: left center;
     will-change: transform, opacity;
   }
 
+  /* Dots — same as the portfolio wheel: equal 7px circles set apart by opacity,
+     with the active one scaled up (JS sets the scale per-dot via dotScale). */
   .pr-pkg-dots {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0;
-    margin-top: 18px;
+    gap: 0.25rem;
+    margin-top: 20px;
   }
-  /* Override the global 44×44 touch-target floor so the dots paint small.
-     We keep a comfortable hit area via transparent padding + content-box
-     clipping: the visible dot is the 6px content box, the tap area is ~24px. */
   .pr-pkg-dots button {
-    box-sizing: content-box;
-    width: 6px; height: 6px;
+    width: 16px; height: 16px;
     min-width: 0; min-height: 0;
-    padding: 9px;
-    margin: 0 -4px;            /* pull the wide tap areas together: ~10px between painted dots */
-    border: none; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.26);
-    background-clip: content-box;
+    padding: 0; margin: 0;
+    display: grid; place-items: center;
+    background: none; border: none;
     cursor: pointer;
-    transition: background var(--t-base), width var(--t-base);
+    transform-origin: center;
+    transition: transform 0.3s ease;
   }
-  .pr-pkg-dots button[aria-current="true"] {
-    background: var(--color-blue);
-    background-clip: content-box;
-    width: 18px;
-    border-radius: 3px;
+  .pr-pkg-dots button::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.3;
+    transition: opacity 0.25s ease;
   }
+  .pr-pkg-dots button:hover::before { opacity: 0.6; }
+  .pr-pkg-dots button[aria-current="true"]::before { opacity: 1; }
 }
+/* Dot colour follows each section's foreground: white on the dark Social band,
+   ink on the light Per-project band. */
+#sec-social .pr-pkg-dots { color: rgba(255, 255, 255, 0.92); }
+#sec-rates .pr-pkg-dots { color: #0b0d12; }
 
 @media (prefers-reduced-motion: reduce) {
   .pr-reveal { opacity: 1; transform: none; transition: none; }
