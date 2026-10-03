@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=8">
-  <link rel="stylesheet" href="styles/pricing.css?v=24">
+  <link rel="stylesheet" href="styles/pricing.css?v=26">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -722,39 +722,42 @@
       });
       track.parentNode.insertBefore(dotsWrap, track.nextSibling);
 
+      /* Cache each card's left position (within the scroll content) ONCE, so the
+         scroll loop only reads scrollLeft — no per-frame getBoundingClientRect
+         (that layout-thrash was the lag). Re-measure on resize/load. */
+      var meta = [], vw = 1;
+      function measure() {
+        var tl = track.getBoundingClientRect().left, sl = track.scrollLeft;
+        vw = track.clientWidth || 1;
+        meta = cards.map(function (c) { return { el: c, left: (c.getBoundingClientRect().left - tl) + sl }; });
+      }
       function activeIndex() {
-        var tr = track.getBoundingClientRect(), best = 0, bd = Infinity;
-        cards.forEach(function (c, i) {
-          var d = Math.abs(c.getBoundingClientRect().left - tr.left - 16);
-          if (d < bd) { bd = d; best = i; }
-        });
+        var sl = track.scrollLeft, best = 0, bd = Infinity;
+        for (var i = 0; i < meta.length; i++) { var d = Math.abs(meta[i].left - sl); if (d < bd) { bd = d; best = i; } }
         return best;
       }
       function syncDots() {
         var a = activeIndex();
-        dots.forEach(function (d, k) { d.setAttribute('aria-current', k === a ? 'true' : 'false'); });
+        for (var k = 0; k < dots.length; k++) dots[k].setAttribute('aria-current', k === a ? 'true' : 'false');
       }
-      function clearCF(c) { c.style.transform = ''; c.style.opacity = ''; c.style.transformOrigin = ''; c.classList.remove('cf-spin'); }
       function coverflow() {
-        if (REDUCED || !isMobile()) { cards.forEach(clearCF); return; }
-        var tr = track.getBoundingClientRect(), vw = tr.width || 1;
-        cards.forEach(function (c) {
-          var left = c.getBoundingClientRect().left - tr.left;   /* 0 at left edge, grows toward the right */
-          var dm = Math.min(1, Math.max(0, left / vw));
-          if (dm < 0.08) { clearCF(c); return; }                 /* snapped card stays flat */
-          c.style.transformOrigin = 'left center';
-          c.style.transform = 'scale(' + (1 - 0.12 * dm).toFixed(3) + ')';
-          c.style.opacity = (1 - 0.18 * dm).toFixed(3);
-          c.classList.add('cf-spin');
-        });
+        if (REDUCED || !isMobile()) { cards.forEach(function (c) { c.style.transform = ''; c.style.opacity = ''; }); return; }
+        var sl = track.scrollLeft;
+        for (var i = 0; i < meta.length; i++) {
+          var m = meta[i], dm = Math.min(1, Math.max(0, (m.left - sl) / vw));
+          if (dm < 0.08) { m.el.style.transform = 'scale(1)'; m.el.style.opacity = '1'; }
+          else { m.el.style.transform = 'scale(' + (1 - 0.12 * dm).toFixed(3) + ')'; m.el.style.opacity = (1 - 0.18 * dm).toFixed(3); }
+        }
       }
 
       var tick = false;
       track.addEventListener('scroll', function () {
         if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; coverflow(); syncDots(); }); }
       }, { passive: true });
-      window.addEventListener('resize', function () { coverflow(); syncDots(); });
-      requestAnimationFrame(function () { coverflow(); syncDots(); });
+      window.addEventListener('resize', function () { measure(); coverflow(); syncDots(); });
+      measure(); coverflow(); syncDots();
+      requestAnimationFrame(function () { measure(); coverflow(); syncDots(); });
+      window.addEventListener('load', function () { measure(); coverflow(); syncDots(); });
     })();
   </script>
 </body>
