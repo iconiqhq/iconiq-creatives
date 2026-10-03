@@ -83,27 +83,7 @@
 /* ── Header ──────────────────────────────────────────── */
 .pr-head {
   text-align: center;
-  padding: clamp(28px, 6vw, 70px) 0 clamp(30px, 5vw, 56px);
-}
-.pr-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  padding: 7px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.03);
-  margin-bottom: clamp(18px, 3vw, 26px);
-}
-.pr-eyebrow-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--color-blue);
-  box-shadow: 0 0 10px 1px rgba(65, 189, 254, 0.7);
+  padding: clamp(46px, 8vw, 96px) 0 clamp(30px, 5vw, 56px);
 }
 .pr-title {
   font-family: var(--font-brand);
