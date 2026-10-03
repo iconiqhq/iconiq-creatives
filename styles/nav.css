@@ -263,38 +263,34 @@ body {
    the whole width. Phones only; tablets/desktop keep the pill.
 ═══════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .site-nav { bottom: 0; left: 0; right: 0; }
+  .site-nav { bottom: 18px; left: 0; right: 0; }
   @supports (padding: env(safe-area-inset-bottom)) {
-    .site-nav { bottom: 0; }
+    .site-nav { bottom: calc(18px + env(safe-area-inset-bottom)); }
   }
 
-  /* Flat, full-width bar: square, no side gaps, only a top edge/shadow. */
+  /* Near-full-width bar: small gap on left and right, floated up a touch,
+     rounded on all four corners, tabs spread evenly across. */
   .nav-pill,
   .site-nav.nav-compact .nav-pill {
-    width: 100%;
+    width: calc(100% - 24px);
     gap: 0;
     justify-content: space-around;
-    /* rounded top corners (FB-style sheet), square at the bottom edge */
-    border-radius: 22px 22px 0 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 6px 0;
-    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
-    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.5);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 4px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   }
   @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
     .nav-pill { background: rgba(0, 0, 0, 0.55); }
     .site-nav.nav-compact .nav-pill { background: rgba(0, 0, 0, 0.62); }
   }
 
-  /* Each tab shares the width equally, edge to edge. */
+  /* Each tab shares the width equally. */
   .nav-item,
   .site-nav.nav-compact .nav-item {
     flex: 1 1 0;
     min-width: 0;
-    border-radius: 0;
+    border-radius: 16px;
     padding: 6px 2px;
     min-height: 52px;
   }
