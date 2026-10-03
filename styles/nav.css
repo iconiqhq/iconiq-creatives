@@ -256,6 +256,49 @@ body {
   .nav-label { font-size: 0.55rem; }
 }
 
+/* ═══════════════════════════════════════════════════
+   PHONES — full-width bottom bar (Facebook style)
+   The floating centred pill becomes an edge-to-edge bar
+   flush to the bottom, with the tabs spread evenly across
+   the whole width. Phones only; tablets/desktop keep the pill.
+═══════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .site-nav { bottom: 0; left: 0; right: 0; }
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .site-nav { bottom: 0; }
+  }
+
+  /* Flat, full-width bar: square, no side gaps, only a top edge/shadow. */
+  .nav-pill,
+  .site-nav.nav-compact .nav-pill {
+    width: 100%;
+    gap: 0;
+    justify-content: space-around;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 0;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.5);
+  }
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .nav-pill { background: rgba(0, 0, 0, 0.55); }
+    .site-nav.nav-compact .nav-pill { background: rgba(0, 0, 0, 0.62); }
+  }
+
+  /* Each tab shares the width equally, edge to edge. */
+  .nav-item,
+  .site-nav.nav-compact .nav-item {
+    flex: 1 1 0;
+    min-width: 0;
+    border-radius: 0;
+    padding: 6px 2px;
+    min-height: 52px;
+  }
+}
+
 /* ── Reduced motion ──────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .site-nav,
