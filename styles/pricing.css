@@ -1034,6 +1034,15 @@ body.pr-modal-open { overflow: hidden; }
   .pr-rates, .pr-pay { grid-template-columns: 1fr; }
 }
 
+/* Phones: give the hero more breathing room so the big title doesn't sit
+   cramped under the top bar and the top section feels balanced. */
+@media (max-width: 600px) {
+  .pr-topbar { padding: 24px 0; }
+  .pr-head { padding: 64px 0 52px; }
+  .pr-lead { margin-top: 24px; }
+  .pr-section { padding-top: clamp(32px, 7vw, 44px); }
+}
+
 /* ── Pricing cards → wheel carousel on phones ───────────────
    Both the Social-media packages and the Per-project rate cards become the
    same swipe carousel on phones: scroll-snap (card + peek) with a coverflow
