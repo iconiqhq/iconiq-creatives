@@ -303,10 +303,11 @@
 }
 
 .ve-vcard__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-/* pointer-events:none so a drag/swipe passes through the playing video to the
-   carousel track (an iframe would otherwise swallow the gesture). */
+/* The playing video uses YouTube's native controls, so the iframe must receive
+   pointer events. Navigate the carousel with the arrows/dots or by dragging the
+   side-peek cards. */
 .ve-vcard iframe,
-.ve-vcard .ve-vcard__player { position: absolute; inset: 0; width: 100%; height: 100%; border: none; display: block; z-index: 1; pointer-events: none; }
+.ve-vcard .ve-vcard__player { position: absolute; inset: 0; width: 100%; height: 100%; border: none; display: block; z-index: 2; pointer-events: auto; }
 
 .ve-vcard__play {
   position: absolute;
@@ -331,49 +332,6 @@
 }
 .ve-vcard--playing .ve-vcard__play,
 .ve-vcard--playing .ve-vcard__poster { opacity: 0; pointer-events: none; }
-
-/* Full-surface tap layer — tap/click anywhere on the video toggles
-   play/pause; a centered control shows the current state. Sits above the
-   pointer-events:none iframe; a drag still swipes the carousel (handled in JS). */
-.ve-vcard__tap {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  pointer-events: auto;
-  -webkit-tap-highlight-color: transparent;
-}
-.ve-vcard__tap:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
-
-/* Centered play/pause control — always visible (dimmed while playing),
-   brightens on hover and when paused. */
-.ve-vcard__toggle {
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: rgba(10, 6, 12, 0.5);
-  border: 1px solid rgba(225, 17, 251, 0.5);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-  opacity: 0.5;
-  transition: opacity 0.22s ease, transform 0.16s ease, background 0.2s ease, border-color 0.2s ease;
-}
-.ve-vcard__ticon { display: grid; place-items: center; width: 28px; height: 28px; }
-.ve-vcard__toggle svg { width: 28px; height: 28px; }
-.ve-vcard--paused .ve-vcard__toggle,
-.ve-vcard:hover .ve-vcard__toggle {
-  opacity: 1;
-  background: rgba(225, 17, 251, 0.34);
-  border-color: rgba(225, 17, 251, 0.75);
-  box-shadow: 0 0 22px rgba(225, 17, 251, 0.28);
-}
-.ve-vcard__tap:active .ve-vcard__toggle { transform: scale(0.92); }
 
 /* Stage wraps the scrolling row so the nav arrows can sit still over the video */
 .ve-video-stage { position: relative; }

@@ -55,19 +55,10 @@
 
     let userEngaged = false;
 
-    const PLAY_SVG  = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-    const PAUSE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
-
-    function togglePlay(card) {
-      const p = card && card._player;
-      if (!p || !p.getPlayerState) return;
-      if (p.getPlayerState() === YT.PlayerState.PLAYING) p.pauseVideo(); else p.playVideo();
-    }
-
     /* Start the live player inside a card (autoplay; unmute once the browser
-       allows). The player's iframe is pointer-events:none (CSS) so the carousel
-       drag/swipe still works right over it — a dedicated play/pause button gives
-       the viewer control. When the video ENDS, advance to the next card. */
+       allows). The video uses YouTube's own native controls — viewers play,
+       pause and scrub with YouTube's control bar. When the video ENDS, advance
+       to the next card. */
     function playCard(card) {
       if (!card || card.classList.contains('ve-vcard--playing')) return;
       card.classList.add('ve-vcard--playing');
@@ -75,35 +66,9 @@
       host.className = 've-vcard__player';
       card.appendChild(host);
 
-      // Full-surface tap layer over the video: tap/click ANYWHERE toggles
-      // play/pause (a centered control shows the state), while a drag still
-      // swipes the carousel. We only toggle on a clean tap (no movement), and do
-      // it inside the gesture so mobile browsers / YouTube allow play().
-      const tap = document.createElement('div');
-      tap.className = 've-vcard__tap';
-      tap.setAttribute('role', 'button');
-      tap.setAttribute('tabindex', '0');
-      tap.setAttribute('aria-label', 'Play or pause');
-      tap.innerHTML = '<span class="ve-vcard__toggle"><span class="ve-vcard__ticon">' + PAUSE_SVG + '</span></span>';
-      let tx = 0, ty = 0, tmoved = false, tt0 = 0;
-      // Don't stopPropagation on down — the carousel drag (desktop mousedown /
-      // mobile native scroll) must still work over the video.
-      tap.addEventListener('pointerdown', function (e) { tx = e.clientX; ty = e.clientY; tmoved = false; tt0 = Date.now(); });
-      tap.addEventListener('pointermove', function (e) { if (!tmoved && Math.hypot(e.clientX - tx, e.clientY - ty) > 10) tmoved = true; });
-      tap.addEventListener('pointercancel', function () { tmoved = true; });   // a scroll/drag took over
-      tap.addEventListener('pointerup', function (e) {
-        if (tmoved || Date.now() - tt0 > 600) return;   // it was a swipe, not a tap
-        e.stopPropagation();
-        togglePlay(card);
-      });
-      tap.addEventListener('keydown', function (e) {
-        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); togglePlay(card); }
-      });
-      card.appendChild(tap);
-
       whenYT(function () {
         // The card may have been swiped away before the API finished loading.
-        if (!card.isConnected || !card.classList.contains('ve-vcard--playing')) { host.remove(); tap.remove(); return; }
+        if (!card.isConnected || !card.classList.contains('ve-vcard--playing')) { host.remove(); return; }
         card._player = new YT.Player(host, {
           videoId: card.dataset.id,
           playerVars: { autoplay: 1, mute: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 1, color: 'white' },
@@ -115,10 +80,7 @@
               try { e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); } catch (_) {}
             },
             onStateChange: function (e) {
-              if (e.data === YT.PlayerState.ENDED) { advanceToNext(); return; }   // 0 = ended → next video
-              const icon = tap.querySelector('.ve-vcard__ticon');
-              if (e.data === YT.PlayerState.PLAYING) { if (icon) icon.innerHTML = PAUSE_SVG; tap.setAttribute('aria-label', 'Pause'); card.classList.remove('ve-vcard--paused'); }
-              else if (e.data === YT.PlayerState.PAUSED) { if (icon) icon.innerHTML = PLAY_SVG; tap.setAttribute('aria-label', 'Play'); card.classList.add('ve-vcard--paused'); }
+              if (e.data === YT.PlayerState.ENDED) advanceToNext();   // 0 = ended → next video
             }
           }
         });
@@ -126,8 +88,8 @@
     }
     function stopCard(card) {
       if (card._player) { try { card._player.destroy(); } catch (_) {} card._player = null; }
-      card.querySelectorAll('iframe, .ve-vcard__player, .ve-vcard__tap').forEach(el => el.remove());
-      card.classList.remove('ve-vcard--playing', 've-vcard--paused');
+      card.querySelectorAll('iframe, .ve-vcard__player').forEach(el => el.remove());
+      card.classList.remove('ve-vcard--playing');
     }
 
     /* Autoplay whichever card is the MAIN one on screen (nearest the row's
