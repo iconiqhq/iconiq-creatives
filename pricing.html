@@ -38,7 +38,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=12">
-  <link rel="stylesheet" href="styles/pricing.css?v=37">
+  <link rel="stylesheet" href="styles/pricing.css?v=38">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -585,6 +585,8 @@
         acctEl.textContent = d.qrNumber || '';
         /* long crypto wallet addresses get a smaller, wrapping treatment */
         acctEl.classList.toggle('is-addr', /^0x[0-9a-fA-F]{10,}$/.test(d.qrNumber || ''));
+        /* crypto network name (e.g. "BNB Smart Chain (BEP-20)") fits on one line */
+        nameEl.classList.toggle('is-net', !!d.qrNameLabel);
         if (d.qrLogo) { logoImg.src = d.qrLogo; logoImg.alt = (d.qrLabel || ''); logoWrap.hidden = false; }
         else { logoImg.removeAttribute('src'); logoWrap.hidden = true; }
         /* QR methods show the code + Share; every method shows Save (saves the whole card). */
@@ -768,7 +770,7 @@
         /* Name/network + number/address rows (labels configurable per method). */
         c.fillStyle = 'rgba(255,255,255,0.4)'; c.font = '500 10px "JetBrains Mono", monospace';
         spacedText(c, (current.nameLabel || 'Account Name').toUpperCase(), cx, nameLabelY + 8, 1.4);
-        c.fillStyle = '#fff'; c.font = '700 20px "Syne", sans-serif';
+        c.fillStyle = '#fff'; c.font = '700 ' + ((current.name || '').length > 18 ? 15 : 20) + 'px "Syne", sans-serif';
         c.fillText(current.name || '', cx, nameY + 20);
         c.fillStyle = 'rgba(255,255,255,0.4)'; c.font = '500 10px "JetBrains Mono", monospace';
         spacedText(c, (current.numberLabel || 'Account Number').toUpperCase(), cx, numLabelY + 8, 1.4);

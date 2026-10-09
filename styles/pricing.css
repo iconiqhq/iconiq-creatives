@@ -932,6 +932,12 @@
   font-size: var(--text-lg);
   color: var(--color-white);
 }
+/* Crypto network name — smaller so it stays on one line. */
+.pr-qr-modal-name.is-net {
+  font-size: var(--text-sm);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
 .pr-qr-modal-acct {
   font-family: var(--font-mono);
   font-size: var(--text-base);
