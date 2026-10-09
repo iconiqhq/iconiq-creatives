@@ -38,7 +38,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=12">
-  <link rel="stylesheet" href="styles/pricing.css?v=39">
+  <link rel="stylesheet" href="styles/pricing.css?v=40">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -587,6 +587,9 @@
         acctEl.classList.toggle('is-addr', /^0x[0-9a-fA-F]{10,}$/.test(d.qrNumber || ''));
         /* crypto network name (e.g. "BNB Smart Chain (BEP-20)") fits on one line */
         nameEl.classList.toggle('is-net', !!d.qrNameLabel);
+        /* the network isn't worth copying — hide its copy button (banks keep it) */
+        var nameCopyBtn = modal.querySelector('.pr-qr-copy[data-copy="name"]');
+        if (nameCopyBtn) nameCopyBtn.hidden = !!d.qrNameLabel;
         if (d.qrLogo) { logoImg.src = d.qrLogo; logoImg.alt = (d.qrLabel || ''); logoWrap.hidden = false; }
         else { logoImg.removeAttribute('src'); logoWrap.hidden = true; }
         /* QR methods show the code + Share; every method shows Save (saves the whole card). */
