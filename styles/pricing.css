@@ -933,6 +933,39 @@
   letter-spacing: 0.02em;
   line-height: 1.5;
 }
+
+/* Value + copy button on each info row. */
+.pr-qr-copyline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+}
+.pr-qr-copy {
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--t-base), background var(--t-base), border-color var(--t-base), transform var(--t-base);
+}
+.pr-qr-copy:hover {
+  color: var(--brand, #41BDFE);
+  border-color: var(--brand-border, rgba(255, 255, 255, 0.3));
+  background: var(--brand-tint, rgba(255, 255, 255, 0.08));
+}
+.pr-qr-copy:active { transform: scale(0.9); }
+.pr-qr-copy svg { width: 15px; height: 15px; }
+.pr-qr-copy .ic-check { display: none; color: #4ade80; }
+.pr-qr-copy.copied { color: #4ade80; border-color: rgba(74, 222, 128, 0.5); background: rgba(74, 222, 128, 0.12); }
+.pr-qr-copy.copied .ic-copy { display: none; }
+.pr-qr-copy.copied .ic-check { display: inline; }
 body.pr-modal-open { overflow: hidden; }
 
 .pr-qr-actions { display: flex; gap: 10px; margin-top: 6px; width: 100%; }
