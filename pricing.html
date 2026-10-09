@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=12">
   <link rel="stylesheet" href="styles/pricing.css?v=42">
+  <link rel="stylesheet" href="styles/footer.css?v=8">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -333,9 +334,47 @@
     </section>
 
     <!-- Footer -->
-    <footer class="pr-foot">
-      <p class="pr-foot-copy">&copy; <span id="pr-year"></span> Iconiq Creatives. All rights reserved.</p>
-      <a href="mailto:iconiqcreatives@gmail.com">iconiqcreatives@gmail.com</a>
+    <footer id="footer" class="footer-section" aria-label="Footer">
+      <div class="container">
+        <div class="footer-main" data-reveal>
+          <div class="footer-identity">
+            <img class="footer-logo" src="assets/images/brands/iconiq-creatives-white.png" alt="Iconiq Creatives">
+            <p class="footer-role">Creative Agency</p>
+            <div class="footer-subtitle-wrap" aria-live="polite" aria-atomic="true">
+              <span class="footer-rotating-title" id="footer-rotating-title">Web Design</span>
+            </div>
+            <p class="footer-tagline">A creative studio specializing in Web Design, Social Media Management, Graphic Design &amp; Video Editing. Bold creative work built to make an impact.</p>
+          </div>
+
+          <div class="footer-contact">
+            <a href="mailto:iconiqcreatives@gmail.com"
+               class="footer-email-link"
+               aria-label="Send email to Iconiq Creatives">
+              iconiqcreatives@gmail.com
+            </a>
+
+            <nav class="footer-socials" aria-label="Social links">
+              <a href="https://www.instagram.com/iconiqcreatives"
+                 target="_blank" rel="noopener noreferrer"
+                 class="footer-social-link"
+                 aria-label="Instagram (opens in new tab)">
+                <svg class="footer-social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                </svg>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <div class="footer-divider" aria-hidden="true"></div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; <span id="footer-year"></span> <span>Iconiq Creatives</span>. All rights reserved.
+          </p>
+          <p class="footer-made">Made with intention.</p>
+        </div>
+      </div>
     </footer>
 
   </div>
@@ -413,7 +452,37 @@
   <script>
     /* Path the visitor actually arrived on — captured before any module rewrites the URL. */
     var __initPath = location.pathname;
-    document.getElementById('pr-year').textContent = new Date().getFullYear();
+
+    /* Footer — same as the main page: year, rotating title, reveal-on-scroll. */
+    (function () {
+      var y = document.getElementById('footer-year');
+      if (y) y.textContent = new Date().getFullYear();
+
+      var TITLES = ['Web Design', 'Social Media Management', 'Graphic Design', 'Video Editing'];
+      var el = document.getElementById('footer-rotating-title'), i = 0;
+      if (el) setInterval(function () {
+        el.style.transition = 'opacity 0.38s ease, transform 0.38s ease';
+        el.style.opacity = '0'; el.style.transform = 'translateY(-8px)';
+        setTimeout(function () {
+          i = (i + 1) % TITLES.length;
+          el.textContent = TITLES[i];
+          el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(8px)';
+          void el.offsetHeight;
+          el.style.transition = 'opacity 0.38s ease, transform 0.38s ease';
+          el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+        }, 400);
+      }, 2900);
+
+      var reveals = document.querySelectorAll('#footer [data-reveal]');
+      if ('IntersectionObserver' in window) {
+        var o = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); o.unobserve(e.target); } });
+        }, { threshold: 0.08, rootMargin: '0px 0px -72px 0px' });
+        reveals.forEach(function (e) { o.observe(e); });
+      } else {
+        reveals.forEach(function (e) { e.classList.add('in-view'); });
+      }
+    })();
     (function () {
       var els = document.querySelectorAll('.pr-reveal');
       if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
