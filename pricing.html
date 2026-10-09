@@ -38,7 +38,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=12">
-  <link rel="stylesheet" href="styles/pricing.css?v=35">
+  <link rel="stylesheet" href="styles/pricing.css?v=36">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -214,108 +214,114 @@
       <div class="pr-section-head pr-reveal">
         <h2 class="pr-section-title">Payment methods</h2>
       </div>
-      <div class="pr-pay">
-        <button class="pr-qr-trigger pr-reveal" type="button"
-                aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                data-qr-src="assets/images/pay/usdt-bnb-qr.png?v=2"
-                data-qr-file="iconiq-usdt-bnb-qr.png"
-                data-qr-logo="assets/images/pay/usdt-logo.png?v=2"
-                data-slug="usdt"
-                data-brand="#26A17B"
-                data-qr-label="USDT · BNB Smart Chain (BEP-20)"
-                data-qr-name-label="Network"
-                data-qr-name="BNB Smart Chain (BEP-20)"
-                data-qr-number-label="Wallet address"
-                data-qr-number="0x924009683463bdefd6336e544cec25f512bdc754">
-          <span class="pr-qr-logo"><img src="assets/images/pay/usdt-logo.png?v=2" alt="USDT"></span>
-          <span class="pr-qr-trigger-text">
-            <span class="pr-qr-trigger-title">Pay with USDT</span>
-            <span class="pr-qr-trigger-sub">BNB Network · Tap to reveal QR</span>
-          </span>
-          <span class="pr-qr-trigger-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          </span>
-        </button>
+      <!-- Crypto -->
+      <div class="pr-pay-group">
+        <h3 class="pr-pay-group-title pr-reveal">Crypto · BNB Smart Chain (BEP-20)</h3>
+        <div class="pr-pay">
+          <button class="pr-qr-trigger pr-reveal" type="button"
+                  aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                  data-qr-logo="assets/images/pay/usdt-logo.png?v=3"
+                  data-slug="usdt"
+                  data-brand="#26A17B"
+                  data-qr-label="USDT · BNB Smart Chain (BEP-20)"
+                  data-qr-name-label="Network"
+                  data-qr-name="BNB Smart Chain (BEP-20)"
+                  data-qr-number-label="Wallet address"
+                  data-qr-number="0x924009683463bdefd6336e544cec25f512bdc754">
+            <span class="pr-qr-logo"><img src="assets/images/pay/usdt-logo.png?v=3" alt="USDT"></span>
+            <span class="pr-qr-trigger-text">
+              <span class="pr-qr-trigger-title">Pay with USDT</span>
+              <span class="pr-qr-trigger-sub">BNB Network · Tap for wallet address</span>
+            </span>
+            <span class="pr-qr-trigger-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </span>
+          </button>
 
-        <button class="pr-qr-trigger pr-reveal" type="button"
-                aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                data-qr-src="assets/images/pay/usdc-bnb-qr.png?v=2"
-                data-qr-file="iconiq-usdc-bnb-qr.png"
-                data-qr-logo="assets/images/pay/usdc-logo.png?v=2"
-                data-slug="usdc"
-                data-brand="#2775CA"
-                data-qr-label="USDC · BNB Smart Chain (BEP-20)"
-                data-qr-name-label="Network"
-                data-qr-name="BNB Smart Chain (BEP-20)"
-                data-qr-number-label="Wallet address"
-                data-qr-number="0x924009683463bdefd6336e544cec25f512bdc754">
-          <span class="pr-qr-logo"><img src="assets/images/pay/usdc-logo.png?v=2" alt="USDC"></span>
-          <span class="pr-qr-trigger-text">
-            <span class="pr-qr-trigger-title">Pay with USDC</span>
-            <span class="pr-qr-trigger-sub">BNB Network · Tap to reveal QR</span>
-          </span>
-          <span class="pr-qr-trigger-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          </span>
-        </button>
+          <button class="pr-qr-trigger pr-reveal" type="button"
+                  aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                  data-qr-logo="assets/images/pay/usdc-logo.png?v=3"
+                  data-slug="usdc"
+                  data-brand="#2775CA"
+                  data-qr-label="USDC · BNB Smart Chain (BEP-20)"
+                  data-qr-name-label="Network"
+                  data-qr-name="BNB Smart Chain (BEP-20)"
+                  data-qr-number-label="Wallet address"
+                  data-qr-number="0x924009683463bdefd6336e544cec25f512bdc754">
+            <span class="pr-qr-logo"><img src="assets/images/pay/usdc-logo.png?v=3" alt="USDC"></span>
+            <span class="pr-qr-trigger-text">
+              <span class="pr-qr-trigger-title">Pay with USDC</span>
+              <span class="pr-qr-trigger-sub">BNB Network · Tap for wallet address</span>
+            </span>
+            <span class="pr-qr-trigger-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
 
-        <button class="pr-qr-trigger pr-reveal" type="button"
-                aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                data-qr-src="assets/images/pay/gotyme-qr.png?v=1"
-                data-qr-file="iconiq-gotyme-qr.png"
-                data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
-                data-slug="gotyme"
-                data-brand="#14C6D4"
-                data-qr-label="GoTyme · InstaPay"
-                data-qr-name="Philip Joshua Lescano"
-                data-qr-number="0187 1527 5471">
-          <span class="pr-qr-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank"></span>
-          <span class="pr-qr-trigger-text">
-            <span class="pr-qr-trigger-title">Pay with GoTyme</span>
-            <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
-          </span>
-          <span class="pr-qr-trigger-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          </span>
-        </button>
+      <!-- PH Banks -->
+      <div class="pr-pay-group">
+        <h3 class="pr-pay-group-title pr-reveal">PH Banks</h3>
+        <div class="pr-pay">
+          <button class="pr-qr-trigger pr-reveal" type="button"
+                  aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                  data-qr-src="assets/images/pay/gotyme-qr.png?v=1"
+                  data-qr-file="iconiq-gotyme-qr.png"
+                  data-qr-logo="assets/images/pay/gotyme-logo.jpg?v=1"
+                  data-slug="gotyme"
+                  data-brand="#14C6D4"
+                  data-qr-label="GoTyme · InstaPay"
+                  data-qr-name="Philip Joshua Lescano"
+                  data-qr-number="0187 1527 5471">
+            <span class="pr-qr-logo"><img src="assets/images/pay/gotyme-logo.jpg?v=1" alt="GoTyme Bank"></span>
+            <span class="pr-qr-trigger-text">
+              <span class="pr-qr-trigger-title">Pay with GoTyme</span>
+              <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
+            </span>
+            <span class="pr-qr-trigger-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </span>
+          </button>
 
-        <button class="pr-qr-trigger pr-reveal" type="button"
-                aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                data-qr-src="assets/images/pay/maribank-qr.png?v=1"
-                data-qr-file="iconiq-maribank-qr.png"
-                data-qr-logo="assets/images/pay/maribank-logo.png?v=1"
-                data-slug="maribank"
-                data-brand="#F26A21"
-                data-qr-label="Maribank · InstaPay"
-                data-qr-name="Philip Joshua Lescano"
-                data-qr-number="1857 5703 893">
-          <span class="pr-qr-logo"><img src="assets/images/pay/maribank-logo.png?v=1" alt="Maribank"></span>
-          <span class="pr-qr-trigger-text">
-            <span class="pr-qr-trigger-title">Pay with Maribank</span>
-            <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
-          </span>
-          <span class="pr-qr-trigger-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          </span>
-        </button>
+          <button class="pr-qr-trigger pr-reveal" type="button"
+                  aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                  data-qr-src="assets/images/pay/maribank-qr.png?v=1"
+                  data-qr-file="iconiq-maribank-qr.png"
+                  data-qr-logo="assets/images/pay/maribank-logo.png?v=1"
+                  data-slug="maribank"
+                  data-brand="#F26A21"
+                  data-qr-label="Maribank · InstaPay"
+                  data-qr-name="Philip Joshua Lescano"
+                  data-qr-number="1857 5703 893">
+            <span class="pr-qr-logo"><img src="assets/images/pay/maribank-logo.png?v=1" alt="Maribank"></span>
+            <span class="pr-qr-trigger-text">
+              <span class="pr-qr-trigger-title">Pay with Maribank</span>
+              <span class="pr-qr-trigger-sub">Tap to reveal QR</span>
+            </span>
+            <span class="pr-qr-trigger-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </span>
+          </button>
 
-        <button class="pr-qr-trigger pr-reveal" type="button"
-                aria-haspopup="dialog" aria-controls="pr-qr-modal"
-                data-qr-logo="assets/images/pay/bdo-logo.jpg?v=1"
-                data-slug="bdo"
-                data-brand="#1466B3"
-                data-qr-label="BDO"
-                data-qr-name="Philip Joshua Lescano"
-                data-qr-number="0019 9052 2287">
-          <span class="pr-qr-logo"><img src="assets/images/pay/bdo-logo.jpg?v=1" alt="BDO"></span>
-          <span class="pr-qr-trigger-text">
-            <span class="pr-qr-trigger-title">Pay with BDO</span>
-            <span class="pr-qr-trigger-sub">Tap to view details</span>
-          </span>
-          <span class="pr-qr-trigger-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          </span>
-        </button>
+          <button class="pr-qr-trigger pr-reveal" type="button"
+                  aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                  data-qr-logo="assets/images/pay/bdo-logo.jpg?v=1"
+                  data-slug="bdo"
+                  data-brand="#1466B3"
+                  data-qr-label="BDO"
+                  data-qr-name="Philip Joshua Lescano"
+                  data-qr-number="0019 9052 2287">
+            <span class="pr-qr-logo"><img src="assets/images/pay/bdo-logo.jpg?v=1" alt="BDO"></span>
+            <span class="pr-qr-trigger-text">
+              <span class="pr-qr-trigger-title">Pay with BDO</span>
+              <span class="pr-qr-trigger-sub">Tap to view details</span>
+            </span>
+            <span class="pr-qr-trigger-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </span>
+          </button>
+        </div>
       </div>
     </section>
 

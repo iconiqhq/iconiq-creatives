@@ -612,8 +612,21 @@
 /* ── Payment ─────────────────────────────────────────── */
 .pr-pay {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: clamp(16px, 2.4vw, 24px);
+}
+
+/* Payment groups — Crypto, then PH Banks. */
+.pr-pay-group { margin-top: clamp(28px, 4.5vw, 44px); }
+.pr-pay-group:first-of-type { margin-top: clamp(6px, 1.5vw, 12px); }
+.pr-pay-group-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+  margin: 0 0 16px;
 }
 .pr-pay-card {
   border: 1px solid rgba(255, 255, 255, 0.08);
