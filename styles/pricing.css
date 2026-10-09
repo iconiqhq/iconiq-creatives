@@ -924,6 +924,14 @@
   font-size: var(--text-base);
   letter-spacing: 0.08em;
   color: var(--color-white);
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+/* Long crypto wallet addresses: smaller, tighter, wrapping. */
+.pr-qr-modal-acct.is-addr {
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
 }
 body.pr-modal-open { overflow: hidden; }
 

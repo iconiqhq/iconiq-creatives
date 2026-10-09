@@ -38,7 +38,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=12">
-  <link rel="stylesheet" href="styles/pricing.css?v=33">
+  <link rel="stylesheet" href="styles/pricing.css?v=34">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -272,6 +272,50 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
           </span>
         </button>
+
+        <button class="pr-qr-trigger pr-reveal" type="button"
+                aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                data-qr-src="assets/images/pay/usdt-bnb-qr.png?v=1"
+                data-qr-file="iconiq-usdt-bnb-qr.png"
+                data-qr-logo="assets/images/pay/usdt-logo.png?v=1"
+                data-slug="usdt"
+                data-brand="#26A17B"
+                data-qr-label="USDT · BNB Smart Chain (BEP-20)"
+                data-qr-name-label="Network"
+                data-qr-name="BNB Smart Chain (BEP-20)"
+                data-qr-number-label="Wallet address"
+                data-qr-number="0x924009683463bdefd6336e544cec25f512bdc754">
+          <span class="pr-qr-logo"><img src="assets/images/pay/usdt-logo.png?v=1" alt="USDT"></span>
+          <span class="pr-qr-trigger-text">
+            <span class="pr-qr-trigger-title">Pay with USDT</span>
+            <span class="pr-qr-trigger-sub">BNB Network · Tap to reveal QR</span>
+          </span>
+          <span class="pr-qr-trigger-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </span>
+        </button>
+
+        <button class="pr-qr-trigger pr-reveal" type="button"
+                aria-haspopup="dialog" aria-controls="pr-qr-modal"
+                data-qr-src="assets/images/pay/usdc-bnb-qr.png?v=1"
+                data-qr-file="iconiq-usdc-bnb-qr.png"
+                data-qr-logo="assets/images/pay/usdc-logo.png?v=1"
+                data-slug="usdc"
+                data-brand="#2775CA"
+                data-qr-label="USDC · BNB Smart Chain (BEP-20)"
+                data-qr-name-label="Network"
+                data-qr-name="BNB Smart Chain (BEP-20)"
+                data-qr-number-label="Wallet address"
+                data-qr-number="0x924009683463bdefd6336e544cec25f512bdc754">
+          <span class="pr-qr-logo"><img src="assets/images/pay/usdc-logo.png?v=1" alt="USDC"></span>
+          <span class="pr-qr-trigger-text">
+            <span class="pr-qr-trigger-title">Pay with USDC</span>
+            <span class="pr-qr-trigger-sub">BNB Network · Tap to reveal QR</span>
+          </span>
+          <span class="pr-qr-trigger-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </span>
+        </button>
       </div>
     </section>
 
@@ -331,11 +375,11 @@
       </span>
       <div class="pr-qr-modal-info">
         <div class="pr-qr-modal-row">
-          <span class="pr-qr-modal-key">Account Name</span>
+          <span class="pr-qr-modal-key" id="pr-qr-modal-key-name">Account Name</span>
           <span class="pr-qr-modal-name" id="pr-qr-modal-name"></span>
         </div>
         <div class="pr-qr-modal-row">
-          <span class="pr-qr-modal-key">Account Number</span>
+          <span class="pr-qr-modal-key" id="pr-qr-modal-key-acct">Account Number</span>
           <span class="pr-qr-modal-acct" id="pr-qr-modal-acct"></span>
         </div>
       </div>
@@ -453,6 +497,8 @@
       var qrImg = document.getElementById('pr-qr-modal-img');
       var nameEl = document.getElementById('pr-qr-modal-name');
       var acctEl = document.getElementById('pr-qr-modal-acct');
+      var keyNameEl = document.getElementById('pr-qr-modal-key-name');
+      var keyAcctEl = document.getElementById('pr-qr-modal-key-acct');
       var saveBtn = document.getElementById('pr-qr-save');
       var shareBtn = document.getElementById('pr-qr-share');
       var tileEl = modal.querySelector('.pr-qr-tile');
@@ -483,12 +529,19 @@
 
       function populate(btn) {
         var d = btn.dataset;
+        var nameLabel = d.qrNameLabel || 'Account Name';
+        var numberLabel = d.qrNumberLabel || 'Account Number';
         current = { src: d.qrSrc, file: d.qrFile || 'qr.png', label: d.qrLabel || '', slug: d.slug || 'payment',
-                    brand: d.brand || '#41BDFE', name: d.qrName || '', number: d.qrNumber || '' };
+                    brand: d.brand || '#41BDFE', name: d.qrName || '', number: d.qrNumber || '',
+                    nameLabel: nameLabel, numberLabel: numberLabel };
         applyBrand(d.brand);
         labelEl.textContent = d.qrLabel || '';
+        keyNameEl.textContent = nameLabel;
+        keyAcctEl.textContent = numberLabel;
         nameEl.textContent = d.qrName || '';
         acctEl.textContent = d.qrNumber || '';
+        /* long crypto wallet addresses get a smaller, wrapping treatment */
+        acctEl.classList.toggle('is-addr', /^0x[0-9a-fA-F]{10,}$/.test(d.qrNumber || ''));
         if (d.qrLogo) { logoImg.src = d.qrLogo; logoImg.alt = (d.qrLabel || ''); logoWrap.hidden = false; }
         else { logoImg.removeAttribute('src'); logoWrap.hidden = true; }
         /* QR methods show the code + Share; every method shows Save (saves the whole card). */
@@ -623,6 +676,8 @@
         var rgb = hexRgb(current.brand);
         var hasQr = !!(current.src && qrImg.naturalWidth);
         var hasLogo = !!(logoImg && logoImg.naturalWidth && !logoWrap.hidden);
+        var num = current.number || '';
+        var longAddr = num.length > 24;   /* crypto wallet addresses wrap to two lines */
 
         /* Sequential vertical layout (CSS px). */
         var y = 34, logoS = 52, tileS = 300, tilePad = 16;
@@ -631,7 +686,7 @@
         var tileX = cx - tileS / 2, tileY = 0;
         if (hasQr) { y += 4; tileY = y; y += tileS + 26; } else { y += 6; }
         var nameLabelY = y; y += 22; var nameY = y; y += 34;
-        var numLabelY = y; y += 22; var numY = y; y += 26;
+        var numLabelY = y; y += 22; var numY = y; y += (longAddr ? 44 : 26);
         var H = y + 30;
 
         var cvs = document.createElement('canvas');
@@ -667,15 +722,25 @@
           c.drawImage(qrImg, tileX + tilePad, tileY + tilePad, qi, qi);
         }
 
-        /* Account name + number. */
+        /* Name/network + number/address rows (labels configurable per method). */
         c.fillStyle = 'rgba(255,255,255,0.4)'; c.font = '500 10px "JetBrains Mono", monospace';
-        spacedText(c, 'ACCOUNT NAME', cx, nameLabelY + 8, 1.4);
+        spacedText(c, (current.nameLabel || 'Account Name').toUpperCase(), cx, nameLabelY + 8, 1.4);
         c.fillStyle = '#fff'; c.font = '700 20px "Syne", sans-serif';
         c.fillText(current.name || '', cx, nameY + 20);
         c.fillStyle = 'rgba(255,255,255,0.4)'; c.font = '500 10px "JetBrains Mono", monospace';
-        spacedText(c, 'ACCOUNT NUMBER', cx, numLabelY + 8, 1.4);
-        c.fillStyle = '#fff'; c.font = '500 18px "JetBrains Mono", monospace';
-        spacedText(c, current.number || '', cx, numY + 16, 2);
+        spacedText(c, (current.numberLabel || 'Account Number').toUpperCase(), cx, numLabelY + 8, 1.4);
+        c.fillStyle = '#fff';
+        if (longAddr) {
+          c.font = '500 12px "JetBrains Mono", monospace';
+          var mid = Math.ceil(num.length / 2), prevAlign = c.textAlign;
+          c.textAlign = 'center';
+          c.fillText(num.slice(0, mid), cx, numY + 13);
+          c.fillText(num.slice(mid), cx, numY + 30);
+          c.textAlign = prevAlign;
+        } else {
+          c.font = '500 18px "JetBrains Mono", monospace';
+          spacedText(c, num, cx, numY + 16, 2);
+        }
 
         return cvs;
       }
