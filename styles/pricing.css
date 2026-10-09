@@ -779,8 +779,10 @@
 .pr-qr-trigger-arrow svg { width: 15px; height: 15px; }
 .pr-qr-trigger:hover .pr-qr-trigger-arrow,
 .pr-qr-trigger:focus-visible .pr-qr-trigger-arrow {
-  color: var(--color-blue);
-  border-color: rgba(65, 189, 254, 0.45);
+  color: var(--color-blue);                                        /* fallback */
+  color: var(--brand, #41BDFE);
+  border-color: rgba(65, 189, 254, 0.45);                          /* fallback */
+  border-color: color-mix(in srgb, var(--brand, #41BDFE) 45%, transparent);
   transform: scale(1.08);
 }
 
