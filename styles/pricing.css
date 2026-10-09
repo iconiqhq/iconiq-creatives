@@ -709,8 +709,12 @@
 .pr-qr-trigger:hover,
 .pr-qr-trigger:focus-visible {
   transform: translateY(-3px);
+  /* hover tint matches each method's own brand colour (--brand, set from
+     data-brand in JS); falls back to blue where color-mix is unsupported */
   border-color: rgba(65, 189, 254, 0.45);
+  border-color: color-mix(in srgb, var(--brand, #41BDFE) 55%, transparent);
   box-shadow: 0 22px 50px -24px rgba(65, 189, 254, 0.55);
+  box-shadow: 0 22px 50px -24px color-mix(in srgb, var(--brand, #41BDFE) 60%, transparent);
   outline: none;
 }
 .pr-qr-trigger:hover::after,

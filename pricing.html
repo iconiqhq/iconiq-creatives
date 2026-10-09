@@ -38,7 +38,7 @@
 
   <link rel="stylesheet" href="styles/main.css?v=3">
   <link rel="stylesheet" href="styles/nav.css?v=12">
-  <link rel="stylesheet" href="styles/pricing.css?v=40">
+  <link rel="stylesheet" href="styles/pricing.css?v=41">
 </head>
 <body class="pr-body">
   <div class="pr-bg" aria-hidden="true"></div>
@@ -603,7 +603,11 @@
 
       /* Each payment method has its own shareable link, e.g. /pricing/pay/gotyme */
       var bySlug = {};
-      Array.prototype.forEach.call(triggers, function (b) { if (b.dataset.slug) bySlug[b.dataset.slug] = b; });
+      Array.prototype.forEach.call(triggers, function (b) {
+        if (b.dataset.slug) bySlug[b.dataset.slug] = b;
+        /* expose each method's brand colour so the card hover matches it */
+        if (b.dataset.brand) b.style.setProperty('--brand', b.dataset.brand);
+      });
       var PAY_RE = /\/pricing\/pay\/([a-z]+)/i;
       var openSlug = null;
       function payHref(slug) { return '/pricing/pay/' + slug; }
