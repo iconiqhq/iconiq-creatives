@@ -475,6 +475,12 @@
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   letter-spacing: -0.02em;
   line-height: 1;
+  white-space: nowrap;   /* keep the $ range on one line */
+}
+/* Dollar ranges run a touch wider than the old peso figures, so ease the size
+   down on the narrow mobile carousel cards to keep them on one line. */
+@media (max-width: 760px) {
+  .pr-plan-amount { font-size: clamp(1.4rem, 6.2vw, 2rem); }
 }
 .pr-plan--featured .pr-plan-amount {
   background: var(--gradient-brand-h);

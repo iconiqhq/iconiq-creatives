@@ -1,10 +1,10 @@
-/* currency.js — show a live USD conversion beside each ₱ price on the pricing
-   page. The USD/PHP rate moves daily, so we pull the current rate from a free,
-   no-key API (open.er-api.com, CORS-enabled) once per day — cached in
-   localStorage — and render "≈ $x–$y" beside every peso amount. If the network
-   is unavailable we fall back to the last known rate, then a sane default, so a
-   conversion always shows. Peso prices stay the source of truth; the dollar
-   figure is an approximate, auto-updating convenience. */
+/* currency.js — lead each pricing figure with USD, peso underneath. The USD/PHP
+   rate moves daily, so we pull the current rate from a free, no-key API
+   (open.er-api.com, CORS-enabled) once per day — cached in localStorage — then
+   make the dollar amount the headline price and drop the exact peso quote to a
+   small line beneath. If the network is unavailable we fall back to the last
+   known rate, then a sane default, so a figure always shows. The peso is the
+   stable quoted price; the dollar tracks the daily rate automatically. */
 (function () {
   'use strict';
 
@@ -57,26 +57,31 @@
 
   function round5(n) { return Math.round(n / 5) * 5; }
   function fmt(n) { return n.toLocaleString('en-US'); }
-  function label(range, rate) {
+  function dollarLabel(range, rate) {
     var a = round5(range.nums[0] / rate);
     if (range.nums.length > 1) {
       var b = round5(range.nums[range.nums.length - 1] / rate);
-      return '≈ $' + fmt(a) + '–$' + fmt(b) + (range.plus ? '+' : '');
+      return '$' + fmt(a) + '–' + fmt(b) + (range.plus ? '+' : '');
     }
-    return '≈ $' + fmt(a) + (range.plus ? '+' : '');
+    return '$' + fmt(a) + (range.plus ? '+' : '');
   }
 
   function render(rate) {
     var nodes = document.querySelectorAll('.pr-web-amount, .pr-plan-amount, .pr-row-price');
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
-      if (el.querySelector('.pr-usd') || el.nextElementSibling && el.nextElementSibling.classList && el.nextElementSibling.classList.contains('pr-usd')) continue;
-      var range = phpRange(el.textContent || '');
+      if (el.getAttribute('data-usd-done')) continue;
+      var peso = (el.textContent || '').trim();
+      var range = phpRange(peso);
       if (!range) continue;
+      el.setAttribute('data-usd-done', '1');
+      /* Dollars become the headline price; the exact peso quote drops to the
+         small secondary line beneath it. */
+      el.textContent = dollarLabel(range, rate);
       var span = document.createElement('span');
       span.className = 'pr-usd';
-      span.textContent = label(range, rate);
-      /* Per-project rows: stack the USD inside the price cell, under the peso.
+      span.textContent = peso;
+      /* Per-project rows: stack the peso inside the price cell, under the $.
          Plan/web amounts: drop it onto its own line in the flex price row. */
       if (el.classList.contains('pr-row-price')) el.appendChild(span);
       else el.parentNode.appendChild(span);
