@@ -287,6 +287,7 @@
   .pr-web { flex-direction: column; align-items: flex-start; gap: 24px; }
   .pr-web-buy { text-align: left; width: 100%; }
   .pr-web-price { justify-content: flex-start; }
+  .pr-web-price .pr-usd { text-align: left; }
   .pr-web .pr-plan-cta { width: 100%; }
 }
 
@@ -371,12 +372,29 @@
 .pr-row-meta { display: block; font-size: var(--text-2xs); color: var(--color-text-muted); margin-top: 2px; }
 .pr-row-lead { flex: 1 1 auto; border-bottom: 1px dotted rgba(255, 255, 255, 0.14); transform: translateY(-3px); }
 .pr-row-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-white);
   white-space: nowrap;
 }
+
+/* Live USD conversion beside each peso price (added by scripts/currency.js) */
+.pr-usd {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.pr-plan-price .pr-usd,
+.pr-web-price .pr-usd { flex-basis: 100%; margin-top: 4px; }
+.pr-web-price .pr-usd { text-align: right; }
+.pr-row-price .pr-usd { margin-top: 3px; font-weight: 400; }
+.pr-section--light .pr-usd { color: rgba(20, 22, 30, 0.5); }
 
 /* ── Packages ────────────────────────────────────────── */
 .pr-packages {
