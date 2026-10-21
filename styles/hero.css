@@ -163,6 +163,23 @@
   animation: heroFadeUp 0.9s var(--ease-out-quart) 0.7s forwards;
 }
 
+/* Founder credit — a quiet acknowledgment under the lead */
+.hero-founder {
+  margin: clamp(16px, 2.2vw, 22px) auto 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1.2vw, 0.9rem);
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroFadeUp 0.9s var(--ease-out-quart) 0.78s forwards;
+}
+.hero-founder-name {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+
 /* ── Actions ────────────────────────────────────────── */
 .hero-actions {
   display: flex;
