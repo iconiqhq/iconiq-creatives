@@ -31,9 +31,36 @@
   </style>
 </head>
 <body>
-  <iframe src="https://joshualescano.vercel.app/"
+  <iframe id="jl-frame"
           title="Joshua Lescano — Portfolio"
           allow="fullscreen; clipboard-write; web-share"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+  <script>
+    /* Deep-linking bridge: /joshualescano/<section> opens the portfolio at that
+       section, and as the viewer moves through the portfolio (inside the iframe)
+       the parent address bar mirrors it — so every section is shareable, like
+       the main iconiqcreatives.com site. */
+    (function () {
+      var BASE = '/joshualescano';
+      var PORTFOLIO = 'https://joshualescano.vercel.app';
+      var frame = document.getElementById('jl-frame');
+
+      /* Open the iframe at whatever section the incoming URL asked for. */
+      var rest = location.pathname.slice(BASE.length).replace(/^\/+/, '');
+      frame.src = PORTFOLIO + '/' + rest + location.search + location.hash;
+
+      /* The portfolio posts its path on every change → reflect it up here. */
+      window.addEventListener('message', function (e) {
+        if (e.origin !== PORTFOLIO) return;
+        var p = e.data && e.data.jlPath;
+        if (typeof p !== 'string') return;
+        var want = BASE + (p === '/' ? '' : p);
+        if (location.pathname !== want) {
+          try { history.replaceState(null, '', want); } catch (err) {}
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

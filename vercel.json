@@ -14,6 +14,7 @@
   ],
   "rewrites": [
     { "source": "/joshualescano", "destination": "/joshualescano.html" },
+    { "source": "/joshualescano/(.*)", "destination": "/joshualescano.html" },
     { "source": "/pricing", "destination": "/pricing.html" },
     { "source": "/pricing/(.*)", "destination": "/pricing.html" },
     { "source": "/(.*)", "destination": "/index.html" }
