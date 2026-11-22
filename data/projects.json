@@ -271,7 +271,15 @@
           "chartLabels": [],
           "chartData": []
         }
-      ]
+      ],
+      "analytics": [
+        {
+          "platform": "Facebook",
+          "icon": "facebook",
+          "video": "assets/videos/analytics/selaverse-fb.mp4"
+        }
+      ],
+      "analyticsDescription": "A faith art page sharing pause-and-reflect moments — steady Facebook growth and reach for Selaverse."
     },
     {
       "id": "spincredible",
