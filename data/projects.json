@@ -252,6 +252,27 @@
       ]
     },
     {
+      "id": "selaverse",
+      "brandName": "Selaverse",
+      "industry": "Inspirational / Christian",
+      "bio": "Faith-inspired art and encouragement. ✝️",
+      "brandColor": "#6FA8A8",
+      "status": "active",
+      "logo": "assets/images/brands/selaverse.png",
+      "lastUpdated": "2026-11",
+      "platforms": [
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://www.facebook.com/selaverse.official/",
+          "socialBlade": null,
+          "currentFollowers": 4600,
+          "chartLabels": [],
+          "chartData": []
+        }
+      ]
+    },
+    {
       "id": "spincredible",
       "brandName": "Spincredible",
       "industry": "Sports/Table Tennis",
